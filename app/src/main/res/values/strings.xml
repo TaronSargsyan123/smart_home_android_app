@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">arduinoOnOffRemout</string>
+    <string name="on">ON</string>
+    <string name="off">OFF</string>
+
+    <string name="back">Back</string>
+    <string name="timer">Timer</string>
+    <string name="loop">Loop Timer</string>
+    <string name="addDevice">add new device</string>
+    <string name="defaultStr">default</string>
+    <string name="host">host</string>
+    <string name="deviceName">device name</string>
+    <string name="deviceType">device type</string>
+    <string name="choose_device_type">Choose Device Type</string>
+    <string name="backToDeviceList">Back to device list</string>
+
+
+</resources>
