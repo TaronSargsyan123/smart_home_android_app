@@ -10,22 +10,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.example.arduinoonoffremout.components.OnOffButton;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     private Button addDevice;
     public LinearLayout layout;
-
-    static final String AGE_KEY = "AGE";
     static final String ACCESS_MESSAGE="ACCESS_MESSAGE";
+    private ArrayList<Object> widgetsArray = new ArrayList<>();
 
 
     ActivityResultLauncher<Intent> mStartForResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
@@ -39,10 +39,14 @@ public class MainActivity extends AppCompatActivity {
                         Intent intent = result.getData();
                         String accessMessage = intent.getStringExtra(ACCESS_MESSAGE);
                         String[] arrOfStr = accessMessage.split("/%");
-                        addRelay(arrOfStr[1], arrOfStr[0]);
+                        addSingleChannelRelayFirstVersion(arrOfStr[1], arrOfStr[0]);
                     }
                     else{
-                        Log.i("aAAAAA","Ошибка доступа");
+                        Context context = getApplicationContext();
+                        CharSequence text = "Fail";
+                        int duration = Toast.LENGTH_SHORT;
+                        Toast toast = Toast.makeText(context, text, duration);
+                        toast.show();
                     }
                 }
             });
@@ -56,8 +60,8 @@ public class MainActivity extends AppCompatActivity {
         addDevice = (Button) findViewById(R.id.addDeviceMain);
         layout  = (LinearLayout) findViewById(R.id.mainActivityLayout);
 
-        addRelay("Kitchen", "192.168.1.12");
-        addRelay("Main hall", "192.168.1.12");
+        addSingleChannelRelayFirstVersion("Kitchen", "192.168.1.12");
+        addSingleChannelRelayFirstVersion("Main hall", "192.168.1.12");
 
         addDevice.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,15 +73,15 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void startActivityForResult(Intent switchActivityIntent) {
-    }
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public void addRelay(String name, String host){
+    public void addSingleChannelRelayFirstVersion(String name, String host){
         OnOffButton onOffButton = new OnOffButton(this);
         onOffButton.configNameAndHost(name, host);
+        widgetsArray.add(onOffButton.getInfo());
         layout.addView(onOffButton);
+
     }
 
 

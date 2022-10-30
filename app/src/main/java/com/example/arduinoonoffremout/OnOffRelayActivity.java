@@ -3,9 +3,12 @@ package com.example.arduinoonoffremout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import java.io.*;
+import java.util.List;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.NonNull;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -18,21 +21,25 @@ import android.widget.TextView;
 
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class OnOffRelayActivity extends AppCompatActivity {
-    private BottomNavigationView bottomNavigationView;
     private String name;
     private String host;
     private TextView nameTextView;
     private Boolean stage;
     private Button button;
     private Network network;
+    private TextView back;
+    private FloatingActionButton settings;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_on_off_relay);
         button = (Button) findViewById(R.id.mainButton);
-        bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavigationView);
+        back = findViewById(R.id.backToMainActivityOnOffRelay);
+        settings = findViewById(R.id.settingsOnOffRelay);
         nameTextView = (TextView) findViewById(R.id.relayNameTextViewFromSelfActivity);
 
         if (savedInstanceState == null) {
@@ -57,23 +64,24 @@ public class OnOffRelayActivity extends AppCompatActivity {
 
 
         init();
-        bottomNavigationView.setOnItemSelectedListener(item -> {
 
-         switch (item.getItemId()){
-             case R.id.backToMainActivity:
-                 back();
-             case R.id.timer:
-                 timer();
-             case R.id.loopTimer:
-                 loopTimer();
-         }
-            return false;
-        });
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 buttonClick();
+            }
+        });
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                back();
+            }
+        });
+        settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
             }
         });
     }
@@ -85,6 +93,7 @@ public class OnOffRelayActivity extends AppCompatActivity {
         }else if (stage.equals(false)){
             button.setText(getResources().getString(R.string.on));
         }
+
     }
 
     private void buttonClick(){
@@ -113,6 +122,8 @@ public class OnOffRelayActivity extends AppCompatActivity {
     private void timer(){}
 
     private void loopTimer(){}
+
+
 
     private void sendFromMain(Boolean flag){
         Thread threadOn = new Thread(new Runnable() {

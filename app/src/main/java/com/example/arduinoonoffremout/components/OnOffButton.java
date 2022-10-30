@@ -32,6 +32,7 @@ public class OnOffButton extends LinearLayout {
     private String host;
     private TextView nameTextView;
     private String stage;
+    private String[] info;
 
 
 
@@ -80,6 +81,7 @@ public class OnOffButton extends LinearLayout {
 
 
     private void init(){
+        info = new String[]{name, host};
         textView = (TextView) findViewById(R.id.onOffRelayTextView);
         background = (LinearLayout) findViewById(R.id.onOffRelayBackground);
         nameTextView = (TextView) findViewById(R.id.relayNameTextView);
@@ -160,6 +162,18 @@ public class OnOffButton extends LinearLayout {
         this.name = name;
         this.host = host;
         setNameTextView(this.name);
+    }
+
+    private String getName(){
+        return name;
+    }
+
+    private String getHost(){
+        return host;
+    }
+
+    public String[] getInfo(){
+        return info;
     }
 
 
