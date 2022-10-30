@@ -55,7 +55,7 @@
 >
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edit_text"
+            android:id="@+id/hostEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -84,6 +84,7 @@
         >
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/nameEditText"
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -94,7 +95,7 @@
 
     <Button
         android:background="@drawable/shape_background_button_on_off"
-        android:id="@+id/submit_button"
+        android:id="@+id/addDeviceButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"

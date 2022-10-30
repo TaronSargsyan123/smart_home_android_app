@@ -16,6 +16,7 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
+import com.example.arduinoonoffremout.MainActivity;
 import com.example.arduinoonoffremout.Network;
 import com.example.arduinoonoffremout.OnOffRelayActivity;
 import com.example.arduinoonoffremout.R;
@@ -37,6 +38,7 @@ public class OnOffButton extends LinearLayout {
     @RequiresApi(api = Build.VERSION_CODES.M)
     public OnOffButton(Context context) {
         super(context);
+
 
         LayoutInflater inflater = context.getSystemService(LayoutInflater.class);
         View v = inflater.inflate(R.layout.view_on_off_button, this, true);
