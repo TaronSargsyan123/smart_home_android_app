@@ -60,6 +60,23 @@ public class MainActivity extends AppCompatActivity {
 
         addSingleChannelRelayFirstVersion("Kitchen", "192.168.1.12");
         addSingleChannelRelayFirstVersion("Main hall", "192.168.1.12");
+        addSingleChannelRelayFirstVersion("Main hall", "192.168.1.12");
+        addSingleChannelRelayFirstVersion("Main hall", "192.168.1.12");
+        addSingleChannelRelayFirstVersion("Main hall", "192.168.1.12");
+        addSingleChannelRelayFirstVersion("Main hall", "192.168.1.12");
+        addSingleChannelRelayFirstVersion("Main hall", "192.168.1.12");
+        addSingleChannelRelayFirstVersion("Main hall", "192.168.1.12");
+        addSingleChannelRelayFirstVersion("Main hall", "192.168.1.12");
+        addSingleChannelRelayFirstVersion("Main hall", "192.168.1.12");
+        addSingleChannelRelayFirstVersion("Main hall", "192.168.1.12");
+        addSingleChannelRelayFirstVersion("Main hall", "192.168.1.12");
+        addSingleChannelRelayFirstVersion("Main hall", "192.168.1.12");
+        addSingleChannelRelayFirstVersion("Main hall", "192.168.1.12");
+        addSingleChannelRelayFirstVersion("Main hall", "192.168.1.12");
+        addSingleChannelRelayFirstVersion("Main hall", "192.168.1.12");
+        addSingleChannelRelayFirstVersion("Main hall", "192.168.1.12");
+        addSingleChannelRelayFirstVersion("Main hall", "192.168.1.12");
+        addSingleChannelRelayFirstVersion("Main hall", "192.168.1.12");
 
         addDevice.setOnClickListener(new View.OnClickListener() {
             @Override
