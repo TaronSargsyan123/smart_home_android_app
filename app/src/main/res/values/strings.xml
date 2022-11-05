@@ -11,8 +11,10 @@
     <string name="host">host</string>
     <string name="deviceName">device name</string>
     <string name="deviceType">device type</string>
+    <string name="deviceList">device list</string>
     <string name="choose_device_type">Choose Device Type</string>
     <string name="backToDeviceList">Back to device list</string>
+    <string name="home">Home</string>
 
 
 </resources>

@@ -18,11 +18,12 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.arduinoonoffremout.components.OnOffButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    private Button addDevice;
+    private FloatingActionButton addDevice;
     public LinearLayout layout;
     static final String ACCESS_MESSAGE="ACCESS_MESSAGE";
     private ArrayList<Object> widgetsArray = new ArrayList<>();
@@ -37,16 +38,13 @@ public class MainActivity extends AppCompatActivity {
 
                     if(result.getResultCode() == Activity.RESULT_OK){
                         Intent intent = result.getData();
-                        String accessMessage = intent.getStringExtra(ACCESS_MESSAGE);
-                        String[] arrOfStr = accessMessage.split("/%");
-                        addSingleChannelRelayFirstVersion(arrOfStr[1], arrOfStr[0]);
-                    }
-                    else{
-                        Context context = getApplicationContext();
-                        CharSequence text = "Fail";
-                        int duration = Toast.LENGTH_SHORT;
-                        Toast toast = Toast.makeText(context, text, duration);
-                        toast.show();
+                        try {
+                            String accessMessage = intent.getStringExtra(ACCESS_MESSAGE);
+                            String[] arrOfStr = accessMessage.split("/%");
+                            addSingleChannelRelayFirstVersion(arrOfStr[1], arrOfStr[0]);
+                        }catch (Exception e){
+                            toastPrint("Fail");
+                        }
                     }
                 }
             });
@@ -57,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        addDevice = (Button) findViewById(R.id.addDeviceMain);
+        addDevice = (FloatingActionButton) findViewById(R.id.addDeviceMain);
         layout  = (LinearLayout) findViewById(R.id.mainActivityLayout);
 
         addSingleChannelRelayFirstVersion("Kitchen", "192.168.1.12");
@@ -82,6 +80,14 @@ public class MainActivity extends AppCompatActivity {
         widgetsArray.add(onOffButton.getInfo());
         layout.addView(onOffButton);
 
+    }
+
+    private void toastPrint(CharSequence s){
+        Context context = getApplicationContext();
+        CharSequence text = s;
+        int duration = Toast.LENGTH_SHORT;
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
     }
 
 

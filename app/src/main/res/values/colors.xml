@@ -13,4 +13,5 @@
     <color name="gray_600">#FF757575</color>
     <color name="background">#2e3348</color>
     <color name="background_second_color">#444a5e</color>
+    <color name="text_color_light">#c4c8e2</color>
 </resources>

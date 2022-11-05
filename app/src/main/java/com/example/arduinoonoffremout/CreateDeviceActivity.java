@@ -43,8 +43,14 @@ public class CreateDeviceActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View view) {
-                String message =hostEditText.getText().toString() + "/%" + nameEditText.getText().toString();
-                sendMessage(message);
+                try {
+                    String message =hostEditText.getText().toString() + "/%" + nameEditText.getText().toString();
+                    sendMessage(message);
+                }catch (Exception e){
+                    sendMessage("Fail");
+                }
+
+
             }
         });
 

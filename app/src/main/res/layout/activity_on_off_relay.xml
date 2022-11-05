@@ -88,11 +88,11 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="?android:attr/selectableItemBackground"
-                    android:drawableTop="@drawable/ic_baseline_arrow_back_ios_new_24"
                     android:gravity="center"
                     android:orientation="vertical"
                     android:text="@string/back"
-                    android:textColor="#FFFFFF">
+                    android:textColor="#FFFFFF"
+                    app:drawableTopCompat="@drawable/ic_baseline_arrow_back_ios_new_24">
 
                 </TextView>
 
@@ -103,11 +103,11 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="?android:attr/selectableItemBackground"
-                    android:drawableTop="@drawable/ic_baseline_timer_24"
                     android:gravity="center"
                     android:orientation="vertical"
                     android:text="@string/timer"
-                    android:textColor="#FFFFFF">
+                    android:textColor="#FFFFFF"
+                    app:drawableTopCompat="@drawable/ic_baseline_timer_24">
 
                 </TextView>
 
@@ -117,7 +117,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="?android:attr/selectableItemBackground"
-                    android:drawableTop="@drawable/ic_baseline_loop_24"
+
                     android:gravity="center"
                     android:orientation="vertical"
                     android:textColor="#FFFFFF"
@@ -132,11 +132,11 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="?android:attr/selectableItemBackground"
-                    android:drawableTop="@drawable/ic_baseline_loop_24"
                     android:gravity="center"
                     android:orientation="vertical"
                     android:text="@string/loop"
-                    android:textColor="#FFFFFF">
+                    android:textColor="#FFFFFF"
+                    app:drawableTopCompat="@drawable/ic_baseline_loop_24">
 
                 </TextView>
 
@@ -146,11 +146,11 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="?android:attr/selectableItemBackground"
-                    android:drawableTop="@drawable/ic_baseline_loop_24"
                     android:gravity="center"
                     android:orientation="vertical"
                     android:text="Personal"
-                    android:textColor="#FFFFFF">
+                    android:textColor="#FFFFFF"
+                    app:drawableTopCompat="@drawable/ic_baseline_loop_24">
 
                 </TextView>
 
