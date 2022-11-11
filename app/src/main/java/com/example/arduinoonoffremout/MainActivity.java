@@ -13,6 +13,8 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -27,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     public LinearLayout layout;
     static final String ACCESS_MESSAGE="ACCESS_MESSAGE";
     private ArrayList<Object> widgetsArray = new ArrayList<>();
+    private Animation animShake;
 
 
     ActivityResultLauncher<Intent> mStartForResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
@@ -55,34 +58,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        animShake = AnimationUtils.loadAnimation(this, R.anim.shake_animation);
         addDevice = (FloatingActionButton) findViewById(R.id.addDeviceMain);
         layout  = (LinearLayout) findViewById(R.id.mainActivityLayout);
 
         addSingleChannelRelayFirstVersion("Kitchen", "192.168.1.12");
-        addSingleChannelRelayFirstVersion("Main hall", "192.168.1.12");
-        addSingleChannelRelayFirstVersion("Main hall", "192.168.1.12");
-        addSingleChannelRelayFirstVersion("Main hall", "192.168.1.12");
-        addSingleChannelRelayFirstVersion("Main hall", "192.168.1.12");
-        addSingleChannelRelayFirstVersion("Main hall", "192.168.1.12");
-        addSingleChannelRelayFirstVersion("Main hall", "192.168.1.12");
-        addSingleChannelRelayFirstVersion("Main hall", "192.168.1.12");
-        addSingleChannelRelayFirstVersion("Main hall", "192.168.1.12");
-        addSingleChannelRelayFirstVersion("Main hall", "192.168.1.12");
-        addSingleChannelRelayFirstVersion("Main hall", "192.168.1.12");
-        addSingleChannelRelayFirstVersion("Main hall", "192.168.1.12");
-        addSingleChannelRelayFirstVersion("Main hall", "192.168.1.12");
-        addSingleChannelRelayFirstVersion("Main hall", "192.168.1.12");
-        addSingleChannelRelayFirstVersion("Main hall", "192.168.1.12");
-        addSingleChannelRelayFirstVersion("Main hall", "192.168.1.12");
-        addSingleChannelRelayFirstVersion("Main hall", "192.168.1.12");
-        addSingleChannelRelayFirstVersion("Main hall", "192.168.1.12");
-        addSingleChannelRelayFirstVersion("Main hall", "192.168.1.12");
 
         addDevice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent switchActivityIntent = new Intent(getApplicationContext(), CreateDeviceActivity.class);
                 mStartForResult.launch(switchActivityIntent);
+
             }
         });
 
@@ -96,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
         onOffButton.configNameAndHost(name, host);
         widgetsArray.add(onOffButton.getInfo());
         layout.addView(onOffButton);
+        shakeView(onOffButton);
 
     }
 
@@ -105,6 +93,10 @@ public class MainActivity extends AppCompatActivity {
         int duration = Toast.LENGTH_SHORT;
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();
+    }
+
+    private void shakeView(View view){
+        view.setAnimation(animShake);
     }
 
 

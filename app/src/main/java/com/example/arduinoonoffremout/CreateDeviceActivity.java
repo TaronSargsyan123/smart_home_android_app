@@ -63,6 +63,7 @@ public class CreateDeviceActivity extends AppCompatActivity {
         data.putExtra(MainActivity.ACCESS_MESSAGE, message);
         setResult(RESULT_OK, data);
         finish();
+
     }
 
 
