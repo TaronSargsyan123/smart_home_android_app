@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/onOffRelayBackground"
+    android:id="@+id/ROneVOneRelayBackgroundMainWidget"
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -20,7 +20,7 @@
 
         <TextView
             android:textColor="@color/white"
-            android:id="@+id/onOffRelayTextView"
+            android:id="@+id/ROneVOneStageTextViewMAinWidget"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingStart="20dp"
@@ -30,7 +30,7 @@
 
         <TextView
             android:textColor="@color/white"
-            android:id="@+id/relayNameTextView"
+            android:id="@+id/ROneVOneNameTextViewMainWidget"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingStart="20dp"
@@ -45,7 +45,7 @@
 
     <Button
         android:background="@drawable/shape_relay_round"
-        android:id="@+id/mainButton"
+        android:id="@+id/ROneVOneMainButtonMainWidget"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:drawableEnd="@drawable/ic_power_switch"

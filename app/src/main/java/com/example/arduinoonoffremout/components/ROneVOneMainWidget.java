@@ -2,13 +2,11 @@ package com.example.arduinoonoffremout.components;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Canvas;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -16,13 +14,12 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
-import com.example.arduinoonoffremout.MainActivity;
 import com.example.arduinoonoffremout.Network;
-import com.example.arduinoonoffremout.OnOffRelayActivity;
+import com.example.arduinoonoffremout.ROneVOneActivity;
 import com.example.arduinoonoffremout.R;
 
 
-public class OnOffButton extends LinearLayout {
+public class ROneVOneMainWidget extends LinearLayout {
     Button mainButton;
     private Network network;
     private Boolean buttonStage;
@@ -37,60 +34,60 @@ public class OnOffButton extends LinearLayout {
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public OnOffButton(Context context) {
+    public ROneVOneMainWidget(Context context) {
         super(context);
 
 
         LayoutInflater inflater = context.getSystemService(LayoutInflater.class);
-        View v = inflater.inflate(R.layout.view_on_off_button, this, true);
+        View v = inflater.inflate(R.layout.view_r_one_v_one_button, this, true);
         init();
     }
 
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public OnOffButton(Context context, @Nullable AttributeSet attrs) {
+    public ROneVOneMainWidget(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
 
         LayoutInflater inflater = context.getSystemService(LayoutInflater.class);
-        View v = inflater.inflate(R.layout.view_on_off_button, this, true);
+        View v = inflater.inflate(R.layout.view_r_one_v_one_button, this, true);
         init();
     }
 
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public OnOffButton(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public ROneVOneMainWidget(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
         LayoutInflater inflater = context.getSystemService(LayoutInflater.class);
-        View v = inflater.inflate(R.layout.view_on_off_button, this, true);
+        View v = inflater.inflate(R.layout.view_r_one_v_one_button, this, true);
         init();
     }
 
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public OnOffButton(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public ROneVOneMainWidget(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
 
         LayoutInflater inflater = context.getSystemService(LayoutInflater.class);
-        View v = inflater.inflate(R.layout.view_on_off_button, this, true);
+        View v = inflater.inflate(R.layout.view_r_one_v_one_button, this, true);
         init();
     }
 
 
     private void init(){
         info = new String[]{name, host};
-        textView = (TextView) findViewById(R.id.onOffRelayTextView);
-        background = (LinearLayout) findViewById(R.id.onOffRelayBackground);
-        nameTextView = (TextView) findViewById(R.id.relayNameTextView);
-        mainButton = (Button) findViewById(R.id.mainButton);
+        textView = (TextView) findViewById(R.id.ROneVOneStageTextViewMAinWidget);
+        background = (LinearLayout) findViewById(R.id.ROneVOneRelayBackgroundMainWidget);
+        nameTextView = (TextView) findViewById(R.id.ROneVOneNameTextViewMainWidget);
+        mainButton = (Button) findViewById(R.id.ROneVOneMainButtonMainWidget);
 
         network = new Network(host, 5045);
         buttonStage = false;
 
-        setNameTextView(name);
+        setName(name);
 
         textView.setOnClickListener(new OnClickListener() {
             @Override
@@ -147,21 +144,21 @@ public class OnOffButton extends LinearLayout {
     }
 
     private void openRelayActivity(){
-        Intent switchActivityIntent = new Intent(getContext(), OnOffRelayActivity.class);
+        Intent switchActivityIntent = new Intent(getContext(), ROneVOneActivity.class);
         switchActivityIntent.putExtra("NAME", name);
         switchActivityIntent.putExtra("HOST", host);
         switchActivityIntent.putExtra("STAGE", buttonStage);
         getContext().startActivity(switchActivityIntent);
     }
 
-    private void setNameTextView(String temp){
+    public void setName(String temp){
         nameTextView.setText(temp);
     }
 
     public void configNameAndHost(String name, String host){
         this.name = name;
         this.host = host;
-        setNameTextView(this.name);
+        setName(this.name);
     }
 
     private String getName(){

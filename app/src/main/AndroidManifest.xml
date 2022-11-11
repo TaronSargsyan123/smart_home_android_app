@@ -13,13 +13,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ArduinoOnOffRemout" >
         <activity
-            android:name=".OnOffRelaySettings"
+            android:name=".ROneVOneSettings"
             android:exported="false" />
         <activity
             android:name=".CreateDeviceActivity"
             android:exported="false" />
         <activity
-            android:name=".OnOffRelayActivity"
+            android:name=".ROneVOneActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

@@ -9,13 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import com.example.arduinoonoffremout.components.OnOffButton;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 
 public class CreateDeviceActivity extends AppCompatActivity {
     private TextView back;

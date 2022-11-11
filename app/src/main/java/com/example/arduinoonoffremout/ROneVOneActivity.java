@@ -2,28 +2,17 @@ package com.example.arduinoonoffremout;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 
-import java.io.*;
-import java.util.List;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.annotation.NonNull;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-public class OnOffRelayActivity extends AppCompatActivity {
+public class ROneVOneActivity extends AppCompatActivity {
     private String name;
     private String host;
     private TextView nameTextView;
@@ -36,10 +25,10 @@ public class OnOffRelayActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_on_off_relay);
+        setContentView(R.layout.activity_r_one_v_one);
         button = (Button) findViewById(R.id.mainButton);
-        back = findViewById(R.id.backToMainActivityOnOffRelay);
-        settings = findViewById(R.id.settingsOnOffRelay);
+        back = findViewById(R.id.backToMainActivityROneVOne);
+        settings = findViewById(R.id.settingsROneVOne);
         nameTextView = (TextView) findViewById(R.id.relayNameTextViewFromSelfActivity);
 
         if (savedInstanceState == null) {
@@ -144,6 +133,16 @@ public class OnOffRelayActivity extends AppCompatActivity {
         });
 
         threadOn.start();
+    }
+
+    public void setName(String name){
+        this.name = name;
+        init();
+    }
+
+    public void setHost(String host){
+        this.host = host;
+        init();
     }
 
 }

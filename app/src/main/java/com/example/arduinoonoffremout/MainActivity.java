@@ -15,11 +15,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.example.arduinoonoffremout.components.OnOffButton;
+import com.example.arduinoonoffremout.components.ROneVOneMainWidget;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -79,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void addSingleChannelRelayFirstVersion(String name, String host){
-        OnOffButton onOffButton = new OnOffButton(this);
+        ROneVOneMainWidget onOffButton = new ROneVOneMainWidget(this);
         onOffButton.configNameAndHost(name, host);
         widgetsArray.add(onOffButton.getInfo());
         layout.addView(onOffButton);
