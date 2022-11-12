@@ -14,12 +14,13 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
+import com.example.arduinoonoffremout.DefaultMainWidget;
 import com.example.arduinoonoffremout.Network;
 import com.example.arduinoonoffremout.ROneVOneActivity;
 import com.example.arduinoonoffremout.R;
 
 
-public class ROneVOneMainWidget extends LinearLayout {
+public class ROneVOneMainWidget extends DefaultMainWidget {
     Button mainButton;
     private Network network;
     private Boolean buttonStage;
@@ -30,6 +31,7 @@ public class ROneVOneMainWidget extends LinearLayout {
     private TextView nameTextView;
     private String stage;
     private String[] info;
+
 
 
 
@@ -78,7 +80,7 @@ public class ROneVOneMainWidget extends LinearLayout {
 
 
     private void init(){
-        info = new String[]{name, host};
+
         textView = (TextView) findViewById(R.id.ROneVOneStageTextViewMAinWidget);
         background = (LinearLayout) findViewById(R.id.ROneVOneRelayBackgroundMainWidget);
         nameTextView = (TextView) findViewById(R.id.ROneVOneNameTextViewMainWidget);
@@ -161,6 +163,9 @@ public class ROneVOneMainWidget extends LinearLayout {
         setName(this.name);
     }
 
+
+
+
     private String getName(){
         return name;
     }
@@ -169,8 +174,12 @@ public class ROneVOneMainWidget extends LinearLayout {
         return host;
     }
 
-    public String[] getInfo(){
-        return info;
+
+    public String getInfoString(){
+        info = new String[]{getType(), getIdString(), getName(), getHost()};
+        String teb = "@#*%";
+        String temp = info[0] + teb + info[1] + teb + info[2] + teb + info[3];
+        return temp;
     }
 
 

@@ -2,6 +2,7 @@ package com.example.arduinoonoffremout;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.util.Log;
@@ -70,7 +71,8 @@ public class ROneVOneActivity extends AppCompatActivity {
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent i = new Intent(ROneVOneActivity.this, ROneVOneSettings.class);
+                startActivity(i);
             }
         });
     }
