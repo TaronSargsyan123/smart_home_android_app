@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -20,6 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 import com.google.gson.reflect.TypeToken;
 
+import java.io.Serializable;
 import java.lang.reflect.Type;
 
 import com.example.arduinoonoffremout.components.ROneVOneMainWidget;
@@ -38,8 +40,8 @@ public class MainActivity extends AppCompatActivity {
     private Animation animShake;
     private int deviceID;
     private SharedPreferences.Editor sharedPrefEdit;
-    private Set<String> widgetsSet;
-
+    private ArrayList<DefaultMainWidget> widgetsArray;
+    private MainWidgetsSerializer mainWidgetsSerializer;
 
 
 
@@ -48,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
                 @RequiresApi(api = Build.VERSION_CODES.M)
                 @Override
                 public void onActivityResult(ActivityResult result) {
+
+
 
 
                     if(result.getResultCode() == Activity.RESULT_OK){
@@ -77,11 +81,17 @@ public class MainActivity extends AppCompatActivity {
         addDevice = (FloatingActionButton) findViewById(R.id.addDeviceMain);
         layout  = (LinearLayout) findViewById(R.id.mainActivityLayout);
         deviceID = 0;
+        widgetsArray = new ArrayList<>();
+        mainWidgetsSerializer = new MainWidgetsSerializer();
 
-        widgetsSet = new HashSet<String>();
-        addROneVOne("Kitchen", "192.168.1.12", "ROneVOne", String.valueOf(deviceID));
 
-        drawDevicesFromPrefs();
+
+
+
+
+        //addROneVOne("Kitchen", "192.168.1.12", "ROneVOne", String.valueOf(deviceID));
+
+        drawDevicesFromArray("ConfFile");
 
         addDevice.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,10 +112,10 @@ public class MainActivity extends AppCompatActivity {
         onOffButton.configNameAndHost(name, host);
         onOffButton.setType(type);
         onOffButton.setIDString(id);
-        widgetsSet.add(onOffButton.getInfoString());
+        widgetsArray.add(onOffButton);
         layout.addView(onOffButton);
         shakeView(onOffButton);
-        saveDeviceListInPrefs();
+        mainWidgetsSerializer.save(widgetsArray, "ConfFile", this);
 
     }
 
@@ -126,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
         layout.post(new Runnable() {
             public void run() {
                 layout.removeView(view);
-                saveDeviceListInPrefs();
+
             }
         });
     }
@@ -143,44 +153,21 @@ public class MainActivity extends AppCompatActivity {
         view.setAnimation(animShake);
     }
 
-    private void saveDeviceListInPrefs(){
-        SharedPreferences sharedPreferences = getSharedPreferences("DevicesPref",MODE_PRIVATE);
-        sharedPrefEdit = sharedPreferences.edit();
-        sharedPrefEdit.putStringSet("Devices", widgetsSet);
-        sharedPrefEdit.apply();
-    }
+    private void drawDevicesFromArray(String fileName){
+        ArrayList<DefaultMainWidget> arrayList = mainWidgetsSerializer.load(fileName, this);
+        try {
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    private void drawDevicesFromPrefs(){
-        SharedPreferences sharedPreferences = getSharedPreferences("DevicesPref",MODE_PRIVATE);
-
-
-        Set<String> tempSet = new HashSet<>();
-        tempSet = sharedPreferences.getStringSet("Devices", null);
-
-
-
-
-        for (Iterator<String> iterator = tempSet.iterator(); iterator.hasNext();) {
-            String s = iterator.next();
-            String[] words = s.split("@#*%");
-            String type = words[0];
-            if (type == "ROneVOne"){
-                String id = words[1];
-                String name = words[2];
-                String host = words[3];
-                addROneVOne(name, host, type, id);
-
-                deviceID =Integer.parseInt(id);
-
+            for (DefaultMainWidget widget : arrayList){
+                Log.i("Widget", widget.toString());
+                layout.addView(widget);
             }
+        }catch (Exception e){
+            Log.i("Main widgets loading", "File is empty");
         }
-
-
-
-
-
     }
+
+
+
 
 
 }

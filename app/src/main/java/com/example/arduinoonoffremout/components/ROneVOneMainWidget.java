@@ -19,8 +19,10 @@ import com.example.arduinoonoffremout.Network;
 import com.example.arduinoonoffremout.ROneVOneActivity;
 import com.example.arduinoonoffremout.R;
 
+import java.io.Serializable;
 
-public class ROneVOneMainWidget extends DefaultMainWidget {
+
+public class ROneVOneMainWidget extends DefaultMainWidget implements  Serializable {
     Button mainButton;
     private Network network;
     private Boolean buttonStage;
@@ -177,7 +179,7 @@ public class ROneVOneMainWidget extends DefaultMainWidget {
 
     public String getInfoString(){
         info = new String[]{getType(), getIdString(), getName(), getHost()};
-        String teb = "@#*%";
+        String teb = "@";
         String temp = info[0] + teb + info[1] + teb + info[2] + teb + info[3];
         return temp;
     }
