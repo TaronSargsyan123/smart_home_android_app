@@ -12,8 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 public class CreateDeviceActivity extends AppCompatActivity {
-    private TextView back;
-    private Button createButton;
+    //static final String ACCESS_MESSAGE="ACCESS_MESSAGE";
 
 
     private EditText nameEditText;
@@ -25,14 +24,14 @@ public class CreateDeviceActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_device);
         nameEditText = findViewById(R.id.nameEditText);
         hostEditText = findViewById(R.id.hostEditText);
-        back = findViewById(R.id.backToDeviceList);
+        TextView back = findViewById(R.id.backToDeviceList);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
-        createButton = findViewById(R.id.addDeviceButton);
+        Button createButton = findViewById(R.id.addDeviceButton);
         createButton.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
@@ -54,7 +53,7 @@ public class CreateDeviceActivity extends AppCompatActivity {
     private void sendMessage(String message){
 
         Intent data = new Intent();
-        data.putExtra(MainActivity.ACCESS_MESSAGE, message);
+        data.putExtra(DevicesFragment.ACCESS_MESSAGE, message);
         setResult(RESULT_OK, data);
         finish();
 

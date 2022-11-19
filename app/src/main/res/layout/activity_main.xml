@@ -18,13 +18,19 @@
         tools:ignore="SpeakableTextPresentCheck"
         android:layout_height="0dp">
 
-        <LinearLayout
+        <!-- <LinearLayout
             android:id="@+id/mainActivityLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/background"
             android:orientation="vertical"
-            tools:context=".MainActivity" />
+            tools:context=".MainActivity" /> -->
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/mainActivityFragmentContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            />
     </ScrollView>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -59,7 +65,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/backToMainActivityOnOffRelay"
+                    android:id="@+id/devicesFragmentButtonOnMainActivity"
                     style="?android:attr/borderlessButtonStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -90,6 +96,7 @@
 
                 <TextView
                     style="?android:attr/borderlessButtonStyle"
+                    android:id="@+id/homeFragmentButtonOnMainActivity"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
