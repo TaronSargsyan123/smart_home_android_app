@@ -23,7 +23,6 @@ import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.example.arduinoonoffremout.components.ROneVOneMainWidget;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -37,8 +36,9 @@ public class DevicesFragment extends Fragment {
     private Animation animShake;
     private int deviceID;
     private SharedPreferences.Editor sharedPrefEdit;
-    private ArrayList<DefaultMainWidget> widgetsArray;
+    private ArrayList<ROneVOneMainWidget> widgetsArray;
     private MainWidgetsSerializer mainWidgetsSerializer;
+    private static final String FILE_NAME = "example.txt";
 
 
     ActivityResultLauncher<Intent> mStartForResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
@@ -85,13 +85,13 @@ public class DevicesFragment extends Fragment {
         deviceID = 0;
         widgetsArray = new ArrayList<>();
         mainWidgetsSerializer = new MainWidgetsSerializer();
-        generateWidgetsForTesting();
+        //generateWidgetsForTesting();
 
 
 
         //addROneVOne("Kitchen", "192.168.1.12", "ROneVOne", String.valueOf(deviceID));
 
-        drawDevicesFromArray("ConfFile");
+        drawDevicesFromFile(FILE_NAME);
 
         addDevice.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,32 +116,13 @@ public class DevicesFragment extends Fragment {
         onOffButton.setIDString(id);
         widgetsArray.add(onOffButton);
         layout.addView(onOffButton);
-        shakeView(onOffButton);
-        mainWidgetsSerializer.save(widgetsArray, "ConfFile", this.requireContext());
+        //shakeView(onOffButton);
+        //mainWidgetsSerializer.save(widgetsArray, "ConfFile", this.requireContext());
+        mainWidgetsSerializer.saveWidgets(widgetsArray, FILE_NAME, this.requireContext());
 
     }
 
-    private void removeDeviceByID(int ID){
-        //for (int i = 0; i < widgetsArray.size(); i++) {
-        //    DefaultMainWidget temp = widgetsArray.get(i);
-        //    if (temp.getID() == ID){
-        //        removeDevice(temp);
-        //        //TODO remove from widgetsArray
-        //        saveDeviceListInPrefs();
-        //    }
-        //}
 
-
-    }
-
-    public void removeDevice(View view){
-        layout.post(new Runnable() {
-            public void run() {
-                layout.removeView(view);
-
-            }
-        });
-    }
 
     private void toastPrint(CharSequence s){
         Context context = this.getContext();
@@ -155,14 +136,27 @@ public class DevicesFragment extends Fragment {
         view.setAnimation(animShake);
     }
 
-    private void drawDevicesFromArray(String fileName){
-        ArrayList<DefaultMainWidget> arrayList = mainWidgetsSerializer.load(fileName, this.requireContext());
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private void drawDevicesFromFile(String fileName){
+        String widgetString = mainWidgetsSerializer.load(fileName, this.requireContext());
+        String[] lines = widgetString.split(System.lineSeparator());
         try {
+            for (String line : lines) {
+                try {
+                    String[] separated = line.split("@");
+                    String type = separated[0];
+                    String id = separated[1];
+                    String name = separated[2];
+                    String host = separated[3];
+                    addROneVOne(name, host, type, id);
 
-            for (DefaultMainWidget widget : arrayList){
-                Log.i("Widget", widget.toString());
-                layout.addView(widget);
+                    Log.i("WIDGETS", widgetString);
+                }catch (Exception ignored){
+
+                }
+
             }
+
         }catch (Exception e){
             Log.i("Main widgets loading", "File is empty");
         }
@@ -177,4 +171,6 @@ public class DevicesFragment extends Fragment {
             addROneVOne("Test Button", "Test ", "ROneVOne", String.valueOf(deviceID));
         }
     }
+
+
 }

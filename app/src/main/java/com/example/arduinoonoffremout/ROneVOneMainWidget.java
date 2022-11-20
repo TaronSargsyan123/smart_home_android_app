@@ -1,4 +1,4 @@
-package com.example.arduinoonoffremout.components;
+package com.example.arduinoonoffremout;
 
 import android.content.Context;
 import android.content.Intent;
@@ -168,7 +168,7 @@ public class ROneVOneMainWidget extends DefaultMainWidget implements  Serializab
 
 
 
-    private String getName(){
+    public String getName(){
         return name;
     }
 
