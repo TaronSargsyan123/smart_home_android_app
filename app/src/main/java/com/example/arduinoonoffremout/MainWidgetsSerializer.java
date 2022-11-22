@@ -104,6 +104,11 @@ public class MainWidgetsSerializer implements Serializable, SerializerInterface 
         Log.i("SAVE", sb.toString());
     }
 
+    public void clearWidgetsArray(ArrayList<ROneVOneMainWidget> widgetsArray, String FILE_NAME, Context context){
+        widgetsArray.clear();
+        saveWidgets(widgetsArray, FILE_NAME, context);
+    }
+
 
 
 

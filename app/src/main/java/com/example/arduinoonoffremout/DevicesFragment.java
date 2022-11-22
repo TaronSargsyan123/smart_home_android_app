@@ -38,7 +38,42 @@ public class DevicesFragment extends Fragment {
     private SharedPreferences.Editor sharedPrefEdit;
     private ArrayList<ROneVOneMainWidget> widgetsArray;
     private MainWidgetsSerializer mainWidgetsSerializer;
-    private static final String FILE_NAME = "example.txt";
+    private final String FILE_NAME ="example.txt";// getString(R.string.save_file_name);;
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_devices, container, false);
+        animShake = AnimationUtils.loadAnimation(this.getContext(), R.anim.shake_animation);
+        addDevice = (FloatingActionButton) getActivity().findViewById(R.id.addDeviceMain);
+        layout  = (LinearLayout) view.findViewById(R.id.devicesFragmentLayout);
+        deviceID = 0;
+        widgetsArray = new ArrayList<>();
+        mainWidgetsSerializer = new MainWidgetsSerializer();
+
+        //generateWidgetsForTesting();
+
+
+
+        //addROneVOne("Kitchen", "192.168.1.12", "ROneVOne", String.valueOf(deviceID));
+
+        drawDevicesFromFile(FILE_NAME);
+
+        addDevice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent switchActivityIntent = new Intent(getContext(), CreateDeviceActivity.class);
+                mStartForResult.launch(switchActivityIntent);
+
+            }
+        });
+
+
+
+        return view;
+
+    }
 
 
     ActivityResultLauncher<Intent> mStartForResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
@@ -64,49 +99,9 @@ public class DevicesFragment extends Fragment {
             });
 
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
 
 
 
-
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_devices, container, false);
-        animShake = AnimationUtils.loadAnimation(this.getContext(), R.anim.shake_animation);
-        addDevice = (FloatingActionButton) getActivity().findViewById(R.id.addDeviceMain);
-        layout  = (LinearLayout) view.findViewById(R.id.devicesFragmentLayout);
-        deviceID = 0;
-        widgetsArray = new ArrayList<>();
-        mainWidgetsSerializer = new MainWidgetsSerializer();
-        //generateWidgetsForTesting();
-
-
-
-        //addROneVOne("Kitchen", "192.168.1.12", "ROneVOne", String.valueOf(deviceID));
-
-        drawDevicesFromFile(FILE_NAME);
-
-        addDevice.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent switchActivityIntent = new Intent(getContext(), CreateDeviceActivity.class);
-                mStartForResult.launch(switchActivityIntent);
-
-            }
-        });
-
-
-
-        return view;
-
-    }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void addROneVOne(String name, String host, String type, String id){
@@ -164,12 +159,18 @@ public class DevicesFragment extends Fragment {
 
 
 
+
+
     //method for testing application work
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void generateWidgetsForTesting(){
         for (int i = 0; i < 15; i++) {
             addROneVOne("Test Button", "Test ", "ROneVOne", String.valueOf(deviceID));
         }
+    }
+
+    private void clearWidgetsList(){
+        mainWidgetsSerializer.clearWidgetsArray(widgetsArray, FILE_NAME, this.requireContext());
     }
 
 
