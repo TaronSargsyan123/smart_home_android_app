@@ -21,6 +21,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.arduinoonoffremout.components.CROne.CROneMainWidget;
@@ -40,6 +41,7 @@ public class DevicesFragment extends Fragment {
     private SharedPreferences.Editor sharedPrefEdit;
     private ArrayList<DefaultMainWidget> widgetsArray;
     private MainWidgetsSerializer mainWidgetsSerializer;
+    private TextView clearListButton;
     private final String FILE_NAME ="example.txt";// getString(R.string.save_file_name);;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -50,6 +52,7 @@ public class DevicesFragment extends Fragment {
         animShake = AnimationUtils.loadAnimation(this.getContext(), R.anim.shake_animation);
         addDevice = (FloatingActionButton) getActivity().findViewById(R.id.addDeviceMain);
         layout  = (LinearLayout) view.findViewById(R.id.devicesFragmentLayout);
+        clearListButton = view.findViewById(R.id.clearAllDevicesFragment);
         deviceID = 25;
         widgetsArray = new ArrayList<>();
         mainWidgetsSerializer = new MainWidgetsSerializer();
@@ -72,6 +75,15 @@ public class DevicesFragment extends Fragment {
                 Intent switchActivityIntent = new Intent(getContext(), CreateDeviceActivity.class);
                 mStartForResult.launch(switchActivityIntent);
 
+            }
+        });
+
+        clearListButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                layout.removeAllViews();
+                clearWidgetsList();
+                drawDevicesFromFile(FILE_NAME);
             }
         });
 

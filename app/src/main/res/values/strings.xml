@@ -23,6 +23,7 @@
     <string name="save_file_name">example.txt</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="clear_device_list">Clear Device List</string>
 
     <string-array name="devices">
         <item>ROneVOne</item>
