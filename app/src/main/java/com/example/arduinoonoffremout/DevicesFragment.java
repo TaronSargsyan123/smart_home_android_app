@@ -23,10 +23,11 @@ import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.example.arduinoonoffremout.components.CROne.CROneMainWidget;
+import com.example.arduinoonoffremout.components.ROneVOne.ROneVOneMainWidget;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 
 public class DevicesFragment extends Fragment {
@@ -36,7 +37,7 @@ public class DevicesFragment extends Fragment {
     private Animation animShake;
     private int deviceID;
     private SharedPreferences.Editor sharedPrefEdit;
-    private ArrayList<ROneVOneMainWidget> widgetsArray;
+    private ArrayList<DefaultMainWidget> widgetsArray;
     private MainWidgetsSerializer mainWidgetsSerializer;
     private final String FILE_NAME ="example.txt";// getString(R.string.save_file_name);;
 
@@ -48,17 +49,19 @@ public class DevicesFragment extends Fragment {
         animShake = AnimationUtils.loadAnimation(this.getContext(), R.anim.shake_animation);
         addDevice = (FloatingActionButton) getActivity().findViewById(R.id.addDeviceMain);
         layout  = (LinearLayout) view.findViewById(R.id.devicesFragmentLayout);
-        deviceID = 0;
+        deviceID = 25;
         widgetsArray = new ArrayList<>();
         mainWidgetsSerializer = new MainWidgetsSerializer();
+        clearWidgetsList();
 
         //generateWidgetsForTesting();
 
 
 
         //addROneVOne("Kitchen", "192.168.1.12", "ROneVOne", String.valueOf(deviceID));
-
+        addCROne("Light", "asdasd", "test", "90");
         drawDevicesFromFile(FILE_NAME);
+
 
         addDevice.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,7 +92,9 @@ public class DevicesFragment extends Fragment {
                             //TODO add device type choosing
                             String accessMessage = intent.getStringExtra(ACCESS_MESSAGE);
                             String[] arrOfStr = accessMessage.split("/%");
+                            Log.i("ID", String.valueOf(deviceID));
                             deviceID++;
+                            Log.i("ID", String.valueOf(deviceID));
                             addROneVOne(arrOfStr[1], arrOfStr[0], "ROneVOne", String.valueOf(deviceID));
                         }catch (Exception e){
                             toastPrint("Fail");
@@ -108,9 +113,25 @@ public class DevicesFragment extends Fragment {
         ROneVOneMainWidget onOffButton = new ROneVOneMainWidget(this.getContext());
         onOffButton.configNameAndHost(name, host);
         onOffButton.setType(type);
-        onOffButton.setIDString(id);
+        onOffButton.setIDString(String.valueOf(id));
+        Log.i("ID from add widget", id);
         widgetsArray.add(onOffButton);
         layout.addView(onOffButton);
+        //shakeView(onOffButton);
+        //mainWidgetsSerializer.save(widgetsArray, "ConfFile", this.requireContext());
+        mainWidgetsSerializer.saveWidgets(widgetsArray, FILE_NAME, this.requireContext());
+
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public void addCROne(String name, String host, String type, String id){
+        CROneMainWidget crOneMainWidget = new CROneMainWidget(this.getContext());
+        crOneMainWidget.configNameAndHost(name, host);
+        crOneMainWidget.setType(type);
+        crOneMainWidget.setIDString(String.valueOf(id));
+        Log.i("ID from add widget", id);
+        widgetsArray.add(crOneMainWidget);
+        layout.addView(crOneMainWidget);
         //shakeView(onOffButton);
         //mainWidgetsSerializer.save(widgetsArray, "ConfFile", this.requireContext());
         mainWidgetsSerializer.saveWidgets(widgetsArray, FILE_NAME, this.requireContext());

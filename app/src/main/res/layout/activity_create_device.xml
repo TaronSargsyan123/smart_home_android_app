@@ -28,7 +28,7 @@
             android:inputType="none"
             android:textColor="@color/white"
 
-            android:text="@string/choose_device_type"
+            android:text="@string/deviceTypeROneVOne"
             />
 
     </com.google.android.material.textfield.TextInputLayout>

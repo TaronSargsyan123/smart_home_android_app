@@ -2,13 +2,14 @@ package com.example.arduinoonoffremout;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 
 import androidx.annotation.Nullable;
 
 public class DefaultMainWidget extends LinearLayout {
-    private int ID;
+    private String ID;
 
 
 
@@ -30,19 +31,18 @@ public class DefaultMainWidget extends LinearLayout {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 
-    public int getID(){
+    public String getID(){
         return ID;
     }
 
     public void setIDString(String IDString){
-        this.ID = Integer.parseInt(IDString);
+        this.ID = IDString;
     }
 
-    public void setID(int ID){
-        this.ID = ID;
-    }
 
-    public String getIdString(){return String.valueOf(getId());}
+    public String getIdString(){
+        Log.i("ID from MainWidget", getID());
+        return String.valueOf(getId());}
 
     public String getType() {
         return type;
@@ -50,6 +50,10 @@ public class DefaultMainWidget extends LinearLayout {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getInfoString(){
+        return null;
     }
 
 

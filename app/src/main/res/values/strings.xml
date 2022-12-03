@@ -13,6 +13,7 @@
     <string name="deviceType">device type</string>
     <string name="deviceList">device list</string>
     <string name="choose_device_type">Choose Device Type</string>
+    <string name="deviceTypeROneVOne">ROneVOne</string>
     <string name="backToDeviceList">Back to device list</string>
     <string name="home">Home</string>
     <string name="save_changes">Save changes</string>

@@ -1,4 +1,4 @@
-package com.example.arduinoonoffremout;
+package com.example.arduinoonoffremout.components.ROneVOne;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,6 +11,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 
+import com.example.arduinoonoffremout.Network;
+import com.example.arduinoonoffremout.R;
+import com.example.arduinoonoffremout.components.CROne.CROneActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class ROneVOneActivity extends AppCompatActivity {
@@ -19,9 +22,12 @@ public class ROneVOneActivity extends AppCompatActivity {
     private TextView nameTextView;
     private Boolean stage;
     private Button button;
-    private Network network;
     private TextView back;
     private FloatingActionButton settings;
+    private TextView timer;
+    private TextView loopTimer;
+    private String info;
+    private Network network;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +37,8 @@ public class ROneVOneActivity extends AppCompatActivity {
         back = findViewById(R.id.backToMainActivityROneVOne);
         settings = findViewById(R.id.settingsROneVOne);
         nameTextView = (TextView) findViewById(R.id.relayNameTextViewFromSelfActivity);
-
+        timer = findViewById(R.id.timerROneVOne);
+        loopTimer = findViewById(R.id.loopTimerROneVOne);
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
             if(extras == null) {
@@ -48,6 +55,8 @@ public class ROneVOneActivity extends AppCompatActivity {
             host= (String) savedInstanceState.getSerializable("HOST");
             stage= (Boolean) savedInstanceState.getSerializable("STAGE");
         }
+
+        info = name + "#$%" + host;
 
 
 
@@ -68,11 +77,28 @@ public class ROneVOneActivity extends AppCompatActivity {
                 back();
             }
         });
+        timer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                timer();
+            }
+        });
+        loopTimer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                loopTimer();
+            }
+        });
+
+
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(ROneVOneActivity.this, ROneVOneSettings.class);
+                i.putExtra("INFO", info);
+
                 startActivity(i);
+
             }
         });
     }
@@ -110,9 +136,15 @@ public class ROneVOneActivity extends AppCompatActivity {
         finish();
     }
 
-    private void timer(){}
+    private void timer(){
+        Intent intent = new Intent(getApplicationContext(), ROneVOneTimer.class);
+        startActivity(intent);
+    }
 
-    private void loopTimer(){}
+    private void loopTimer(){
+        Intent intent = new Intent(getApplicationContext(), CROneActivity.class);
+        startActivity(intent);
+    }
 
 
 

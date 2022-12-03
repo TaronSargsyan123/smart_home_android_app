@@ -1,4 +1,4 @@
-package com.example.arduinoonoffremout;
+package com.example.arduinoonoffremout.components.CROne;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,13 +16,13 @@ import androidx.annotation.RequiresApi;
 
 import com.example.arduinoonoffremout.DefaultMainWidget;
 import com.example.arduinoonoffremout.Network;
-import com.example.arduinoonoffremout.ROneVOneActivity;
 import com.example.arduinoonoffremout.R;
+import com.example.arduinoonoffremout.components.ROneVOne.ROneVOneActivity;
 
 import java.io.Serializable;
 
+public class CROneMainWidget extends DefaultMainWidget implements Serializable {
 
-public class ROneVOneMainWidget extends DefaultMainWidget implements  Serializable {
     Button mainButton;
     private Network network;
     private Boolean buttonStage;
@@ -35,44 +35,32 @@ public class ROneVOneMainWidget extends DefaultMainWidget implements  Serializab
     private String[] info;
 
 
-
-
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public ROneVOneMainWidget(Context context) {
+    public CROneMainWidget(Context context) {
         super(context);
 
-
         LayoutInflater inflater = context.getSystemService(LayoutInflater.class);
-        View v = inflater.inflate(R.layout.view_r_one_v_one_button, this, true);
+        View v = inflater.inflate(R.layout.view_cr_one_button, this, true);
         init();
     }
-
-
-
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public ROneVOneMainWidget(Context context, @Nullable AttributeSet attrs) {
+    public CROneMainWidget(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
 
         LayoutInflater inflater = context.getSystemService(LayoutInflater.class);
         View v = inflater.inflate(R.layout.view_r_one_v_one_button, this, true);
         init();
     }
-
-
-
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public ROneVOneMainWidget(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public CROneMainWidget(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
         LayoutInflater inflater = context.getSystemService(LayoutInflater.class);
         View v = inflater.inflate(R.layout.view_r_one_v_one_button, this, true);
         init();
     }
-
-
-
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public ROneVOneMainWidget(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public CROneMainWidget(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
 
         LayoutInflater inflater = context.getSystemService(LayoutInflater.class);
@@ -80,13 +68,12 @@ public class ROneVOneMainWidget extends DefaultMainWidget implements  Serializab
         init();
     }
 
-
     private void init(){
 
-        textView = (TextView) findViewById(R.id.ROneVOneStageTextViewMAinWidget);
-        background = (LinearLayout) findViewById(R.id.ROneVOneRelayBackgroundMainWidget);
-        nameTextView = (TextView) findViewById(R.id.ROneVOneNameTextViewMainWidget);
-        mainButton = (Button) findViewById(R.id.ROneVOneMainButtonMainWidget);
+        textView = (TextView) findViewById(R.id.CROneStageTextViewMAinWidget);
+        background = (LinearLayout) findViewById(R.id.CROneBackgroundMainWidget);
+        nameTextView = (TextView) findViewById(R.id.CROneNameTextViewMainWidget);
+        mainButton = (Button) findViewById(R.id.CROneMainButtonMainWidget);
 
         network = new Network(host, 5045);
         buttonStage = false;
@@ -148,7 +135,7 @@ public class ROneVOneMainWidget extends DefaultMainWidget implements  Serializab
     }
 
     private void openRelayActivity(){
-        Intent switchActivityIntent = new Intent(getContext(), ROneVOneActivity.class);
+        Intent switchActivityIntent = new Intent(getContext(), CROneActivity.class);
         switchActivityIntent.putExtra("NAME", name);
         switchActivityIntent.putExtra("HOST", host);
         switchActivityIntent.putExtra("STAGE", buttonStage);
@@ -183,7 +170,6 @@ public class ROneVOneMainWidget extends DefaultMainWidget implements  Serializab
         String temp = info[0] + teb + info[1] + teb + info[2] + teb + info[3];
         return temp;
     }
-
 
 
 }
