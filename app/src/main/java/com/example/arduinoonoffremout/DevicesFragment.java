@@ -28,6 +28,7 @@ import com.example.arduinoonoffremout.components.ROneVOne.ROneVOneMainWidget;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 
 public class DevicesFragment extends Fragment {
@@ -52,14 +53,16 @@ public class DevicesFragment extends Fragment {
         deviceID = 25;
         widgetsArray = new ArrayList<>();
         mainWidgetsSerializer = new MainWidgetsSerializer();
-        clearWidgetsList();
+
+
+        //clearWidgetsList();
 
         //generateWidgetsForTesting();
 
 
 
         //addROneVOne("Kitchen", "192.168.1.12", "ROneVOne", String.valueOf(deviceID));
-        addCROne("Light", "asdasd", "test", "90");
+
         drawDevicesFromFile(FILE_NAME);
 
 
@@ -92,10 +95,14 @@ public class DevicesFragment extends Fragment {
                             //TODO add device type choosing
                             String accessMessage = intent.getStringExtra(ACCESS_MESSAGE);
                             String[] arrOfStr = accessMessage.split("/%");
-                            Log.i("ID", String.valueOf(deviceID));
-                            deviceID++;
-                            Log.i("ID", String.valueOf(deviceID));
-                            addROneVOne(arrOfStr[1], arrOfStr[0], "ROneVOne", String.valueOf(deviceID));
+
+                            if (Objects.equals(arrOfStr[0], "ROneVOne")){
+                                addROneVOne(arrOfStr[2], arrOfStr[1], "ROneVOne", String.valueOf(deviceID));
+
+                            }else if (Objects.equals(arrOfStr[0], "CROne")){
+                                addCROne(arrOfStr[2], arrOfStr[1], "ROneVOne", String.valueOf(deviceID));
+                            }
+
                         }catch (Exception e){
                             toastPrint("Fail");
                         }
@@ -164,7 +171,15 @@ public class DevicesFragment extends Fragment {
                     String id = separated[1];
                     String name = separated[2];
                     String host = separated[3];
-                    addROneVOne(name, host, type, id);
+                    Log.i("DEVICE TYPE", type);
+                    if (Objects.equals(type, "ROneVOne")){
+                        addROneVOne(name, host, type, id);
+
+                    }else if (Objects.equals(type, "CROne")){
+                        addCROne(name, host, type, id);
+                    }
+
+
 
                     Log.i("WIDGETS", widgetString);
                 }catch (Exception ignored){

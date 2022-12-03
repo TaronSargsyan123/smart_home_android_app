@@ -167,7 +167,7 @@ public class CROneMainWidget extends DefaultMainWidget implements Serializable {
     public String getInfoString(){
         info = new String[]{getType(), getIdString(), getName(), getHost()};
         String teb = "@";
-        String temp = info[0] + teb + info[1] + teb + info[2] + teb + info[3];
+        String temp = "CROne" + teb + info[1] + teb + info[2] + teb + info[3];
         return temp;
     }
 

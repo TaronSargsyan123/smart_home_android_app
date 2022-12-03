@@ -11,28 +11,14 @@
     android:background="@color/background">
 
 
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+    <Spinner
+        android:id="@+id/spinner1"
+        android:backgroundTint="@color/orange"
+        android:layout_margin="32dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="32dp"
-
-        app:boxBackgroundColor="@color/orange"
-
-        >
-
-        <AutoCompleteTextView
-            android:id="@+id/autoCompleteTextView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:inputType="none"
-            android:textColor="@color/white"
-
-            android:text="@string/deviceTypeROneVOne"
-            />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
+        android:background="@android:drawable/btn_dropdown"
+        android:spinnerMode="dropdown"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/filledTextField"
@@ -57,7 +43,8 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/hostEditText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textColorHint="#FFAB40" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
