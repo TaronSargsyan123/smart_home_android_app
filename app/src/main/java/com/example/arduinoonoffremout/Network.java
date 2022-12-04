@@ -1,6 +1,7 @@
 package com.example.arduinoonoffremout;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -33,6 +34,8 @@ public class Network extends Thread {
     private void doInBackground() {
 
         try {
+            Log.i("HOST FROM RELAY", host);
+            Log.i("PORT FROM RELAY", String.valueOf(port));
             s = new Socket(host, port);
 
             DataOutputStream dout = new DataOutputStream(s.getOutputStream());

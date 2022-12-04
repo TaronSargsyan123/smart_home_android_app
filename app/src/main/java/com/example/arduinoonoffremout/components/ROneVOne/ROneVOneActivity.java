@@ -39,6 +39,7 @@ public class ROneVOneActivity extends AppCompatActivity {
         nameTextView = (TextView) findViewById(R.id.relayNameTextViewFromSelfActivity);
         timer = findViewById(R.id.timerROneVOne);
         loopTimer = findViewById(R.id.loopTimerROneVOne);
+
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
             if(extras == null) {
@@ -153,6 +154,9 @@ public class ROneVOneActivity extends AppCompatActivity {
 
             @Override
             public void run() {
+                network = new Network(host, 5045);
+
+
                 try  {
                     if (flag) {
                         network.sendMessage("1");

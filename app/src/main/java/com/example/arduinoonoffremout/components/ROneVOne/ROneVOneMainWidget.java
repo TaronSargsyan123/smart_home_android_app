@@ -130,6 +130,7 @@ public class ROneVOneMainWidget extends DefaultMainWidget implements  Serializab
 
             @Override
             public void run() {
+                network = new Network(host, 5045);
                 try  {
                     if (flag) {
                         network.sendMessage("1");
