@@ -65,6 +65,13 @@ public class CROneActivity extends AppCompatActivity {
         ColorPicker picker = (ColorPicker) findViewById(R.id.picker);
         picker.setShowOldCenterColor(false);
 
+        picker.setOnColorChangedListener(new ColorPicker.OnColorChangedListener() {
+            @Override
+            public void onColorChanged(int color) {
+                sendColor(color);
+            }
+        });
+
         button = (TextView) findViewById(R.id.CROneMainButton);
 
         button.setOnClickListener(new View.OnClickListener() {
@@ -168,6 +175,25 @@ public class CROneActivity extends AppCompatActivity {
         });
 
         threadOn.start();
+    }
+
+    private void sendColor(int color){
+        Thread threadOn = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                try  {
+
+                    network.sendMessage("color:" + String.valueOf(color));
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        threadOn.start();
+
     }
 
     public void setName(String name){
