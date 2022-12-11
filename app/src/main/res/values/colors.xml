@@ -12,7 +12,17 @@
     <color name="light_blue_600">#FF039BE5</color>
     <color name="gray_400">#FFBDBDBD</color>
     <color name="gray_600">#FF757575</color>
-    <color name="background">#2e3348</color>
-    <color name="background_second_color">#444a5e</color>
-    <color name="text_color_light">#c4c8e2</color>
+    <color name="background_dark">#2e3348</color>
+    <color name="background_light">#f8f8f8</color>
+    <color name="background_second_color_dark">#444a5e</color>
+    <color name="background_second_color_light">#f8f9fb</color>
+    <color name="primary_color_dark">#f39c63</color>
+    <color name="primary_color_light">#ffffff</color>
+    <color name="relay_color_dark">#f39c63</color>
+    <color name="relay_color_light">#ffb5a8</color>
+    <color name="crone_color_dark">#f39c63</color>
+    <color name="crone_color_light">#d1c3ff</color>
+    <color name="text_color_dark">#ffffff</color>
+    <color name="text_color_light">#8a8a8e</color>
+
 </resources>

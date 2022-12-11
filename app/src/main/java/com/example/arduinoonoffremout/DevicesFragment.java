@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -79,6 +80,7 @@ public class DevicesFragment extends Fragment {
 
             }
         });
+
 
         clearListButton.setOnClickListener(new View.OnClickListener() {
             @Override

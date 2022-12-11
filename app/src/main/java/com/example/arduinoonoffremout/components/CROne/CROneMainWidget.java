@@ -23,7 +23,7 @@ import java.io.Serializable;
 
 public class CROneMainWidget extends DefaultMainWidget implements Serializable {
 
-    Button mainButton;
+    TextView mainButton;
     private Network network;
     private Boolean buttonStage;
     private LinearLayout background;
@@ -73,7 +73,7 @@ public class CROneMainWidget extends DefaultMainWidget implements Serializable {
         textView = (TextView) findViewById(R.id.CROneStageTextViewMAinWidget);
         background = (LinearLayout) findViewById(R.id.CROneBackgroundMainWidget);
         nameTextView = (TextView) findViewById(R.id.CROneNameTextViewMainWidget);
-        mainButton = (Button) findViewById(R.id.CROneMainButtonMainWidget);
+        mainButton = (TextView) findViewById(R.id.CROneMainButtonMainWidget);
 
         network = new Network(host, 5045);
         buttonStage = false;

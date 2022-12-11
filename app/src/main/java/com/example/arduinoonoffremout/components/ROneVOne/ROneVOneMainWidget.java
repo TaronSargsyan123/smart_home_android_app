@@ -22,7 +22,7 @@ import java.io.Serializable;
 
 
 public class ROneVOneMainWidget extends DefaultMainWidget implements  Serializable {
-    Button mainButton;
+    TextView mainButton;
     private Network network;
     private Boolean buttonStage;
     private LinearLayout background;
@@ -85,7 +85,7 @@ public class ROneVOneMainWidget extends DefaultMainWidget implements  Serializab
         textView = (TextView) findViewById(R.id.ROneVOneStageTextViewMAinWidget);
         background = (LinearLayout) findViewById(R.id.ROneVOneRelayBackgroundMainWidget);
         nameTextView = (TextView) findViewById(R.id.ROneVOneNameTextViewMainWidget);
-        mainButton = (Button) findViewById(R.id.ROneVOneMainButtonMainWidget);
+        mainButton = (TextView) findViewById(R.id.ROneVOneMainButtonMainWidget);
 
         network = new Network(host, 5045);
         buttonStage = false;

@@ -8,14 +8,16 @@
     android:layout_height="match_parent"
     tools:context=".CreateDeviceActivity"
     android:gravity="center_horizontal"
-    android:background="@color/background">
+    android:background="?attr/colorOnPrimary">
 
 
     <Spinner
         android:id="@+id/spinner1"
-        android:backgroundTint="@color/orange"
+        android:backgroundTint="?attr/colorPrimary"
         android:layout_margin="32dp"
+
         android:layout_width="match_parent"
+        android:elevation="2dp"
         android:layout_height="wrap_content"
         android:background="@android:drawable/btn_dropdown"
         android:spinnerMode="dropdown"/>
@@ -31,9 +33,11 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="32dp"
         android:hint="@string/host"
-        android:textColorHint="@color/orange"
-        app:boxBackgroundColor="@color/background_second_color"
-        app:boxStrokeColor="@color/orange"
+        android:textColorHint="?attr/colorOnTertiary"
+        app:hintTextColor="?attr/colorOnTertiary"
+        android:elevation="2dp"
+        app:boxBackgroundColor="?attr/colorPrimary"
+        app:boxStrokeColor="?attr/colorPrimary"
         app:boxCornerRadiusBottomEnd="10dp"
         app:boxCornerRadiusTopStart="10dp"
         app:boxCornerRadiusBottomStart="10dp"
@@ -44,7 +48,7 @@
             android:id="@+id/hostEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColorHint="#FFAB40" />
+            android:textColorHint="?attr/colorPrimary" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -60,10 +64,11 @@
         android:layout_marginEnd="32dp"
         android:hint="@string/deviceName"
         android:layout_weight="50"
-        android:textColorHint="@color/orange"
-        app:boxBackgroundColor="@color/background_second_color"
-        app:boxStrokeColor="@color/orange"
-
+        app:hintTextColor="?attr/colorOnTertiary"
+        android:textColorHint="?attr/colorOnTertiary"
+        app:boxBackgroundColor="?attr/colorPrimary"
+        app:boxStrokeColor="?attr/colorPrimary"
+        android:elevation="2dp"
         app:boxCornerRadiusBottomEnd="10dp"
         app:boxCornerRadiusTopStart="10dp"
         app:boxCornerRadiusBottomStart="10dp"
@@ -89,7 +94,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
         android:layout_weight="1"
-        android:textColor="@color/white"
+        android:textColor="?attr/colorOnTertiary"
         android:layout_marginBottom="10dp"
         android:text="@string/addDevice" />
 
@@ -101,7 +106,7 @@
         android:textSize="15sp"
         android:gravity="center_horizontal"
         android:layout_marginBottom="30dp"
-        android:textColor="@color/text_color_light"/>
+        android:textColor="?attr/colorOnTertiary"/>
 
 
 

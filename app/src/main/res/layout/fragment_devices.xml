@@ -9,7 +9,7 @@
         android:id="@+id/devicesFragmentLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/background"
+        android:background="?attr/colorOnPrimary"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -23,13 +23,16 @@
     </LinearLayout>
 
     <TextView
+        android:textColor="?attr/colorOnTertiary"
         android:id="@+id/clearAllDevicesFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:background="@color/orange"
+
+        android:background="@drawable/shape_clear_list_button"
         android:gravity="center"
         android:minHeight="32dp"
+        android:elevation="2dp"
         android:text="@string/clear_device_list"
 
         app:layout_constraintEnd_toEndOf="parent"

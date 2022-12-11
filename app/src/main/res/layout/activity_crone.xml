@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
+    android:background="?attr/colorOnPrimary"
     tools:context=".components.CROne.CROneActivity">
 
 
@@ -47,7 +47,7 @@
         android:src="@drawable/ic_baseline_settings_24"
         app:layout_anchor="@id/bar"
         tools:ignore="SpeakableTextPresentCheck"
-        android:backgroundTint="@color/orange"
+        android:backgroundTint="?attr/colorPrimary"
         />
 
     <com.google.android.material.bottomappbar.BottomAppBar
@@ -55,7 +55,7 @@
         android:layout_width="match_parent"
         android:layout_height="58dp"
         android:layout_gravity="bottom"
-        android:backgroundTint="@color/orange">
+        android:backgroundTint="?attr/colorPrimary">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -72,7 +72,7 @@
                 android:gravity="center"
                 android:orientation="vertical"
                 android:text="@string/back"
-                android:textColor="#FFFFFF"
+                android:textColor="?attr/colorOnTertiary"
                 app:drawableTopCompat="@drawable/ic_baseline_arrow_back_ios_new_24">
 
             </TextView>
@@ -87,7 +87,7 @@
                 android:gravity="center"
                 android:orientation="vertical"
                 android:text="@string/timer"
-                android:textColor="#FFFFFF"
+                android:textColor="?attr/colorOnTertiary"
                 app:drawableTopCompat="@drawable/ic_baseline_timer_24">
 
             </TextView>
@@ -116,7 +116,7 @@
                 android:gravity="center"
                 android:orientation="vertical"
                 android:text="@string/loop"
-                android:textColor="#FFFFFF"
+                android:textColor="?attr/colorOnTertiary"
                 app:drawableTopCompat="@drawable/ic_baseline_loop_24">
 
             </TextView>
@@ -130,7 +130,7 @@
                 android:gravity="center"
                 android:orientation="vertical"
                 android:text="@string/defaultStr"
-                android:textColor="#FFFFFF"
+                android:textColor="?attr/colorOnTertiary"
                 app:drawableTopCompat="@drawable/ic_baseline_loop_24">
 
             </TextView>

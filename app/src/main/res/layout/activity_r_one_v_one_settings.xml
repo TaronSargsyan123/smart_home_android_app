@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
+    android:background="?attr/colorOnPrimary"
     tools:context=".components.ROneVOne.ROneVOneSettings">
 
   <com.google.android.material.textfield.TextInputLayout
@@ -21,13 +21,14 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:hint="@string/host"
-      android:textColorHint="@color/orange"
-      app:boxBackgroundColor="@color/background_second_color"
+      app:hintTextColor="?attr/colorOnTertiary"
+      android:textColorHint="?attr/colorOnTertiary"
+      app:boxBackgroundColor="?attr/colorPrimary"
       app:boxCornerRadiusBottomEnd="10dp"
       app:boxCornerRadiusBottomStart="10dp"
       app:boxCornerRadiusTopEnd="10dp"
       app:boxCornerRadiusTopStart="10dp"
-      app:boxStrokeColor="@color/orange"
+      app:boxStrokeColor="?attr/colorPrimary"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent">
@@ -54,13 +55,14 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:hint="@string/host"
-      android:textColorHint="@color/orange"
-      app:boxBackgroundColor="@color/background_second_color"
+      app:hintTextColor="?attr/colorOnTertiary"
+      android:textColorHint="?attr/colorOnTertiary"
+      app:boxBackgroundColor="?attr/colorPrimary"
       app:boxCornerRadiusBottomEnd="10dp"
       app:boxCornerRadiusBottomStart="10dp"
       app:boxCornerRadiusTopEnd="10dp"
       app:boxCornerRadiusTopStart="10dp"
-      app:boxStrokeColor="@color/orange"
+      app:boxStrokeColor="?attr/colorPrimary"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/changeNameOnOffRelayEditText">
@@ -68,7 +70,8 @@
     <com.google.android.material.textfield.TextInputEditText
 
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        />
 
   </com.google.android.material.textfield.TextInputLayout>
 
@@ -106,7 +109,7 @@
       android:layout_height="wrap_content"
       android:background="@drawable/shape_background_button_on_off"
       android:text="@string/save_changes"
-      android:textColor="@color/white"
+      android:textColor="?attr/colorOnTertiary"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent" />
