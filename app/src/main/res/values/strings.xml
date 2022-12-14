@@ -24,6 +24,9 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="clear_device_list">Clear Device List</string>
+    <string name="how_to_use">How to use ReVive Smart Home App</string>
+    <string name="cloud">Start cloud version</string>
+    <string name="local">Start local version</string>
 
     <string-array name="devices">
         <item>ROneVOne</item>
