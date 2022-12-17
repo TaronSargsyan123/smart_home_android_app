@@ -12,6 +12,7 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.RequiresApi;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import android.os.VibrationEffect;
@@ -23,6 +24,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,6 +47,7 @@ public class DevicesFragment extends Fragment {
     private ArrayList<DefaultMainWidget> widgetsArray;
     private MainWidgetsSerializer mainWidgetsSerializer;
     private TextView clearListButton;
+    private ImageView imageView;
     private final String FILE_NAME ="example.txt";// getString(R.string.save_file_name);;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -56,11 +59,9 @@ public class DevicesFragment extends Fragment {
         addDevice = (FloatingActionButton) getActivity().findViewById(R.id.addDeviceMain);
         layout  = (LinearLayout) view.findViewById(R.id.devicesFragmentLayout);
         clearListButton = view.findViewById(R.id.clearAllDevicesFragment);
-        deviceID = 25;
         widgetsArray = new ArrayList<>();
         mainWidgetsSerializer = new MainWidgetsSerializer();
-
-
+        imageView = view.findViewById(R.id.noDevicesImageViewFragmentDevices);
         //clearWidgetsList();
 
         //generateWidgetsForTesting();
@@ -70,6 +71,8 @@ public class DevicesFragment extends Fragment {
         //addROneVOne("Kitchen", "192.168.1.12", "ROneVOne", String.valueOf(deviceID));
 
         drawDevicesFromFile(FILE_NAME);
+
+        drawImage();
 
 
         addDevice.setOnClickListener(new View.OnClickListener() {
@@ -95,6 +98,8 @@ public class DevicesFragment extends Fragment {
                 }
                 clearWidgetsList();
                 drawDevicesFromFile(FILE_NAME);
+
+                drawImage();
             }
         });
 
@@ -110,6 +115,7 @@ public class DevicesFragment extends Fragment {
                 @RequiresApi(api = Build.VERSION_CODES.M)
                 @Override
                 public void onActivityResult(ActivityResult result) {
+
 
 
                     if(result.getResultCode() == Activity.RESULT_OK){
@@ -130,6 +136,7 @@ public class DevicesFragment extends Fragment {
                             toastPrint("Fail");
                         }
                     }
+                    drawImage();
                 }
             });
 
@@ -230,6 +237,21 @@ public class DevicesFragment extends Fragment {
 
     private void clearWidgetsList(){
         mainWidgetsSerializer.clearWidgetsArray(widgetsArray, FILE_NAME, this.requireContext());
+    }
+
+    private void drawImage(){
+        try {
+            if(widgetsArray.isEmpty()){
+                clearListButton.setVisibility(View.INVISIBLE);
+                imageView.setVisibility(View.VISIBLE);
+            }else {
+                clearListButton.setVisibility(View.VISIBLE);
+                ((ViewGroup) imageView.getParent()).removeView(imageView);
+
+            }
+        }catch (Exception ignore){
+        }
+
     }
 
 

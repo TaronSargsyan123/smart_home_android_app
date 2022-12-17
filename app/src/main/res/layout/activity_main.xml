@@ -8,8 +8,9 @@
 
 
     <TextView
+        android:alpha="0.5"
 
-        android:id="@+id/textView2"
+        android:id="@+id/startAppCloudVersion"
         android:background="@drawable/shape_local_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -39,7 +40,7 @@
         android:minHeight="50dp"
         android:text="@string/local"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintBottom_toTopOf="@+id/startAppCloudVersion"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
