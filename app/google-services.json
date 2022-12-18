@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1060982971480",
+    "project_id": "revive-smart-home-692c2",
+    "storage_bucket": "revive-smart-home-692c2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1060982971480:android:025e703239b18ed0db7e2d",
+        "android_client_info": {
+          "package_name": "com.example.arduinoonoffremout"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1060982971480-aamsaa4v190hak4fa9t9bo2np5mvevtf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAUWlHbiETZjEFrjyvg124_GomK8wx9HMU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1060982971480-aamsaa4v190hak4fa9t9bo2np5mvevtf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

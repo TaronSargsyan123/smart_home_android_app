@@ -1,5 +1,6 @@
 package com.example.arduinoonoffremout;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -13,6 +14,12 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+
+import com.example.arduinoonoffremout.firebase.LoginActivity;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -53,21 +60,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void startCloudVersion(){
-        final Handler handler = new Handler();
-        Runnable runnable = new Runnable() {
-            public void run() {
-                startCloudVersion.setAlpha(0.5F);
-                startCloudVersion.setText(getString(R.string.cloud));
-
-                handler.postDelayed(this, 5000);
-            }
-        };
-        runnable.run();
-
-
-
-        startCloudVersion.setAlpha(1);
-        startCloudVersion.setText(getString(R.string.coming_soon));
+        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+        startActivity(intent);
     }
 
 }
