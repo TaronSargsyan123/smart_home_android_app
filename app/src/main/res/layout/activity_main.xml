@@ -10,7 +10,7 @@
     <TextView
         android:alpha="0.5"
 
-        android:id="@+id/startAppCloudVersion"
+        android:id="@+id/startRegisterActivityFromMainActivity"
         android:background="@drawable/shape_local_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,7 +19,7 @@
         android:layout_marginBottom="50dp"
         android:minHeight="50dp"
         android:textSize="16sp"
-        android:text="@string/cloud"
+        android:text="@string/register"
         android:gravity="center"
         android:elevation="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -28,7 +28,7 @@
 
     <TextView
 
-        android:id="@+id/startAppLocalVersion"
+        android:id="@+id/startLoginActivityFromMainActivity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
@@ -38,9 +38,9 @@
         android:elevation="2dp"
         android:gravity="center"
         android:minHeight="50dp"
-        android:text="@string/local"
+        android:text="@string/login"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/startAppCloudVersion"
+        app:layout_constraintBottom_toTopOf="@+id/startRegisterActivityFromMainActivity"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -63,7 +63,7 @@
         android:textSize="20sp"
         android:layout_height="wrap_content"
         android:text="@string/how_to_use"
-        app:layout_constraintBottom_toTopOf="@+id/startAppLocalVersion"
+        app:layout_constraintBottom_toTopOf="@+id/startLoginActivityFromMainActivity"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageViewStartActivity" />

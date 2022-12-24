@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
@@ -12,6 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.arduinoonoffremout.R;
+import com.example.arduinoonoffremout.StartActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
@@ -27,7 +29,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button loginButton;
     private String email;
     private String password;
-
+    private TextView back;
     private FirebaseAuth mAuth;
 
     @Override
@@ -39,7 +41,7 @@ public class LoginActivity extends AppCompatActivity {
         passwordEditText = findViewById(R.id.loginPasswordEditText);
         createAccountTextView = findViewById(R.id.loginCreateAccountTextView);
         loginButton = findViewById(R.id.loginLoginButton);
-
+        back = findViewById(R.id.loginBack);
         mAuth = FirebaseAuth.getInstance();
 
         createAccountTextView.setOnClickListener(new View.OnClickListener() {
@@ -56,9 +58,19 @@ public class LoginActivity extends AppCompatActivity {
                 login();
             }
         });
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
     private void login() {
+        SharedPreferences sharedPreferences = getSharedPreferences("Authorisation",MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
         email = Objects.requireNonNull(emailEditText.getEditText()).getText().toString();
         password = Objects.requireNonNull(passwordEditText.getEditText()).getText().toString();
         if (email.isEmpty() || password.isEmpty()){
@@ -68,6 +80,14 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()){
+
+                        editor.putString("email", email);
+                        editor.putString("password", password);
+                        editor.commit();
+
+                        Intent intent = new Intent(LoginActivity.this, StartActivity.class);
+                        startActivity(intent);
+
                         Log.i("LOGIN", "Success");
                     }else {
                         //TODO complete Listener

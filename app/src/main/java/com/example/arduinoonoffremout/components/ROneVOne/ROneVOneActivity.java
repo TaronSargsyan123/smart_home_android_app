@@ -3,6 +3,7 @@ package com.example.arduinoonoffremout.components.ROneVOne;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import android.util.Log;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import com.example.arduinoonoffremout.Network;
 import com.example.arduinoonoffremout.R;
 import com.example.arduinoonoffremout.components.CROne.CROneActivity;
+import com.example.arduinoonoffremout.firebase.DevicesDefaultLogic;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class ROneVOneActivity extends AppCompatActivity {
@@ -28,6 +30,7 @@ public class ROneVOneActivity extends AppCompatActivity {
     private TextView loopTimer;
     private String info;
     private Network network;
+    private DevicesDefaultLogic defaultLogic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +42,7 @@ public class ROneVOneActivity extends AppCompatActivity {
         nameTextView = (TextView) findViewById(R.id.relayNameTextViewFromSelfActivity);
         timer = findViewById(R.id.timerROneVOne);
         loopTimer = findViewById(R.id.loopTimerROneVOne);
-
+        defaultLogic = new DevicesDefaultLogic();
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
             if(extras == null) {
@@ -158,11 +161,13 @@ public class ROneVOneActivity extends AppCompatActivity {
 
 
                 try  {
+                    SharedPreferences sharedPreferences = getSharedPreferences("Authorisation", MODE_PRIVATE);
+                    String email = sharedPreferences.getString("email", "");
                     if (flag) {
-                        network.sendMessage("1");
+                        defaultLogic.insertData(0, email, name, "ROneVOne");
                     }
                     else {
-                        network.sendMessage("11");
+                        defaultLogic.insertData(1, email, name, "ROneVOne");
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

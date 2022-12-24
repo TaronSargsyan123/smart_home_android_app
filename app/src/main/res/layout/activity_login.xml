@@ -103,4 +103,17 @@
         app:layout_constraintEnd_toEndOf="@+id/loginPasswordEditText"
         app:layout_constraintTop_toBottomOf="@+id/loginPasswordEditText" />
 
+    <TextView
+        android:id="@+id/loginBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/backToStartMenu"
+        android:textSize="15sp"
+        android:gravity="center_horizontal"
+        android:textColor="?attr/colorOnTertiary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginLoginButton" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

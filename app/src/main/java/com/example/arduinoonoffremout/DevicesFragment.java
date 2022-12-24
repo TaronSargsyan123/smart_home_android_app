@@ -48,7 +48,7 @@ public class DevicesFragment extends Fragment {
     private MainWidgetsSerializer mainWidgetsSerializer;
     private TextView clearListButton;
     private ImageView imageView;
-    private final String FILE_NAME ="example.txt";// getString(R.string.save_file_name);;
+    private final String FILE_NAME ="localData.txt";// getString(R.string.save_file_name);;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override

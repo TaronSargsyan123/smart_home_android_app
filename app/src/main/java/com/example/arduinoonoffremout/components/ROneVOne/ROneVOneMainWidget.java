@@ -1,7 +1,10 @@
 package com.example.arduinoonoffremout.components.ROneVOne;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -17,6 +20,7 @@ import androidx.annotation.RequiresApi;
 import com.example.arduinoonoffremout.DefaultMainWidget;
 import com.example.arduinoonoffremout.Network;
 import com.example.arduinoonoffremout.R;
+import com.example.arduinoonoffremout.firebase.DevicesDefaultLogic;
 
 import java.io.Serializable;
 
@@ -32,6 +36,7 @@ public class ROneVOneMainWidget extends DefaultMainWidget implements  Serializab
     private TextView nameTextView;
     private String stage;
     private String[] info;
+    private DevicesDefaultLogic defaultLogic;
 
 
 
@@ -88,6 +93,7 @@ public class ROneVOneMainWidget extends DefaultMainWidget implements  Serializab
         mainButton = (TextView) findViewById(R.id.ROneVOneMainButtonMainWidget);
 
         network = new Network(host, 5045);
+        defaultLogic = new DevicesDefaultLogic();
         buttonStage = false;
 
         setName(name);
@@ -132,11 +138,15 @@ public class ROneVOneMainWidget extends DefaultMainWidget implements  Serializab
             public void run() {
                 network = new Network(host, 5045);
                 try  {
+                    SharedPreferences sharedPreferences = getContext().getSharedPreferences("Authorisation", MODE_PRIVATE);
+                    String email = sharedPreferences.getString("email", "");
+
                     if (flag) {
-                        network.sendMessage("1");
+
+                        defaultLogic.insertData(1, email, getName(), getType());
                     }
                     else {
-                        network.sendMessage("11");
+                        defaultLogic.insertData(0, email, getName(), getType());
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

@@ -3,6 +3,7 @@ package com.example.arduinoonoffremout.firebase;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.arduinoonoffremout.R;
+import com.example.arduinoonoffremout.StartActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
@@ -26,7 +28,7 @@ public class RegisterActivity extends AppCompatActivity {
     private TextInputLayout passwordEditText;
     private TextInputLayout confirmPasswordEditText;
     private Button registerButton;
-
+    private TextView back;
     private String email;
     private String password;
     private String confirmPassword;
@@ -42,12 +44,20 @@ public class RegisterActivity extends AppCompatActivity {
         passwordEditText = findViewById(R.id.registerPasswordEditText);
         confirmPasswordEditText = findViewById(R.id.registerConfirmPasswordEditText);
         registerButton = findViewById(R.id.registerRegisterButton);
+        back = findViewById(R.id.registerBack);
         mAuth = FirebaseAuth.getInstance();
 
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 register();
+            }
+        });
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
             }
         });
     }
@@ -67,6 +77,8 @@ public class RegisterActivity extends AppCompatActivity {
                             if (task.isSuccessful()) {
                                 Log.d("REGISTER", "createUserWithEmail:success");
                                 FirebaseUser user = mAuth.getCurrentUser();
+                                Intent intent = new Intent(getApplicationContext(), StartActivity.class);
+                                startActivity(intent);
                             } else {
                                 Log.w("REGISTER", "createUserWithEmail:failure", task.getException());
                             }

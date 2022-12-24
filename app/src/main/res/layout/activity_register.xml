@@ -108,23 +108,33 @@
     </com.google.android.material.textfield.TextInputLayout>
 
 
-
-
-
     <Button
 
         android:id="@+id/registerRegisterButton"
-        android:layout_margin="32dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
+
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
         android:background="@drawable/shape_background_button_on_off"
         android:text="@string/register"
         android:textColor="?attr/colorOnTertiary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/registerBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/backToStartMenu"
+        android:textSize="15sp"
+        android:gravity="center_horizontal"
+        android:textColor="?attr/colorOnTertiary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/registerRegisterButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
