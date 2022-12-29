@@ -7,11 +7,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.Objects;
 
 public class DevicesDefaultLogic {
-    public void insertData(int stage, String email, String deviceName, String deviceType) {
-        final FirebaseDatabase database = FirebaseDatabase.getInstance("https://revive-smart-home-692c2-default-rtdb.europe-west1.firebasedatabase.app");
-        DatabaseReference ref = database.getReference("");
+    final FirebaseDatabase database = FirebaseDatabase.getInstance("https://revive-smart-home-692c2-default-rtdb.europe-west1.firebasedatabase.app");
+    DatabaseReference usersRef = database.getReference("users");
 
-        DatabaseReference usersRef = database.getReference("users");
+    public void insertData(int stage, String email, String deviceName, String deviceType) {
+
         if (!Objects.equals(email, "")) {
             DefaultDatabaseInstance instance = new DefaultDatabaseInstance(email, deviceName, deviceType, stage);
             String[] arrOfStr = email.split("@");
@@ -19,5 +19,9 @@ public class DevicesDefaultLogic {
             usersRef.child(userName).child(deviceName).setValue(instance);
 
         }
+    }
+
+    public void deleteDevice(String userName, String deviceName){
+        usersRef.child(userName).child(deviceName).removeValue();
     }
 }

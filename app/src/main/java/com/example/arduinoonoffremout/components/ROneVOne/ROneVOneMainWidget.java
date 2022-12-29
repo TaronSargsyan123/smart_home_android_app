@@ -37,7 +37,7 @@ public class ROneVOneMainWidget extends DefaultMainWidget implements  Serializab
     private String stage;
     private String[] info;
     private DevicesDefaultLogic defaultLogic;
-
+    private LinearLayout parentLayout;
 
 
 
@@ -111,6 +111,16 @@ public class ROneVOneMainWidget extends DefaultMainWidget implements  Serializab
                 openRelayActivity();
             }
         });
+
+//        background.setOnLongClickListener(new View.OnLongClickListener(){
+//            @Override
+//            public boolean onLongClick(View view) {
+//                Log.i("LONGCLICK", "LONGCLICK");
+//                deleteFromFirebase();
+//                deleteUi();
+//                return false;
+//            }
+//        });
 
         mainButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -192,6 +202,23 @@ public class ROneVOneMainWidget extends DefaultMainWidget implements  Serializab
         String teb = "@";
         String temp = "ROneVOne" + teb + info[1] + teb + info[2] + teb + info[3];
         return temp;
+    }
+
+    private void setParentList(LinearLayout layout){
+        parentLayout = layout;
+    }
+
+    private void deleteUi(){
+        parentLayout.removeView(this);
+    }
+
+    private void deleteFromFirebase(){
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("Authorisation", MODE_PRIVATE);
+        String email = sharedPreferences.getString("email", "");
+
+        String []splitString = email.split("@");
+        String name = splitString[0];
+        defaultLogic.deleteDevice(name, getName());
     }
 
 

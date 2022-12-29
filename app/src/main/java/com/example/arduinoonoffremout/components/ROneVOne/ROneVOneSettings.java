@@ -8,8 +8,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.arduinoonoffremout.DevicesFragment;
 import com.example.arduinoonoffremout.MainActivity;
 import com.example.arduinoonoffremout.R;
+import com.example.arduinoonoffremout.StartActivity;
 
 public class ROneVOneSettings extends AppCompatActivity {
     private Button saveChangesButton;
@@ -51,14 +53,16 @@ public class ROneVOneSettings extends AppCompatActivity {
         deleteDeviceButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.i("Info from Settings", info);
-                //Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                //startActivity(intent);
-                //Intent data = new Intent();
-                //data.putExtra(DevicesFragment.ACCESS_MESSAGE, message);
-                //setResult(RESULT_OK, data);
-                //finish();
+                String []temp = info.split("#$%");
+                String name = temp[0];
+                Log.i("INFO_FROM_SETTINGS", info);
+                Intent intent = new Intent(getApplicationContext(), StartActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                Intent data = new Intent();
+                data.putExtra("DELETE_DEVICE", name);
+                setResult(RESULT_OK, data);
+                finish();
             }
         });
     }

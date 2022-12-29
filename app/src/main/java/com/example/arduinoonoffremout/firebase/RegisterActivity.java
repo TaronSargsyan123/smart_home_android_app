@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -63,6 +64,8 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void register(){
+        SharedPreferences sharedPreferences = getSharedPreferences("Authorisation",MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
         email = String.valueOf(Objects.requireNonNull(emailEditText.getEditText()).getText());
         password = String.valueOf(Objects.requireNonNull(passwordEditText.getEditText()).getText());
         confirmPassword = String.valueOf(Objects.requireNonNull(confirmPasswordEditText.getEditText()).getText());
@@ -75,6 +78,9 @@ public class RegisterActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
+                                editor.putString("email", email);
+                                editor.putString("password", password);
+                                editor.commit();
                                 Log.d("REGISTER", "createUserWithEmail:success");
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 Intent intent = new Intent(getApplicationContext(), StartActivity.class);

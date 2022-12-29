@@ -5,22 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentContainerView;
 
-import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
-import java.util.ArrayList;
 
 public class StartActivity extends AppCompatActivity {
     FragmentContainerView fragmentContainerView;
@@ -40,7 +29,7 @@ public class StartActivity extends AppCompatActivity {
         setContentView(R.layout.activity_start);
 
         TextView widgetsFragmentButton = (TextView) findViewById(R.id.devicesFragmentButtonOnStartActivity);
-        TextView homeFragmentButton = (TextView) findViewById(R.id.homeFragmentButtonOnStartActivity);
+        TextView homeFragmentButton = (TextView) findViewById(R.id.profileFragmentButtonOnStartActivity);
 
 
         widgetsFragmentButton.setOnClickListener(new View.OnClickListener() {
@@ -52,7 +41,7 @@ public class StartActivity extends AppCompatActivity {
         homeFragmentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setFragmentHome();
+                setFragmentProfile();
             }
         });
         setFragmentDevices();
@@ -72,13 +61,13 @@ public class StartActivity extends AppCompatActivity {
     }
 
 
-    private void setFragmentHome(){
+    private void setFragmentProfile(){
         clearFragmentContainer(DEVICES_TAG);
         clearFragmentContainer(HOME_TAG);
 
         getSupportFragmentManager().beginTransaction()
                 .setReorderingAllowed(true)
-                .add(R.id.mainActivityFragmentContainer, HomeFragment.class, null, HOME_TAG)
+                .add(R.id.mainActivityFragmentContainer, ProfileFragment.class, null, HOME_TAG)
                 .commit();
 
     }
