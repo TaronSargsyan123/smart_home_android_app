@@ -29,15 +29,15 @@ public class MainActivity extends AppCompatActivity {
         TextView startLogin = findViewById(R.id.startLoginActivityFromMainActivity);
         startRegister = findViewById(R.id.startRegisterActivityFromMainActivity);
 
-//        SharedPreferences sharedPreferences = getSharedPreferences("Authorisation",MODE_PRIVATE);
-//        String email = sharedPreferences.getString("email", null);
-//        String password = sharedPreferences.getString("password", null);
-//
-//        if (email != null && password != null){
-//            Log.i("AAAAAA", email);
-//            Log.i("AAAAAA", password);
-//            startStartActivity();
-//        }
+        SharedPreferences sharedPreferences = getSharedPreferences("Authorisation",MODE_PRIVATE);
+        String email = sharedPreferences.getString("email", null);
+        String password = sharedPreferences.getString("password", null);
+
+        if (email != null && password != null){
+            Log.i("AAAAAA", email);
+            Log.i("AAAAAA", password);
+            startStartActivity();
+        }
 
         startLogin.setOnClickListener(new View.OnClickListener() {
             @Override

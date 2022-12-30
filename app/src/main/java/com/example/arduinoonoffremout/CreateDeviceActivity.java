@@ -1,52 +1,36 @@
 package com.example.arduinoonoffremout;
 
-import static android.widget.Toast.LENGTH_LONG;
-
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
-import android.app.Activity;
-import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.ParcelUuid;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.example.arduinoonoffremout.bluetooth.BluetoothDefaultLogic;
+import com.google.android.material.color.MaterialColors;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Objects;
 
 public class CreateDeviceActivity extends AppCompatActivity  {
-    //static final String ACCESS_MESSAGE="ACCESS_MESSAGE";
     private ListView listView;
     private EditText nameEditText;
     private EditText ssidEditText;
@@ -54,12 +38,19 @@ public class CreateDeviceActivity extends AppCompatActivity  {
     private BluetoothDefaultLogic bluetoothDefaultLogic;
     private BluetoothDevice device;
     private ArrayList<BluetoothDevice> bluetoothDevices;
+    private View lastTouchedView;
+    private int green;
+    private int backgroundColor;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_device);
+
+        backgroundColor = MaterialColors.getColor(getApplicationContext(), R.attr.colorOnPrimary, Color.WHITE);
+        green = Color.parseColor("green");
+
 
         Spinner dropdown = findViewById(R.id.spinner1);
 
@@ -129,7 +120,12 @@ public class CreateDeviceActivity extends AppCompatActivity  {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
                     device = bluetoothDevices.get(i);
+                    if (lastTouchedView  != null) {
+                        lastTouchedView.setBackgroundColor(backgroundColor);
+                    }
+                    view.setBackground(getApplicationContext().getDrawable(R.drawable.shape_green_button));
                     Log.i("DEVICE", device.getAddress());
+                    lastTouchedView = view;
 
                 }
 
@@ -148,26 +144,22 @@ public class CreateDeviceActivity extends AppCompatActivity  {
     }
 
 
-
-
-
-
-
-
-
     private void drawList() {
         bluetoothDevices = bluetoothDefaultLogic.getBluetoothDevicesArray();
         bluetoothDefaultLogic.refresh();
         ArrayList<String> temp = new ArrayList<>();
         for (BluetoothDevice device : bluetoothDevices) {
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
-                temp.add(device.getName() + " " + device.getAddress());
+                if (Objects.equals(device.getName().toString().replace("\\s+",""), "") || device.getName() == null) {
+                    temp.add(device.getAddress());
+                } else {
+                    temp.add(device.getName());
+                }
             }
 
         }
 
-        ArrayAdapter<String> adapter = new ArrayAdapter(this,
-                android.R.layout.simple_list_item_1, temp);
+        ArrayAdapter<String> adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, temp);
 
 
         listView.setAdapter(adapter);
