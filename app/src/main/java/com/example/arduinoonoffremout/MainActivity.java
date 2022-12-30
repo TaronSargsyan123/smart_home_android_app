@@ -3,7 +3,9 @@ package com.example.arduinoonoffremout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -26,6 +28,16 @@ public class MainActivity extends AppCompatActivity {
 
         TextView startLogin = findViewById(R.id.startLoginActivityFromMainActivity);
         startRegister = findViewById(R.id.startRegisterActivityFromMainActivity);
+
+//        SharedPreferences sharedPreferences = getSharedPreferences("Authorisation",MODE_PRIVATE);
+//        String email = sharedPreferences.getString("email", null);
+//        String password = sharedPreferences.getString("password", null);
+//
+//        if (email != null && password != null){
+//            Log.i("AAAAAA", email);
+//            Log.i("AAAAAA", password);
+//            startStartActivity();
+//        }
 
         startLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,8 +63,11 @@ public class MainActivity extends AppCompatActivity {
     private void startRegisterActivity(){
         Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
         startActivity(intent);
+    }
 
-
+    private void startStartActivity(){
+        Intent intent = new Intent(getApplicationContext(), StartActivity.class);
+        startActivity(intent);
     }
 
 }

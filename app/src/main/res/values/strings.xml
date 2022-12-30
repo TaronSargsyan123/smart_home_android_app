@@ -37,6 +37,9 @@
     <string name="backToStartMenu">Back to start menu</string>
     <string name="profile">Profile</string>
     <string name="log_out">LOG OUT</string>
+    <string name="wifi_ssid">Enter WiFi SSID</string>
+    <string name="wifi_password">Enter WiFi Password</string>
+    <string name="bluetooth_devices_list">Bluetooth devices list</string>
 
     <string-array name="devices">
         <item>ROneVOne</item>
