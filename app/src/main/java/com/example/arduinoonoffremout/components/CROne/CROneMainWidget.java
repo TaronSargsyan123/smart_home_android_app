@@ -1,7 +1,10 @@
 package com.example.arduinoonoffremout.components.CROne;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -18,6 +21,7 @@ import com.example.arduinoonoffremout.DefaultMainWidget;
 import com.example.arduinoonoffremout.Network;
 import com.example.arduinoonoffremout.R;
 import com.example.arduinoonoffremout.components.ROneVOne.ROneVOneActivity;
+import com.example.arduinoonoffremout.firebase.DevicesDefaultLogic;
 
 import java.io.Serializable;
 
@@ -33,6 +37,7 @@ public class CROneMainWidget extends DefaultMainWidget implements Serializable {
     private TextView nameTextView;
     private String stage;
     private String[] info;
+    private DevicesDefaultLogic defaultLogic;
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -74,6 +79,7 @@ public class CROneMainWidget extends DefaultMainWidget implements Serializable {
         background = (LinearLayout) findViewById(R.id.CROneBackgroundMainWidget);
         nameTextView = (TextView) findViewById(R.id.CROneNameTextViewMainWidget);
         mainButton = (TextView) findViewById(R.id.CROneMainButtonMainWidget);
+        defaultLogic = new DevicesDefaultLogic();
 
         network = new Network(host, 5045);
         buttonStage = false;
@@ -119,11 +125,15 @@ public class CROneMainWidget extends DefaultMainWidget implements Serializable {
             @Override
             public void run() {
                 try  {
+                    SharedPreferences sharedPreferences = getContext().getSharedPreferences("Authorisation", MODE_PRIVATE);
+                    String email = sharedPreferences.getString("email", "");
+
                     if (flag) {
-                        network.sendMessage("1");
+
+                        defaultLogic.insertDataCROne(1, email, getName(), getType(), "color");
                     }
                     else {
-                        network.sendMessage("11");
+                        defaultLogic.insertDataCROne(0, email, getName(), getType(), "color");
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

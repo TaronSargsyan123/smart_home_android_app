@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/colorOnPrimary"
+
     tools:context=".components.ROneVOne.ROneVOneActivity">
 
     <FrameLayout
@@ -25,6 +26,7 @@
             android:layout_height="150dp"
             android:layout_gravity="center"
             android:layout_margin="5dp"
+            android:elevation="5dp"
             android:background="@drawable/shape_round_button"
             android:padding="5dp"
             android:text="@string/on"

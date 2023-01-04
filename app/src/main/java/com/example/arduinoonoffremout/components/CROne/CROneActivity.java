@@ -3,6 +3,7 @@ package com.example.arduinoonoffremout.components.CROne;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,6 +15,7 @@ import com.example.arduinoonoffremout.R;
 import com.example.arduinoonoffremout.components.ROneVOne.ROneVOneActivity;
 import com.example.arduinoonoffremout.components.ROneVOne.ROneVOneSettings;
 import com.example.arduinoonoffremout.components.ROneVOne.ROneVOneTimer;
+import com.example.arduinoonoffremout.firebase.DevicesDefaultLogic;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.larswerkman.holocolorpicker.ColorPicker;
 
@@ -28,6 +30,10 @@ public class CROneActivity extends AppCompatActivity {
     private TextView loopTimer;
     private String info;
     private Network network;
+    private DevicesDefaultLogic defaultLogic;
+    private String color;
+    private int stageForSendColor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +43,7 @@ public class CROneActivity extends AppCompatActivity {
         settings = findViewById(R.id.settingsCROne);
         timer = findViewById(R.id.timerCROne);
         loopTimer = findViewById(R.id.loopTimerCROne);
+        defaultLogic = new DevicesDefaultLogic();
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
             if(extras == null) {
@@ -64,6 +71,8 @@ public class CROneActivity extends AppCompatActivity {
 
         ColorPicker picker = (ColorPicker) findViewById(R.id.picker);
         picker.setShowOldCenterColor(false);
+        setColor(String.valueOf(picker.getColor()));
+
 
         picker.setOnColorChangedListener(new ColorPicker.OnColorChangedListener() {
             @Override
@@ -162,11 +171,15 @@ public class CROneActivity extends AppCompatActivity {
             @Override
             public void run() {
                 try  {
+                    SharedPreferences sharedPreferences = getSharedPreferences("Authorisation", MODE_PRIVATE);
+                    String email = sharedPreferences.getString("email", "");
                     if (flag) {
-                        network.sendMessage("1");
+                        defaultLogic.insertDataCROne(0, email, name, "CROne", getColor());
+                        stageForSendColor = 0;
                     }
                     else {
-                        network.sendMessage("11");
+                        defaultLogic.insertDataCROne(1, email, name, "CROne", getColor());
+                        stageForSendColor = 1;
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -177,14 +190,25 @@ public class CROneActivity extends AppCompatActivity {
         threadOn.start();
     }
 
+    private String getColor(){
+        return String.valueOf(color);
+    }
+
+    private void setColor(String color){
+        this.color = color;
+    }
+
     private void sendColor(int color){
         Thread threadOn = new Thread(new Runnable() {
 
             @Override
             public void run() {
                 try  {
+                    SharedPreferences sharedPreferences = getSharedPreferences("Authorisation", MODE_PRIVATE);
+                    String email = sharedPreferences.getString("email", "");
+                    setColor(String.valueOf(color));
 
-                    network.sendMessage("color:" + String.valueOf(color));
+                    defaultLogic.insertDataCROne(stageForSendColor, email, name, "CROne", String.valueOf(color));
 
                 } catch (Exception e) {
                     e.printStackTrace();

@@ -153,10 +153,10 @@ public class ROneVOneMainWidget extends DefaultMainWidget implements  Serializab
 
                     if (flag) {
 
-                        defaultLogic.insertData(1, email, getName(), getType());
+                        defaultLogic.insertDataROneVOne(1, email, getName(), getType());
                     }
                     else {
-                        defaultLogic.insertData(0, email, getName(), getType());
+                        defaultLogic.insertDataROneVOne(0, email, getName(), getType());
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

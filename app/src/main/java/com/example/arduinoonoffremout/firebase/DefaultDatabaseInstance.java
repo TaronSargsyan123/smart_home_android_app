@@ -1,4 +1,4 @@
-package com.example.arduinoonoffremout;
+package com.example.arduinoonoffremout.firebase;
 
 public class DefaultDatabaseInstance {
     String userName;
