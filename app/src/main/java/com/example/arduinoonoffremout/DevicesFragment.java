@@ -29,6 +29,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.arduinoonoffremout.components.CROne.CROneMainWidget;
+import com.example.arduinoonoffremout.components.CurVOne.CurVOneMainWidget;
 import com.example.arduinoonoffremout.components.ROneVOne.ROneVOneMainWidget;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -70,7 +71,7 @@ public class DevicesFragment extends Fragment {
 
         drawImage();
 
-
+        //addCurVOne("TestCur", "CurVOne");
         addDevice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -89,7 +90,6 @@ public class DevicesFragment extends Fragment {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     v.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
                 } else {
-                    //deprecated in API 26
                     v.vibrate(500);
                 }
                 clearWidgetsList();
@@ -98,7 +98,6 @@ public class DevicesFragment extends Fragment {
                 drawImage();
             }
         });
-
 
 
         return view;
@@ -124,7 +123,10 @@ public class DevicesFragment extends Fragment {
                                 addROneVOne(arrOfStr[2], arrOfStr[1], "ROneVOne", String.valueOf(deviceID));
 
                             }else if (Objects.equals(arrOfStr[0], "CROne")){
-                                addCROne(arrOfStr[2], arrOfStr[1], "ROneVOne", String.valueOf(deviceID));
+                                addCROne(arrOfStr[2], arrOfStr[1], "CROne", String.valueOf(deviceID));
+
+                            }else if(Objects.equals(arrOfStr[0], "CurVOne")){
+                                addCurVOne(arrOfStr[2], arrOfStr[1], "CurVOne", String.valueOf(deviceID));
                             }
 
                         }catch (Exception e){
@@ -170,6 +172,19 @@ public class DevicesFragment extends Fragment {
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public void addCurVOne(String name, String host, String type, String id){
+        CurVOneMainWidget curVOneMainWidget = new CurVOneMainWidget(this.getContext());
+        curVOneMainWidget.configNameAndHost(name, host);
+        curVOneMainWidget.setType(type);
+        curVOneMainWidget.setIDString(String.valueOf(id));
+        Log.i("ID from add widget", id);
+        widgetsArray.add(curVOneMainWidget);
+        layout.addView(curVOneMainWidget);
+        mainWidgetsSerializer.saveWidgets(widgetsArray, FILE_NAME, this.requireContext());
+
+    }
+
 
 
     private void toastPrint(CharSequence s){
@@ -202,6 +217,10 @@ public class DevicesFragment extends Fragment {
 
                     }else if (Objects.equals(type, "CROne")){
                         addCROne(name, host, type, id);
+
+                    }else if (Objects.equals(type, "CurVOne")){
+                        Log.i("CurVOne", "Here");
+                        addCurVOne(name, host, type, id);
                     }
 
 

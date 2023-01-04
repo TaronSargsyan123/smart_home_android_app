@@ -12,6 +12,7 @@
 
         <item name="colorTertiary">@color/relay_color_dark</item>
         <item name="colorTertiaryContainer">@color/crone_color_dark</item>
+        <item name="colorOnError">@color/orange</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->

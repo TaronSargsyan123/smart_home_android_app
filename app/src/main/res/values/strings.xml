@@ -40,10 +40,13 @@
     <string name="wifi_ssid">Enter WiFi SSID</string>
     <string name="wifi_password">Enter WiFi Password</string>
     <string name="bluetooth_devices_list">Bluetooth devices list</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
 
     <string-array name="devices">
         <item>ROneVOne</item>
         <item>CROne</item>
+        <item>CurVOne</item>
     </string-array>
 
 

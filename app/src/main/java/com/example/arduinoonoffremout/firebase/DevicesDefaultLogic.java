@@ -1,5 +1,7 @@
 package com.example.arduinoonoffremout.firebase;
 
+import android.util.Log;
+
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -27,6 +29,23 @@ public class DevicesDefaultLogic {
             String[] arrOfStr = email.split("@");
             String userName = arrOfStr[0];
             usersRef.child(userName).child(deviceName).setValue(instance);
+
+        }
+    }
+
+    public void insertDataCurVOne(String stage, String email, String deviceName, String deviceType) {
+
+        if (!Objects.equals(email, "")) {
+            Log.i("TEST", "default");
+            Log.i("STAGE", stage);
+            Log.i("EMAIL", email);
+            Log.i("NAME", deviceName);
+            Log.i("TYPE", deviceType);
+            CurVOneDatabaseInstance instance = new CurVOneDatabaseInstance(email, deviceName, deviceType, stage);
+            String[] arrOfStr = email.split("@");
+            String userName = arrOfStr[0];
+            usersRef.child(userName).child(deviceName).setValue(instance);
+            Log.i("TEST", "default2");
 
         }
     }
