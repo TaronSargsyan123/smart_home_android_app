@@ -30,10 +30,10 @@
     <string name="coming_soon">Coming soon</string>
     <string name="email">e-mail</string>
     <string name="password">password</string>
-    <string name="create_account">create account</string>
+    <string name="create_account">Create account</string>
     <string name="login">Login</string>
     <string name="confirm_password">confirm password</string>
-    <string name="register">register</string>
+    <string name="register">Register</string>
     <string name="backToStartMenu">Back to start menu</string>
     <string name="profile">Profile</string>
     <string name="log_out">LOG OUT</string>

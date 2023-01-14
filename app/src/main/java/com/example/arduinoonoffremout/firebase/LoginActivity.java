@@ -26,10 +26,9 @@ public class LoginActivity extends AppCompatActivity {
     private TextInputLayout emailEditText;
     private TextInputLayout passwordEditText;
     private TextView createAccountTextView;
-    private Button loginButton;
+    private TextView loginButton;
     private String email;
     private String password;
-    private TextView back;
     private FirebaseAuth mAuth;
 
     @Override
@@ -41,7 +40,6 @@ public class LoginActivity extends AppCompatActivity {
         passwordEditText = findViewById(R.id.loginPasswordEditText);
         createAccountTextView = findViewById(R.id.loginCreateAccountTextView);
         loginButton = findViewById(R.id.loginLoginButton);
-        back = findViewById(R.id.loginBack);
         mAuth = FirebaseAuth.getInstance();
 
         createAccountTextView.setOnClickListener(new View.OnClickListener() {
@@ -59,12 +57,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
     }
 
     private void login() {
