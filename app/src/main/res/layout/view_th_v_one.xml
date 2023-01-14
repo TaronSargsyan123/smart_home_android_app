@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_background_button_on_off"
+    android:layout_marginStart="16dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginEnd="16dp"
+    android:layout_marginBottom="5dp"
+    android:elevation="2dp"
+    android:id="@+id/backThVOneMainWidget"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_weight="9"
+        >
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginStart="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="@string/temperature"/>
+
+            <TextView
+                android:id="@+id/temperatureThVOneMainWidget"
+                android:textColor="?attr/colorOnTertiary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:paddingStart="20dp"
+                android:text="20°C"
+                android:textSize="20sp"
+                tools:ignore="RtlSymmetry" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginStart="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="@string/humidity"/>
+
+            <TextView
+                android:id="@+id/humidityThVOneMainWidget"
+                android:textColor="?attr/colorOnTertiary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="20dp"
+                android:text="10 %"
+                android:textSize="20sp"
+                tools:ignore="RtlSymmetry" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+
+    <TextView
+        android:id="@+id/ThTest"
+        android:background="@drawable/shape_th_main_widget_button"
+        android:layout_width="60dp"
+        android:layout_height="120dp"
+        android:padding="5dp"
+        android:layout_margin="5dp"
+        android:layout_gravity="center_vertical"
+        tools:ignore="SpeakableTextPresentCheck"
+        app:drawableEndCompat="@drawable/ic_baseline_refresh_50" />
+
+
+
+</LinearLayout>

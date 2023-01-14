@@ -23,6 +23,7 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.AdapterView;
+import android.widget.Toast;
 
 import com.example.arduinoonoffremout.bluetooth.BluetoothDefaultLogic;
 import com.google.android.material.color.MaterialColors;
@@ -41,6 +42,7 @@ public class CreateDeviceActivity extends AppCompatActivity  {
     private View lastTouchedView;
     private int green;
     private int backgroundColor;
+    private Boolean bluetoothSupport;
 
 
     @Override
@@ -60,21 +62,30 @@ public class CreateDeviceActivity extends AppCompatActivity  {
         ArrayAdapter<CharSequence>adapter=ArrayAdapter.createFromResource(this, R.array.devices, android.R.layout.simple_spinner_dropdown_item);
         dropdown.setAdapter(adapter);
 
-        bluetoothDefaultLogic = new BluetoothDefaultLogic(this, this);
 
-        bluetoothDefaultLogic.setActivityParent(this);
         nameEditText = findViewById(R.id.nameEditText);
         ssidEditText = findViewById(R.id.wifiSSidEditText);
         passwordEditText = findViewById(R.id.wifiPasswordEditText);
         TextView back = findViewById(R.id.backToDeviceList);
         String type;
 
-        if (bluetoothDefaultLogic.isBluetoothEnable()){
-            drawList();
-            listViewItemClick();
-        }else {
-            bluetoothDefaultLogic.enableBluetooth();
+        try {
+            bluetoothDefaultLogic = new BluetoothDefaultLogic(this, this);
+            bluetoothDefaultLogic.setActivityParent(this);
+            bluetoothSupport = true;
+            if (bluetoothDefaultLogic.isBluetoothEnable()){
+                drawList();
+                listViewItemClick();
+            }else {
+                bluetoothDefaultLogic.enableBluetooth();
+            }
+        }catch (Exception ignored){
+            Toast toast = Toast.makeText(getApplicationContext(), "Bluetooth not supported", Toast.LENGTH_SHORT);
+            toast.show();
+            bluetoothSupport = false;
         }
+
+
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,7 +98,7 @@ public class CreateDeviceActivity extends AppCompatActivity  {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View view) {
-                if (device != null) {
+                if (device != null && bluetoothSupport) {
                     try {
                         String message = dropdown.getSelectedItem().toString() + "/%" + "0.0.0.0" + "/%" + nameEditText.getText().toString();
                         sendMessage(message);
@@ -105,7 +116,14 @@ public class CreateDeviceActivity extends AppCompatActivity  {
                     } catch (Exception e) {
                         sendMessage("Fail");
                     }
+                }else if (device == null && bluetoothSupport){
+                    Toast toast = Toast.makeText(getApplicationContext(), "Please select device", Toast.LENGTH_SHORT);
+                    toast.show();
+                } else if (!bluetoothSupport){
+                    String message = dropdown.getSelectedItem().toString() + "/%" + "0.0.0.0" + "/%" + nameEditText.getText().toString();
+                    sendMessage(message);
                 }
+
 
 
             }

@@ -2,9 +2,15 @@ package com.example.arduinoonoffremout.firebase;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.Arrays;
 import java.util.Objects;
 
 public class DevicesDefaultLogic {
@@ -36,18 +42,54 @@ public class DevicesDefaultLogic {
     public void insertDataCurVOne(String stage, String email, String deviceName, String deviceType) {
 
         if (!Objects.equals(email, "")) {
-            Log.i("TEST", "default");
-            Log.i("STAGE", stage);
-            Log.i("EMAIL", email);
-            Log.i("NAME", deviceName);
-            Log.i("TYPE", deviceType);
             CurVOneDatabaseInstance instance = new CurVOneDatabaseInstance(email, deviceName, deviceType, stage);
             String[] arrOfStr = email.split("@");
             String userName = arrOfStr[0];
             usersRef.child(userName).child(deviceName).setValue(instance);
-            Log.i("TEST", "default2");
-
         }
+    }
+
+    public void insertDataThVOne(String email, String deviceName, String deviceType, String temperature, String humidity){
+        if (!Objects.equals(email, "")) {
+            ThVOneDatabaseInstance instance = new ThVOneDatabaseInstance(email, deviceName, deviceType, temperature, humidity);
+            String[] arrOfStr = email.split("@");
+            String userName = arrOfStr[0];
+            usersRef.child(userName).child(deviceName).setValue(instance);
+        }
+
+    }
+
+    public String readDataThVOne(String email, String deviceName){
+        if (!Objects.equals(email, "")) {
+            final String[] temp = new String[1];
+            final String[] hum = new String[1];
+            final String[][] arrOfStr = {email.split("@")};
+            String userName = arrOfStr[0][0];
+
+            usersRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()){
+                        String temperature = snapshot.child(userName).child(deviceName).child("temperature").getValue().toString();
+                        String humidity = snapshot.child(userName).child(deviceName).child("humidity").getValue().toString();
+                        temp[0] = temperature;
+                        hum[0] = humidity;
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    temp[0] = null;
+                    hum[0] = null;
+                }
+            });
+
+            return Arrays.toString(temp) + "_" + Arrays.toString(hum);
+
+        }else {
+            return "null_null";
+        }
+
     }
 
     public void deleteDevice(String userName, String deviceName){

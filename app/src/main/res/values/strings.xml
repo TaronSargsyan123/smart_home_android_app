@@ -42,11 +42,14 @@
     <string name="bluetooth_devices_list">Bluetooth devices list</string>
     <string name="open">Open</string>
     <string name="close">Close</string>
+    <string name="humidity">Humidity:</string>
+    <string name="temperature">Temperature:</string>
 
     <string-array name="devices">
         <item>ROneVOne</item>
         <item>CROne</item>
         <item>CurVOne</item>
+        <item>ThVOne</item>
     </string-array>
 
 

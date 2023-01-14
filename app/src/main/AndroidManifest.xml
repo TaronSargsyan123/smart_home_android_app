@@ -27,6 +27,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ArduinoOnOffRemout">
         <activity
+            android:name=".components.ThVOne.ThVOne"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".components.CurVOne.CurVOneActivity"
             android:exported="false">
             <meta-data

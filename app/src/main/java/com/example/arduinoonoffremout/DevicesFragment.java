@@ -31,6 +31,8 @@ import android.widget.Toast;
 import com.example.arduinoonoffremout.components.CROne.CROneMainWidget;
 import com.example.arduinoonoffremout.components.CurVOne.CurVOneMainWidget;
 import com.example.arduinoonoffremout.components.ROneVOne.ROneVOneMainWidget;
+import com.example.arduinoonoffremout.components.ThVOne.ThVOne;
+import com.example.arduinoonoffremout.components.ThVOne.ThVOneMainWidget;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -41,8 +43,6 @@ public class DevicesFragment extends Fragment {
     private FloatingActionButton addDevice;
     public LinearLayout layout;
     static final String ACCESS_MESSAGE="ACCESS_MESSAGE";
-    private Animation animShake;
-    private int deviceID;
     private SharedPreferences.Editor sharedPrefEdit;
     private ArrayList<DefaultMainWidget> widgetsArray;
     private MainWidgetsSerializer mainWidgetsSerializer;
@@ -55,23 +55,15 @@ public class DevicesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_devices, container, false);
-        animShake = AnimationUtils.loadAnimation(this.getContext(), R.anim.shake_animation);
-        addDevice = (FloatingActionButton) getActivity().findViewById(R.id.addDeviceMain);
+        addDevice = requireActivity().findViewById(R.id.addDeviceMain);
         layout  = view.findViewById(R.id.devicesFragmentLayout);
         clearListButton = view.findViewById(R.id.clearAllDevicesFragment);
         widgetsArray = new ArrayList<>();
         mainWidgetsSerializer = new MainWidgetsSerializer();
         imageView = view.findViewById(R.id.noDevicesImageViewFragmentDevices);
-
-
-
-        //addROneVOne("Kitchen", "192.168.1.12", "ROneVOne", String.valueOf(deviceID));
-
         drawDevicesFromFile(FILE_NAME);
-
         drawImage();
 
-        //addCurVOne("TestCur", "CurVOne");
         addDevice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -110,7 +102,7 @@ public class DevicesFragment extends Fragment {
                 @RequiresApi(api = Build.VERSION_CODES.M)
                 @Override
                 public void onActivityResult(ActivityResult result) {
-
+                    String deviceID = "0";
 
 
                     if(result.getResultCode() == Activity.RESULT_OK){
@@ -118,7 +110,6 @@ public class DevicesFragment extends Fragment {
                         try {
                             String accessMessage = intent.getStringExtra(ACCESS_MESSAGE);
                             String[] arrOfStr = accessMessage.split("/%");
-
                             if (Objects.equals(arrOfStr[0], "ROneVOne")){
                                 addROneVOne(arrOfStr[2], arrOfStr[1], "ROneVOne", String.valueOf(deviceID));
 
@@ -127,8 +118,11 @@ public class DevicesFragment extends Fragment {
 
                             }else if(Objects.equals(arrOfStr[0], "CurVOne")){
                                 addCurVOne(arrOfStr[2], arrOfStr[1], "CurVOne", String.valueOf(deviceID));
-                            }
 
+                            }else if(Objects.equals(arrOfStr[0], "ThVOne")){
+                                addThVOne(arrOfStr[2], arrOfStr[1], "ThVOne", String.valueOf(deviceID));
+
+                            }
                         }catch (Exception e){
                             toastPrint("Fail");
                         }
@@ -151,8 +145,6 @@ public class DevicesFragment extends Fragment {
         Log.i("ID from add widget", id);
         widgetsArray.add(onOffButton);
         layout.addView(onOffButton);
-        //shakeView(onOffButton);
-        //mainWidgetsSerializer.save(widgetsArray, "ConfFile", this.requireContext());
         mainWidgetsSerializer.saveWidgets(widgetsArray, FILE_NAME, this.requireContext());
 
     }
@@ -166,8 +158,6 @@ public class DevicesFragment extends Fragment {
         Log.i("ID from add widget", id);
         widgetsArray.add(crOneMainWidget);
         layout.addView(crOneMainWidget);
-        //shakeView(onOffButton);
-        //mainWidgetsSerializer.save(widgetsArray, "ConfFile", this.requireContext());
         mainWidgetsSerializer.saveWidgets(widgetsArray, FILE_NAME, this.requireContext());
 
     }
@@ -185,6 +175,16 @@ public class DevicesFragment extends Fragment {
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public void addThVOne(String name, String host, String type, String id){
+        ThVOneMainWidget thVOneMainWidget = new ThVOneMainWidget(this.getContext());
+        thVOneMainWidget.configNameAndHost(name, host);
+        thVOneMainWidget.setType(type);
+        thVOneMainWidget.setIDString(String.valueOf(id));
+        widgetsArray.add(thVOneMainWidget);
+        layout.addView(thVOneMainWidget);
+        mainWidgetsSerializer.saveWidgets(widgetsArray, FILE_NAME, this.requireContext());
+    }
 
 
     private void toastPrint(CharSequence s){
@@ -195,9 +195,6 @@ public class DevicesFragment extends Fragment {
         toast.show();
     }
 
-    private void shakeView(View view){
-        view.setAnimation(animShake);
-    }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void drawDevicesFromFile(String fileName){
@@ -214,17 +211,14 @@ public class DevicesFragment extends Fragment {
                     Log.i("DEVICE TYPE", type);
                     if (Objects.equals(type, "ROneVOne")){
                         addROneVOne(name, host, type, id);
-
                     }else if (Objects.equals(type, "CROne")){
                         addCROne(name, host, type, id);
-
                     }else if (Objects.equals(type, "CurVOne")){
                         Log.i("CurVOne", "Here");
                         addCurVOne(name, host, type, id);
+                    }else if (Objects.equals(type, "ThVOne")){
+                        addThVOne(name, host, type, id);
                     }
-
-
-
                     Log.i("WIDGETS", widgetString);
                 }catch (Exception ignored){
 
@@ -234,18 +228,6 @@ public class DevicesFragment extends Fragment {
 
         }catch (Exception e){
             Log.i("Main widgets loading", "File is empty");
-        }
-    }
-
-
-
-
-
-    //method for testing application work
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    private void generateWidgetsForTesting(){
-        for (int i = 0; i < 15; i++) {
-            addROneVOne("Test Button", "Test ", "ROneVOne", String.valueOf(deviceID));
         }
     }
 
