@@ -7,20 +7,45 @@
     android:background="?attr/colorOnPrimary"
     tools:context=".firebase.RegisterActivity">
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="40dp"
+        app:layout_constraintBottom_toTopOf="@+id/registerEmailEditText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/shape_login_illustration_back" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="400dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="@+id/imageView"
+        app:srcCompat="@drawable/greenhouse_illustration" />
+
+
     <com.google.android.material.textfield.TextInputLayout
 
         android:id="@+id/registerEmailEditText"
 
-        android:layout_margin="32dp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
 
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
-
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
         android:hint="@string/email"
-        app:hintTextColor="?attr/colorOnTertiary"
         android:textColorHint="?attr/colorOnTertiary"
         app:boxBackgroundColor="?attr/colorPrimary"
         app:boxCornerRadiusBottomEnd="10dp"
@@ -28,9 +53,10 @@
         app:boxCornerRadiusTopEnd="10dp"
         app:boxCornerRadiusTopStart="10dp"
         app:boxStrokeColor="?attr/colorPrimary"
+        app:hintTextColor="?attr/colorOnTertiary"
+        app:layout_constraintBottom_toTopOf="@+id/registerPasswordEditText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintStart_toStartOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
 
@@ -44,17 +70,16 @@
         android:id="@+id/registerPasswordEditText"
 
 
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+
+
+        android:layout_height="wrap_content"
 
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
-
-
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
         android:hint="@string/password"
-        app:hintTextColor="?attr/colorOnTertiary"
         android:textColorHint="?attr/colorOnTertiary"
         app:boxBackgroundColor="?attr/colorPrimary"
         app:boxCornerRadiusBottomEnd="10dp"
@@ -62,15 +87,15 @@
         app:boxCornerRadiusTopEnd="10dp"
         app:boxCornerRadiusTopStart="10dp"
         app:boxStrokeColor="?attr/colorPrimary"
+        app:hintTextColor="?attr/colorOnTertiary"
+        app:layout_constraintBottom_toTopOf="@+id/registerConfirmPasswordEditText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/registerEmailEditText">
+        app:layout_constraintStart_toStartOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
 
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
+            android:layout_height="wrap_content" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -85,8 +110,8 @@
         android:layout_height="wrap_content"
 
         android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
+        android:layout_marginBottom="15dp"
         android:hint="@string/confirm_password"
         android:textColorHint="?attr/colorOnTertiary"
         app:boxBackgroundColor="?attr/colorPrimary"
@@ -96,9 +121,9 @@
         app:boxCornerRadiusTopStart="10dp"
         app:boxStrokeColor="?attr/colorPrimary"
         app:hintTextColor="?attr/colorOnTertiary"
+        app:layout_constraintBottom_toTopOf="@+id/registerRegisterButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/registerPasswordEditText">
+        app:layout_constraintStart_toStartOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
 
@@ -108,18 +133,19 @@
     </com.google.android.material.textfield.TextInputLayout>
 
 
-    <Button
-
+    <TextView
         android:id="@+id/registerRegisterButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="50dp"
-
+        android:background="@drawable/shape_login_button"
+        android:gravity="center"
+        android:minHeight="50dp"
+        android:textColor="?attr/colorOnPrimary"
+        android:textSize="20sp"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
-        android:background="@drawable/shape_background_button_on_off"
         android:text="@string/register"
-        android:textColor="?attr/colorOnTertiary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

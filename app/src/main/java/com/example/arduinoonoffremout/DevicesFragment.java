@@ -35,6 +35,8 @@ import com.example.arduinoonoffremout.components.ThVOne.ThVOne;
 import com.example.arduinoonoffremout.components.ThVOne.ThVOneMainWidget;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -49,6 +51,7 @@ public class DevicesFragment extends Fragment {
     private TextView clearListButton;
     private ImageView imageView;
     private final String FILE_NAME ="localData.txt";// getString(R.string.save_file_name);;
+    private TextView listIsEmptyTextView;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -61,6 +64,7 @@ public class DevicesFragment extends Fragment {
         widgetsArray = new ArrayList<>();
         mainWidgetsSerializer = new MainWidgetsSerializer();
         imageView = view.findViewById(R.id.noDevicesImageViewFragmentDevices);
+        listIsEmptyTextView = view.findViewById(R.id.listIsEmptyTextView);
         drawDevicesFromFile(FILE_NAME);
         drawImage();
 
@@ -240,10 +244,12 @@ public class DevicesFragment extends Fragment {
             if(widgetsArray.isEmpty()){
                 clearListButton.setVisibility(View.INVISIBLE);
                 imageView.setVisibility(View.VISIBLE);
+                listIsEmptyTextView.setVisibility(View.VISIBLE);
             }else {
                 clearListButton.setVisibility(View.VISIBLE);
-                ((ViewGroup) imageView.getParent()).removeView(imageView);
-
+                imageView.setVisibility(View.GONE);
+                //((ViewGroup) imageView.getParent()).removeView(imageView);
+                listIsEmptyTextView.setVisibility(View.GONE);
             }
         }catch (Exception ignore){
         }

@@ -28,7 +28,7 @@ public class RegisterActivity extends AppCompatActivity {
     private TextInputLayout emailEditText;
     private TextInputLayout passwordEditText;
     private TextInputLayout confirmPasswordEditText;
-    private Button registerButton;
+    private TextView registerButton;
     private TextView back;
     private String email;
     private String password;

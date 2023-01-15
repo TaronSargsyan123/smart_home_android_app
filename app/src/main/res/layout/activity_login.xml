@@ -82,26 +82,15 @@
         android:layout_margin="32dp"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
-        android:minHeight="50dp"
-        android:textSize="20sp"
-        android:gravity="center"
         android:background="@drawable/shape_login_button"
+        android:gravity="center"
+        android:minHeight="50dp"
         android:text="@string/login"
         android:textColor="?attr/colorOnPrimary"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/loginCreateAccountTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/create_account"
-        android:textColor="?attr/colorOnTertiary"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/loginLoginButton"
-        app:layout_constraintStart_toStartOf="@+id/loginLoginButton"
-        app:layout_constraintTop_toBottomOf="@+id/loginLoginButton" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -119,8 +108,8 @@
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="393dp"
-        android:layout_height="408dp"
+        android:layout_width="wrap_content"
+        android:layout_height="400dp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="@+id/imageView"
         app:layout_constraintStart_toStartOf="@+id/imageView"
@@ -138,5 +127,34 @@
         app:layout_constraintBottom_toTopOf="@+id/loginEmailEditText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/loginLinerLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/loginLoginButton"
+        app:layout_constraintStart_toStartOf="@+id/loginLoginButton"
+        app:layout_constraintTop_toBottomOf="@+id/loginLoginButton"
+        app:layout_constraintVertical_bias="0.384">
+
+        <TextView
+            android:id="@+id/loginCreateAccountTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:text="@string/don_t_have_an_account"
+            android:textColor="?attr/colorOnTertiary" />
+
+        <TextView
+            android:id="@+id/loginCreateAccountTextView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:text="@string/register_now"
+            android:textColor="?attr/colorTertiary" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

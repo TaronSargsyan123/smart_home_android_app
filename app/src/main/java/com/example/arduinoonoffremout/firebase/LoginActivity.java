@@ -8,8 +8,10 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
+import android.util.LruCache;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.arduinoonoffremout.R;
@@ -30,6 +32,7 @@ public class LoginActivity extends AppCompatActivity {
     private String email;
     private String password;
     private FirebaseAuth mAuth;
+    private LinearLayout register;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +44,16 @@ public class LoginActivity extends AppCompatActivity {
         createAccountTextView = findViewById(R.id.loginCreateAccountTextView);
         loginButton = findViewById(R.id.loginLoginButton);
         mAuth = FirebaseAuth.getInstance();
+        register = findViewById(R.id.loginLinerLayout);
+//        createAccountTextView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+//                startActivity(intent);
+//            }
+//        });
 
-        createAccountTextView.setOnClickListener(new View.OnClickListener() {
+        register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
