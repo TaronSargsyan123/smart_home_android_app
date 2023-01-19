@@ -11,12 +11,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 public class StartActivity extends AppCompatActivity {
-    FragmentContainerView fragmentContainerView;
     private final String HOME_TAG = "HOME_FRAGMENT";
     private final String DEVICES_TAG = "DEVICES_FRAGMENT";
-
-
+    private FloatingActionButton addDeviceMain;
 
 
 
@@ -28,8 +28,10 @@ public class StartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
+        addDeviceMain = findViewById(R.id.addDeviceMain);
+
         TextView widgetsFragmentButton = (TextView) findViewById(R.id.devicesFragmentButtonOnStartActivity);
-        TextView homeFragmentButton = (TextView) findViewById(R.id.profileFragmentButtonOnStartActivity);
+        TextView profileFragmentButton = (TextView) findViewById(R.id.profileFragmentButtonOnStartActivity);
 
 
         widgetsFragmentButton.setOnClickListener(new View.OnClickListener() {
@@ -38,7 +40,7 @@ public class StartActivity extends AppCompatActivity {
                 setFragmentDevices();
             }
         });
-        homeFragmentButton.setOnClickListener(new View.OnClickListener() {
+        profileFragmentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 setFragmentProfile();
@@ -52,7 +54,7 @@ public class StartActivity extends AppCompatActivity {
     private void setFragmentDevices(){
         clearFragmentContainer(HOME_TAG);
         clearFragmentContainer(DEVICES_TAG);
-
+        addDeviceMain.setEnabled(true);
         getSupportFragmentManager().beginTransaction()
                 .setReorderingAllowed(true)
                 .add(R.id.mainActivityFragmentContainer, DevicesFragment.class, null, DEVICES_TAG)
@@ -64,7 +66,7 @@ public class StartActivity extends AppCompatActivity {
     private void setFragmentProfile(){
         clearFragmentContainer(DEVICES_TAG);
         clearFragmentContainer(HOME_TAG);
-
+        addDeviceMain.setEnabled(false);
         getSupportFragmentManager().beginTransaction()
                 .setReorderingAllowed(true)
                 .add(R.id.mainActivityFragmentContainer, ProfileFragment.class, null, HOME_TAG)

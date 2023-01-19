@@ -45,13 +45,8 @@ public class LoginActivity extends AppCompatActivity {
         loginButton = findViewById(R.id.loginLoginButton);
         mAuth = FirebaseAuth.getInstance();
         register = findViewById(R.id.loginLinerLayout);
-//        createAccountTextView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
-//                startActivity(intent);
-//            }
-//        });
+
+
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,10 +59,26 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //showAd();
                 login();
             }
         });
 
+        SharedPreferences sharedPreferences = getSharedPreferences("Authorisation",MODE_PRIVATE);
+        String emailLocal = sharedPreferences.getString("email", null);
+        String passwordLocal = sharedPreferences.getString("password", null);
+
+        if (emailLocal != null && passwordLocal != null){
+            Log.i("AAAAAA", emailLocal);
+            Log.i("AAAAAA", passwordLocal);
+            startStartActivity();
+        }
+
+    }
+
+    private void startStartActivity(){
+        Intent intent = new Intent(getApplicationContext(), StartActivity.class);
+        startActivity(intent);
     }
 
     private void login() {
