@@ -95,4 +95,13 @@ public class DevicesDefaultLogic {
     public void deleteDevice(String userName, String deviceName){
         usersRef.child(userName).child(deviceName).removeValue();
     }
+
+    public void clearData(String email){
+        if (!Objects.equals(email, "")) {
+            String[] arrOfStr = email.split("@");
+            String userName = arrOfStr[0];
+            usersRef.child(userName).removeValue();
+        }
+    }
+
 }

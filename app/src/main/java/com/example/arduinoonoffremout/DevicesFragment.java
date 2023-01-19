@@ -1,7 +1,9 @@
 package com.example.arduinoonoffremout;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -17,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.VibrationEffect;
 import android.os.Vibrator;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,6 +36,7 @@ import com.example.arduinoonoffremout.components.CurVOne.CurVOneMainWidget;
 import com.example.arduinoonoffremout.components.ROneVOne.ROneVOneMainWidget;
 import com.example.arduinoonoffremout.components.ThVOne.ThVOne;
 import com.example.arduinoonoffremout.components.ThVOne.ThVOneMainWidget;
+import com.example.arduinoonoffremout.firebase.DevicesDefaultLogic;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.w3c.dom.Text;
@@ -52,6 +56,7 @@ public class DevicesFragment extends Fragment {
     private ImageView imageView;
     private final String FILE_NAME ="localData.txt";// getString(R.string.save_file_name);;
     private TextView listIsEmptyTextView;
+    private DevicesDefaultLogic devicesDefaultLogic;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -65,6 +70,7 @@ public class DevicesFragment extends Fragment {
         mainWidgetsSerializer = new MainWidgetsSerializer();
         imageView = view.findViewById(R.id.noDevicesImageViewFragmentDevices);
         listIsEmptyTextView = view.findViewById(R.id.listIsEmptyTextView);
+        devicesDefaultLogic = new DevicesDefaultLogic();
         drawDevicesFromFile(FILE_NAME);
         drawImage();
 
@@ -81,17 +87,32 @@ public class DevicesFragment extends Fragment {
         clearListButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                layout.removeAllViews();
-                Vibrator v = (Vibrator) requireContext().getSystemService(Context.VIBRATOR_SERVICE);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    v.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
-                } else {
-                    v.vibrate(500);
-                }
-                clearWidgetsList();
-                drawDevicesFromFile(FILE_NAME);
 
-                drawImage();
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setTitle(Html.fromHtml("<font color='#FF7F27'>Are you sure want to clear device list?</font>"));
+                builder.setPositiveButton(Html.fromHtml("<font color='#FF7F27'>Yes</font>"), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int arg1) {
+                        layout.removeAllViews();
+                        Vibrator v = (Vibrator) requireContext().getSystemService(Context.VIBRATOR_SERVICE);
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                            v.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
+                        } else {
+                            v.vibrate(500);
+                        }
+                        clearWidgetsList();
+                        drawDevicesFromFile(FILE_NAME);
+                        clearFromFirebase();
+                        drawImage();
+                    }
+                });
+                builder.setNegativeButton(Html.fromHtml("<font color='#FF7F27'>No</font>"), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int arg1) {
+
+                    }
+                });
+                builder.create();
+                builder.show();
+
             }
         });
 
@@ -254,6 +275,13 @@ public class DevicesFragment extends Fragment {
         }catch (Exception ignore){
         }
 
+    }
+
+    private void clearFromFirebase(){
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("Authorisation",getContext().MODE_PRIVATE);
+        String email = sharedPreferences.getString("email", null);
+        Log.i("EMAIL", email);
+        devicesDefaultLogic.clearData(email);
     }
 
 
