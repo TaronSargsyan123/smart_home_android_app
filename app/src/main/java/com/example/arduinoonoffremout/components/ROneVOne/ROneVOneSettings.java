@@ -35,9 +35,6 @@ public class ROneVOneSettings extends AppCompatActivity {
 
         }
 
-
-        deleteDeviceButton = findViewById(R.id.deleteOnOffRelayButton);
-
         saveChangesButton = findViewById(R.id.ROneVOneSettingsSaveChangesButton);
 
         saveChangesButton.setOnClickListener(new View.OnClickListener() {

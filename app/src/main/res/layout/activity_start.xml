@@ -41,7 +41,7 @@
         app:layout_constraintBottom_toBottomOf="parent">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/addDeviceMain"
+            android:id="@+id/add_device_main"
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -65,7 +65,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/devicesFragmentButtonOnStartActivity"
+                    android:id="@+id/devices_fragment_button_on_start_activity"
                     style="?android:attr/borderlessButtonStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -95,8 +95,8 @@
 
 
                 <TextView
+                    android:id="@+id/profile_fragment_button_on_start_activity"
                     style="?android:attr/borderlessButtonStyle"
-                    android:id="@+id/profileFragmentButtonOnStartActivity"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

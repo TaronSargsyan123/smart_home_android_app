@@ -6,7 +6,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <LinearLayout
-        android:id="@+id/devicesFragmentLayout"
+        android:id="@+id/devices_fragment_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="?attr/colorOnPrimary"
@@ -15,7 +15,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/clearAllDevicesFragment"
+        app:layout_constraintTop_toBottomOf="@+id/clear_all_devices_fragment"
         app:layout_constraintVertical_bias="1.0"
         tools:context=".DevicesFragment">
 
@@ -24,7 +24,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/clearAllDevicesFragment"
+        android:id="@+id/clear_all_devices_fragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
@@ -41,13 +41,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/noDevicesImageViewFragmentDevices"
+        android:id="@+id/no_devices_imageView_fragment_devices"
         android:layout_width="wrap_content"
         android:layout_height="400dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="150dp"
         android:layout_marginEnd="24dp"
-        app:layout_constraintBottom_toBottomOf="@+id/devicesFragmentLayout"
+        app:layout_constraintBottom_toBottomOf="@+id/devices_fragment_layout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -55,7 +55,7 @@
         tools:ignore="ImageContrastCheck" />
 
     <TextView
-        android:id="@+id/listIsEmptyTextView"
+        android:id="@+id/listIs_empty_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -65,6 +65,6 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/noDevicesImageViewFragmentDevices" />
+        app:layout_constraintTop_toBottomOf="@+id/no_devices_imageView_fragment_devices" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

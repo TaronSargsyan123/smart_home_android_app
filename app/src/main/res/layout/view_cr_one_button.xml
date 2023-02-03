@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/CROneBackgroundMainWidget"
+    android:id="@+id/c_r_one_background_main_widget"
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -21,8 +21,8 @@
         >
 
         <TextView
+            android:id="@+id/c_r_one_stage_text_view_main_widget"
             android:textColor="?attr/colorOnTertiary"
-            android:id="@+id/CROneStageTextViewMAinWidget"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingStart="20dp"
@@ -31,8 +31,8 @@
             tools:ignore="RtlSymmetry" />
 
         <TextView
+            android:id="@+id/c_r_one_name_text_view_main_widget"
             android:textColor="?attr/colorOnTertiary"
-            android:id="@+id/CROneNameTextViewMainWidget"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingStart="20dp"
@@ -46,8 +46,8 @@
 
 
     <TextView
+        android:id="@+id/c_r_one_main_button_main_Widget"
         android:background="@drawable/shape_crone_round"
-        android:id="@+id/CROneMainButtonMainWidget"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:drawableEnd="@drawable/ic_baseline_lightbulb_50"

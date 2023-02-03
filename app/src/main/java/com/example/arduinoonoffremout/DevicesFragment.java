@@ -35,8 +35,6 @@ import com.example.arduinoonoffremout.components.CROne.CROneMainWidget;
 import com.example.arduinoonoffremout.components.CurVOne.CurVOneMainWidget;
 import com.example.arduinoonoffremout.components.DOne.DOneMainWidget;
 import com.example.arduinoonoffremout.components.ROneVOne.ROneVOneMainWidget;
-import com.example.arduinoonoffremout.components.ThVOne.ThVOne;
-import com.example.arduinoonoffremout.components.ThVOne.ThVOneMainWidget;
 import com.example.arduinoonoffremout.firebase.DevicesDefaultLogic;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -64,13 +62,13 @@ public class DevicesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_devices, container, false);
-        addDevice = requireActivity().findViewById(R.id.addDeviceMain);
-        layout  = view.findViewById(R.id.devicesFragmentLayout);
-        clearListButton = view.findViewById(R.id.clearAllDevicesFragment);
+        addDevice = requireActivity().findViewById(R.id.add_device_main);
+        layout  = view.findViewById(R.id.devices_fragment_layout);
+        clearListButton = view.findViewById(R.id.clear_all_devices_fragment);
         widgetsArray = new ArrayList<>();
         mainWidgetsSerializer = new MainWidgetsSerializer();
-        imageView = view.findViewById(R.id.noDevicesImageViewFragmentDevices);
-        listIsEmptyTextView = view.findViewById(R.id.listIsEmptyTextView);
+        imageView = view.findViewById(R.id.no_devices_imageView_fragment_devices);
+        listIsEmptyTextView = view.findViewById(R.id.listIs_empty_text_view);
         devicesDefaultLogic = new DevicesDefaultLogic();
         drawDevicesFromFile(FILE_NAME);
         drawImage();
@@ -145,9 +143,6 @@ public class DevicesFragment extends Fragment {
                             }else if(Objects.equals(arrOfStr[0], "CurVOne")){
                                 addCurVOne(arrOfStr[2], arrOfStr[1], "CurVOne", String.valueOf(deviceID));
 
-                            }else if(Objects.equals(arrOfStr[0], "ThVOne")){
-                                addThVOne(arrOfStr[2], arrOfStr[1], "ThVOne", String.valueOf(deviceID));
-
                             }else if(Objects.equals(arrOfStr[0], "DOne")){
                                 addDOne(arrOfStr[2], arrOfStr[1], "DOne", String.valueOf(deviceID));
 
@@ -204,16 +199,6 @@ public class DevicesFragment extends Fragment {
 
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    public void addThVOne(String name, String host, String type, String id){
-        ThVOneMainWidget thVOneMainWidget = new ThVOneMainWidget(this.getContext());
-        thVOneMainWidget.configNameAndHost(name, host);
-        thVOneMainWidget.setType(type);
-        thVOneMainWidget.setIDString(String.valueOf(id));
-        widgetsArray.add(thVOneMainWidget);
-        layout.addView(thVOneMainWidget);
-        mainWidgetsSerializer.saveWidgets(widgetsArray, FILE_NAME, this.requireContext());
-    }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void addDOne(String name, String host, String type, String id){
@@ -256,10 +241,7 @@ public class DevicesFragment extends Fragment {
                     }else if (Objects.equals(type, "CurVOne")){
                         Log.i("CurVOne", "Here");
                         addCurVOne(name, host, type, id);
-                    }else if (Objects.equals(type, "ThVOne")){
-                        addThVOne(name, host, type, id);
-                    }
-                    else if (Objects.equals(type, "DOne")){
+                    }else if (Objects.equals(type, "DOne")){
                         addDOne(name, host, type, id);
                     }
                     Log.i("WIDGETS", widgetString);

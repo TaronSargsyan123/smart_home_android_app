@@ -35,12 +35,12 @@ public class CurVOneActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cur_v_one);
 
-        buttonOpen = (TextView) findViewById(R.id.mainButtonOpenCurVOne);
-        buttonClose = (TextView) findViewById(R.id.mainButtonCloseCurVOne);
-        back = findViewById(R.id.backToMainActivityCurVOne);
-        settings = findViewById(R.id.settingsCurVOne);
-        timer = findViewById(R.id.timerCurVOne);
-        loopTimer = findViewById(R.id.loopTimerCurVOne);
+        buttonOpen = (TextView) findViewById(R.id.mai_bButton_open_cur_v_one);
+        buttonClose = (TextView) findViewById(R.id.mai_bButton_close_cur_v_one);
+        back = findViewById(R.id.back_to_main_activity_cur_v_one);
+        settings = findViewById(R.id.settings_cur_v_one);
+        timer = findViewById(R.id.timer_cur_v_one);
+        loopTimer = findViewById(R.id.loop_timer_cur_v_one);
         defaultLogic = new DevicesDefaultLogic();
 
 

@@ -29,11 +29,11 @@ public class ROneVOneTimer extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_r_one_v_one_timer);
 
-        playButton = findViewById(R.id.playButtonTimerROneVOne);
-        backButton = findViewById(R.id.backTimerROneVOne);
-        deviceList = findViewById(R.id.deviceListTimerROneVOne);
-        progressBar = findViewById(R.id.progressBarTimerROneVOne);
-        timeEditText = findViewById(R.id.timeTextROneVOne);
+        playButton = findViewById(R.id.play_button_timer_r_one_v_one);
+        backButton = findViewById(R.id.back_timer_r_one_v_one);
+        deviceList = findViewById(R.id.device_list_timer_r_one_v_one);
+        progressBar = findViewById(R.id.progress_bar_timer_r_one_v_one);
+        timeEditText = findViewById(R.id.time_text_r_one_v_one);
         flag = true;
 
 

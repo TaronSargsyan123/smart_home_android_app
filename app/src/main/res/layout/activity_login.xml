@@ -8,7 +8,7 @@
     tools:context=".firebase.LoginActivity">
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/loginEmailEditText"
+        android:id="@+id/login_email_editText"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -24,7 +24,7 @@
         app:boxCornerRadiusTopStart="10dp"
         app:boxStrokeColor="?attr/colorPrimary"
         app:hintTextColor="?attr/colorOnTertiary"
-        app:layout_constraintBottom_toTopOf="@+id/loginPasswordEditText"
+        app:layout_constraintBottom_toTopOf="@+id/login_password_editText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
@@ -36,7 +36,7 @@
 
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/loginPasswordEditText"
+        android:id="@+id/login_password_editText"
 
 
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -57,7 +57,7 @@
         app:boxCornerRadiusTopStart="10dp"
         app:boxStrokeColor="?attr/colorPrimary"
         app:hintTextColor="?attr/colorOnTertiary"
-        app:layout_constraintBottom_toTopOf="@+id/loginLoginButton"
+        app:layout_constraintBottom_toTopOf="@+id/login_login_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         >
@@ -72,7 +72,7 @@
 
 
     <TextView
-        android:id="@+id/loginLoginButton"
+        android:id="@+id/login_login_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="32dp"
@@ -120,24 +120,23 @@
         android:text="@string/app_name"
         android:textSize="30sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/loginEmailEditText"
+        app:layout_constraintBottom_toTopOf="@+id/login_email_editText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <LinearLayout
-        android:id="@+id/loginLinerLayout"
+        android:id="@+id/login_liner_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="1dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/loginLoginButton"
-        app:layout_constraintStart_toStartOf="@+id/loginLoginButton"
-        app:layout_constraintTop_toBottomOf="@+id/loginLoginButton"
+        app:layout_constraintEnd_toEndOf="@+id/login_login_button"
+        app:layout_constraintStart_toStartOf="@+id/login_login_button"
+        app:layout_constraintTop_toBottomOf="@+id/login_login_button"
         app:layout_constraintVertical_bias="0.384">
 
         <TextView
-            android:id="@+id/loginCreateAccountTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
@@ -145,7 +144,7 @@
             android:textColor="?attr/colorOnTertiary" />
 
         <TextView
-            android:id="@+id/loginCreateAccountTextView2"
+            android:id="@+id/login_create_account_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="15dp"

@@ -86,10 +86,10 @@ public class ROneVOneMainWidget extends DefaultMainWidget implements  Serializab
 
     private void init(){
 
-        textView = (TextView) findViewById(R.id.ROneVOneStageTextViewMAinWidget);
-        background = (LinearLayout) findViewById(R.id.ROneVOneRelayBackgroundMainWidget);
-        nameTextView = (TextView) findViewById(R.id.ROneVOneNameTextViewMainWidget);
-        mainButton = (TextView) findViewById(R.id.ROneVOneMainButtonMainWidget);
+        textView = (TextView) findViewById(R.id.r_one_v_one_stage_text_view_main_widget);
+        background = (LinearLayout) findViewById(R.id.r_one_v_one_relay_background_main_widget);
+        nameTextView = (TextView) findViewById(R.id.r_one_v_one_name_text_view_main_widget);
+        mainButton = (TextView) findViewById(R.id.r_one_v_one_main_button_main_widget);
         defaultLogic = new DevicesDefaultLogic();
         buttonStage = false;
 

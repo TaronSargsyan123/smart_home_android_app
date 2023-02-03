@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/CROneMainButton"
+        android:id="@+id/c_r_one_main_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/on"
@@ -38,7 +38,7 @@
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/settingsCROne"
+        android:id="@+id/settings_c_r_one"
 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -63,7 +63,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/backToMainActivityCROne"
+                android:id="@+id/back_to_main_activity_c_r_one"
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -78,7 +78,7 @@
             </TextView>
 
             <TextView
-                android:id="@+id/timerCROne"
+                android:id="@+id/timer_c_r_one"
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -107,7 +107,7 @@
             </TextView>
 
             <TextView
-                android:id="@+id/loopTimerCROne"
+                android:id="@+id/loop_timer_c_r_one"
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

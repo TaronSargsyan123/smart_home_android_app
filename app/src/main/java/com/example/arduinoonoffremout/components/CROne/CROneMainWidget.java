@@ -75,10 +75,10 @@ public class CROneMainWidget extends DefaultMainWidget implements Serializable {
 
     private void init(){
 
-        textView = (TextView) findViewById(R.id.CROneStageTextViewMAinWidget);
-        background = (LinearLayout) findViewById(R.id.CROneBackgroundMainWidget);
-        nameTextView = (TextView) findViewById(R.id.CROneNameTextViewMainWidget);
-        mainButton = (TextView) findViewById(R.id.CROneMainButtonMainWidget);
+        textView = (TextView) findViewById(R.id.c_r_one_stage_text_view_main_widget);
+        background = (LinearLayout) findViewById(R.id.c_r_one_background_main_widget);
+        nameTextView = (TextView) findViewById(R.id.c_r_one_name_text_view_main_widget);
+        mainButton = (TextView) findViewById(R.id.c_r_one_main_button_main_Widget);
         defaultLogic = new DevicesDefaultLogic();
 
         network = new Network(host, 5045);

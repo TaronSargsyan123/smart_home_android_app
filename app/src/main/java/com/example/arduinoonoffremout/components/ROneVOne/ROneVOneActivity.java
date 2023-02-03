@@ -36,12 +36,12 @@ public class ROneVOneActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_r_one_v_one);
-        button = (Button) findViewById(R.id.mainButton);
-        back = findViewById(R.id.backToMainActivityROneVOne);
-        settings = findViewById(R.id.settingsROneVOne);
-        nameTextView = (TextView) findViewById(R.id.relayNameTextViewFromSelfActivity);
-        timer = findViewById(R.id.timerROneVOne);
-        loopTimer = findViewById(R.id.loopTimerROneVOne);
+        button = (Button) findViewById(R.id.r_one_v_one_main_button);
+        back = findViewById(R.id.back_to_main_activity_r_one_v_one);
+        settings = findViewById(R.id.settings_r_one_v_one);
+        nameTextView = (TextView) findViewById(R.id.r_one_v_one_name_text_view_activity);
+        timer = findViewById(R.id.timer_r_one_v_one);
+        loopTimer = findViewById(R.id.loop_timer_r_one_v_one);
         defaultLogic = new DevicesDefaultLogic();
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();

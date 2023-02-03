@@ -28,10 +28,10 @@ public class StartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
-        addDeviceMain = findViewById(R.id.addDeviceMain);
+        addDeviceMain = findViewById(R.id.add_device_main);
 
-        TextView widgetsFragmentButton = (TextView) findViewById(R.id.devicesFragmentButtonOnStartActivity);
-        TextView profileFragmentButton = (TextView) findViewById(R.id.profileFragmentButtonOnStartActivity);
+        TextView widgetsFragmentButton = (TextView) findViewById(R.id.devices_fragment_button_on_start_activity);
+        TextView profileFragmentButton = (TextView) findViewById(R.id.profile_fragment_button_on_start_activity);
 
 
         widgetsFragmentButton.setOnClickListener(new View.OnClickListener() {

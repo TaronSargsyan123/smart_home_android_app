@@ -71,10 +71,10 @@ public class CurVOneMainWidget  extends DefaultMainWidget implements Serializabl
 
     private void init(){
 
-        textView = (TextView) findViewById(R.id.CurVOneStageTextViewMAinWidget);
-        background = (LinearLayout) findViewById(R.id.CurVOneBackgroundMainWidget);
-        nameTextView = (TextView) findViewById(R.id.CurVOneNameTextViewMainWidget);
-        mainButton = (TextView) findViewById(R.id.CurVOneMainButtonMainWidget);
+        textView = (TextView) findViewById(R.id.cur_v_one_stage_text_view_main_widget);
+        background = (LinearLayout) findViewById(R.id.cur_v_one_background_main_widget);
+        nameTextView = (TextView) findViewById(R.id.cur_v_one_name_text_view_main_widget);
+        mainButton = (TextView) findViewById(R.id.cur_v_one_main_button_main_widget);
 
         defaultLogic = new DevicesDefaultLogic();
         buttonStage = false;

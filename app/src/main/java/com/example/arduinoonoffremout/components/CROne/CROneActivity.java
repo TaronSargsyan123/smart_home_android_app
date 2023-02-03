@@ -38,11 +38,12 @@ public class CROneActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crone);
-        button = (TextView) findViewById(R.id.CROneMainButton);
-        back = findViewById(R.id.backToMainActivityCROne);
-        settings = findViewById(R.id.settingsCROne);
-        timer = findViewById(R.id.timerCROne);
-        loopTimer = findViewById(R.id.loopTimerCROne);
+        button = (TextView) findViewById(R.id.c_r_one_main_button);
+        back = findViewById(R.id.back_to_main_activity_c_r_one);
+        settings = findViewById(R.id.settings_c_r_one);
+        timer = findViewById(R.id.timer_c_r_one);
+        loopTimer = findViewById(R.id.loop_timer_c_r_one);
+        button = (TextView) findViewById(R.id.c_r_one_main_button);
         defaultLogic = new DevicesDefaultLogic();
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
@@ -81,7 +82,7 @@ public class CROneActivity extends AppCompatActivity {
             }
         });
 
-        button = (TextView) findViewById(R.id.CROneMainButton);
+
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -20,7 +20,6 @@ import androidx.annotation.RequiresApi;
 import com.example.arduinoonoffremout.DefaultMainWidget;
 import com.example.arduinoonoffremout.Network;
 import com.example.arduinoonoffremout.R;
-import com.example.arduinoonoffremout.components.ThVOne.ThVOne;
 import com.example.arduinoonoffremout.firebase.DevicesDefaultLogic;
 import com.google.android.material.slider.Slider;
 

@@ -57,16 +57,16 @@ public class CreateDeviceActivity extends AppCompatActivity  {
         Spinner dropdown = findViewById(R.id.spinner1);
 
 
-        listView = (ListView) findViewById(R.id.bluetoothItemsList);
+        listView = (ListView) findViewById(R.id.bluetooth_items_list);
 
         ArrayAdapter<CharSequence>adapter=ArrayAdapter.createFromResource(this, R.array.devices, android.R.layout.simple_spinner_dropdown_item);
         dropdown.setAdapter(adapter);
 
 
-        nameEditText = findViewById(R.id.nameEditText);
-        ssidEditText = findViewById(R.id.wifiSSidEditText);
-        passwordEditText = findViewById(R.id.wifiPasswordEditText);
-        TextView back = findViewById(R.id.backToDeviceList);
+        nameEditText = findViewById(R.id.name_edit_text);
+        ssidEditText = findViewById(R.id.wifi_ssid_edit_text);
+        passwordEditText = findViewById(R.id.wifi_password_editText);
+        TextView back = findViewById(R.id.back_to_device_list);
         String type;
 
         try {
