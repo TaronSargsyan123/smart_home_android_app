@@ -27,7 +27,6 @@ import java.io.Serializable;
 
 public class ROneVOneMainWidget extends DefaultMainWidget implements  Serializable {
     TextView mainButton;
-    private Network network;
     private Boolean buttonStage;
     private LinearLayout background;
     private TextView textView;
@@ -91,8 +90,6 @@ public class ROneVOneMainWidget extends DefaultMainWidget implements  Serializab
         background = (LinearLayout) findViewById(R.id.ROneVOneRelayBackgroundMainWidget);
         nameTextView = (TextView) findViewById(R.id.ROneVOneNameTextViewMainWidget);
         mainButton = (TextView) findViewById(R.id.ROneVOneMainButtonMainWidget);
-
-        network = new Network(host, 5045);
         defaultLogic = new DevicesDefaultLogic();
         buttonStage = false;
 
@@ -146,7 +143,6 @@ public class ROneVOneMainWidget extends DefaultMainWidget implements  Serializab
 
             @Override
             public void run() {
-                network = new Network(host, 5045);
                 try  {
                     SharedPreferences sharedPreferences = getContext().getSharedPreferences("Authorisation", MODE_PRIVATE);
                     String email = sharedPreferences.getString("email", "");

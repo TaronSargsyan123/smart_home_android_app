@@ -86,6 +86,7 @@
             android:id="@+id/wifiPasswordEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="textPassword"
             android:textColorHint="?attr/colorPrimary" />
 
     </com.google.android.material.textfield.TextInputLayout>

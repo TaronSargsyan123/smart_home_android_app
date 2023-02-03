@@ -33,6 +33,7 @@ import android.widget.Toast;
 
 import com.example.arduinoonoffremout.components.CROne.CROneMainWidget;
 import com.example.arduinoonoffremout.components.CurVOne.CurVOneMainWidget;
+import com.example.arduinoonoffremout.components.DOne.DOneMainWidget;
 import com.example.arduinoonoffremout.components.ROneVOne.ROneVOneMainWidget;
 import com.example.arduinoonoffremout.components.ThVOne.ThVOne;
 import com.example.arduinoonoffremout.components.ThVOne.ThVOneMainWidget;
@@ -147,6 +148,9 @@ public class DevicesFragment extends Fragment {
                             }else if(Objects.equals(arrOfStr[0], "ThVOne")){
                                 addThVOne(arrOfStr[2], arrOfStr[1], "ThVOne", String.valueOf(deviceID));
 
+                            }else if(Objects.equals(arrOfStr[0], "DOne")){
+                                addDOne(arrOfStr[2], arrOfStr[1], "DOne", String.valueOf(deviceID));
+
                             }
                         }catch (Exception e){
                             toastPrint("Fail");
@@ -211,6 +215,17 @@ public class DevicesFragment extends Fragment {
         mainWidgetsSerializer.saveWidgets(widgetsArray, FILE_NAME, this.requireContext());
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public void addDOne(String name, String host, String type, String id){
+        DOneMainWidget thVOneMainWidget = new DOneMainWidget(this.getContext());
+        thVOneMainWidget.configNameAndHost(name, host);
+        thVOneMainWidget.setType(type);
+        thVOneMainWidget.setIDString(String.valueOf(id));
+        widgetsArray.add(thVOneMainWidget);
+        layout.addView(thVOneMainWidget);
+        mainWidgetsSerializer.saveWidgets(widgetsArray, FILE_NAME, this.requireContext());
+    }
+
 
     private void toastPrint(CharSequence s){
         Context context = this.getContext();
@@ -243,6 +258,9 @@ public class DevicesFragment extends Fragment {
                         addCurVOne(name, host, type, id);
                     }else if (Objects.equals(type, "ThVOne")){
                         addThVOne(name, host, type, id);
+                    }
+                    else if (Objects.equals(type, "DOne")){
+                        addDOne(name, host, type, id);
                     }
                     Log.i("WIDGETS", widgetString);
                 }catch (Exception ignored){

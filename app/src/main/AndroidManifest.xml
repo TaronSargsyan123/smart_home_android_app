@@ -25,9 +25,14 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_logo_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.ArduinoOnOffRemout"
-        >
-
+        android:theme="@style/Theme.ArduinoOnOffRemout">
+        <activity
+            android:name=".components.DOne.DOneActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".components.ThVOne.ThVOne"
             android:exported="false">
@@ -57,7 +62,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity
             android:name=".StartActivity"
@@ -91,8 +95,7 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="false">
-        </activity>
+            android:exported="false"></activity>
 
         <meta-data
             android:name="preloaded_fonts"

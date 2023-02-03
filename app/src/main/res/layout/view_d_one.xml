@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/d_one_background_main_widget"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:orientation="horizontal"
+    android:background="@drawable/shape_background_button_on_off"
+    android:layout_marginStart="16dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginEnd="16dp"
+    android:layout_marginBottom="5dp"
+    android:elevation="2dp">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_weight="9"
+        >
+
+        <TextView
+            android:textColor="?attr/colorOnTertiary"
+            android:id="@+id/d_one_name_text_view_main_widget"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="20dp"
+            android:layout_marginTop="30dp"
+            android:text="@string/deviceName"
+            android:textSize="20sp"
+            tools:ignore="RtlSymmetry" />
+
+        <com.google.android.material.slider.Slider
+            android:id="@+id/d_one_slider_main_widget"
+            app:trackColor="@color/orange"
+            app:trackColorInactive="@color/gray_400"
+            app:tickColorInactive="@color/gray_400"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+    </LinearLayout>
+
+    <TextView
+
+
+        android:background="@drawable/shape_relay_round"
+        android:id="@+id/d_one_button_main_widget"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:drawableEnd="@drawable/ic_power_switch"
+        android:padding="10dp"
+        android:layout_margin="5dp"
+        android:layout_gravity="center_vertical"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+
+
+
+</LinearLayout>

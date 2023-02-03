@@ -59,6 +59,16 @@ public class DevicesDefaultLogic {
 
     }
 
+    public void insertDataDOne(int stage, String email, String deviceName, String deviceType, int bright) {
+        if (!Objects.equals(email, "")) {
+            DOneDatabaseInstance instance = new DOneDatabaseInstance(email, deviceName, deviceType, stage, bright);
+            String[] arrOfStr = email.split("@");
+            String userName = arrOfStr[0];
+            usersRef.child(userName).child(deviceName).setValue(instance);
+
+        }
+    }
+
     public String readDataThVOne(String email, String deviceName){
         if (!Objects.equals(email, "")) {
             final String[] temp = new String[1];
