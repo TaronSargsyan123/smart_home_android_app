@@ -23,6 +23,7 @@
             android:orientation="vertical">
 
             <com.google.android.material.slider.Slider
+                android:id="@+id/d_one_slider_activity"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:tickColorInactive="@color/gray_400"
                 app:trackColor="@color/orange"

@@ -20,6 +20,7 @@ import androidx.annotation.RequiresApi;
 import com.example.arduinoonoffremout.DefaultMainWidget;
 import com.example.arduinoonoffremout.Network;
 import com.example.arduinoonoffremout.R;
+import com.example.arduinoonoffremout.components.CROne.CROneActivity;
 import com.example.arduinoonoffremout.firebase.DevicesDefaultLogic;
 import com.google.android.material.slider.Slider;
 
@@ -107,6 +108,13 @@ public class DOneMainWidget   extends DefaultMainWidget implements Serializable 
 
 
     }
+    private void openActivity(){
+        Intent switchActivityIntent = new Intent(getContext(), DOneActivity.class);
+        switchActivityIntent.putExtra("NAME", name);
+        switchActivityIntent.putExtra("STAGE", stage);
+        getContext().startActivity(switchActivityIntent);
+    }
+
     private void clickMainButton(){
         if (stage == true){
             stage = false;
@@ -125,13 +133,6 @@ public class DOneMainWidget   extends DefaultMainWidget implements Serializable 
         return (int) (temp * 100);
     }
 
-    private void openActivity(){
-        Intent switchActivityIntent = new Intent(getContext(), DOneActivity.class);
-        switchActivityIntent.putExtra("NAME", name);
-        switchActivityIntent.putExtra("HOST", host);
-        //switchActivityIntent.putExtra("STAGE", buttonStage);
-        getContext().startActivity(switchActivityIntent);
-    }
 
     private void sendFromMain(Boolean flag){
         Thread threadOn = new Thread(new Runnable() {
