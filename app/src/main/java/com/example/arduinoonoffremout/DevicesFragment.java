@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.VibrationEffect;
 import android.os.Vibrator;
+import android.speech.RecognizerIntent;
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -41,6 +42,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Objects;
 
 
@@ -112,13 +114,82 @@ public class DevicesFragment extends Fragment {
                 builder.create();
                 builder.show();
 
+
+
             }
         });
+
+
+        clearListButton.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+                voiceControlActivityResultLauncher.launch(intent);
+                return false;
+            }
+        });
+
 
 
         return view;
 
     }
+
+    ActivityResultLauncher<Intent> voiceControlActivityResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                new ActivityResultCallback<ActivityResult>() {
+        @Override
+        public void onActivityResult(ActivityResult result) {
+            if (result.getResultCode() == Activity.RESULT_OK) {
+                String name;
+                Intent data = result.getData();
+                ArrayList<String> text = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+
+                String[] separated = text.get(0).split(" ");
+
+                String command = separated[0];
+                String inputName = text.get(0).replace(command, "");
+                inputName = inputName.trim();
+                command = command.toLowerCase(Locale.ROOT);
+
+                if (command.equals("включи")) {
+                    for (DefaultMainWidget defaultMainWidget : widgetsArray) {
+                        name = defaultMainWidget.getName();
+                        System.out.println(name);
+                        System.out.println(inputName);
+                        if (inputName.equals(name)){
+                            System.out.println("Here");
+                            defaultMainWidget.on();
+                        }else {
+                            Toast toast = Toast.makeText(getContext(), "Device not found", Toast.LENGTH_SHORT);
+                            toast.show();
+                        }
+                    }
+                }else if (command.equals("выключи")){
+                    for (DefaultMainWidget defaultMainWidget : widgetsArray) {
+                        name = defaultMainWidget.getName();
+                        if (inputName.equals(name)){
+                            defaultMainWidget.off();
+                        }else {
+                            Toast toast = Toast.makeText(getContext(), "Device not found", Toast.LENGTH_SHORT);
+                            toast.show();
+                        }
+                    }
+                }else {
+                    Toast toast = Toast.makeText(getContext(), "Command not found", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+
+
+
+
+            }
+        }
+    });
+
+
 
 
     ActivityResultLauncher<Intent> mStartForResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),

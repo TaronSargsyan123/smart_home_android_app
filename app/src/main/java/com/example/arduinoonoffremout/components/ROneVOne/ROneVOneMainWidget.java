@@ -37,6 +37,7 @@ public class ROneVOneMainWidget extends DefaultMainWidget implements  Serializab
     private String[] info;
     private DevicesDefaultLogic defaultLogic;
     private LinearLayout parentLayout;
+    private String email;
 
 
 
@@ -92,6 +93,8 @@ public class ROneVOneMainWidget extends DefaultMainWidget implements  Serializab
         mainButton = (TextView) findViewById(R.id.r_one_v_one_main_button_main_widget);
         defaultLogic = new DevicesDefaultLogic();
         buttonStage = false;
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("Authorisation", MODE_PRIVATE);
+        email = sharedPreferences.getString("email", "");
 
         setName(name);
 
@@ -144,8 +147,7 @@ public class ROneVOneMainWidget extends DefaultMainWidget implements  Serializab
             @Override
             public void run() {
                 try  {
-                    SharedPreferences sharedPreferences = getContext().getSharedPreferences("Authorisation", MODE_PRIVATE);
-                    String email = sharedPreferences.getString("email", "");
+
 
                     if (flag) {
 
@@ -217,6 +219,17 @@ public class ROneVOneMainWidget extends DefaultMainWidget implements  Serializab
         defaultLogic.deleteDevice(name, getName());
     }
 
+    @Override
+    public void on() {
+        textView.setText(getResources().getString(R.string.on));
+        sendFromMain(buttonStage);
+        buttonStage = false;
+    }
 
-
+    @Override
+    public void off() {
+        textView.setText(getResources().getString(R.string.off));
+        sendFromMain(buttonStage);
+        buttonStage = true;
+    }
 }

@@ -181,5 +181,19 @@ public class CROneMainWidget extends DefaultMainWidget implements Serializable {
         return temp;
     }
 
+    @Override
+    public void on() {
+        textView.setText(getResources().getString(R.string.on));
+        sendFromMain(buttonStage);
+        buttonStage = false;
+    }
+
+    @Override
+    public void off() {
+        textView.setText(getResources().getString(R.string.off));
+        sendFromMain(buttonStage);
+        buttonStage = true;
+    }
+
 
 }

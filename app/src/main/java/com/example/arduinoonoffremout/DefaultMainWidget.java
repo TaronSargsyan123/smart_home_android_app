@@ -66,6 +66,10 @@ public class DefaultMainWidget extends LinearLayout {
         return null;
     }
 
+    public void on(){}
+
+    public void off(){}
+
 
 
 

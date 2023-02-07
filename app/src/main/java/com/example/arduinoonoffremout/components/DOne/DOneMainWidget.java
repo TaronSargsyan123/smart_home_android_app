@@ -189,4 +189,18 @@ public class DOneMainWidget   extends DefaultMainWidget implements Serializable 
         return temp;
     }
 
+    @Override
+    public void on() {
+        stage = true;
+        sendFromMain(stage);
+        slider.setEnabled(stage);
+    }
+
+    @Override
+    public void off() {
+        stage = false;
+        sendFromMain(stage);
+        slider.setEnabled(stage);
+    }
+
 }
