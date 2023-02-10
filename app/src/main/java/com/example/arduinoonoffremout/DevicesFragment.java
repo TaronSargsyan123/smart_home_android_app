@@ -157,7 +157,7 @@ public class DevicesFragment extends Fragment {
                 String inputName = text.get(0).replace(command, "");
                 inputName = inputName.trim();
                 command = command.toLowerCase(Locale.ROOT);
-
+                Boolean notFound = false;
                 if (command.equals("включи")) {
                     for (DefaultMainWidget defaultMainWidget : widgetsArray) {
                         name = defaultMainWidget.getName();
@@ -167,26 +167,30 @@ public class DevicesFragment extends Fragment {
                             System.out.println("Here");
                             defaultMainWidget.on();
                         }
-//                        else {
-//                            Toast toast = Toast.makeText(getContext(), "Device not found", Toast.LENGTH_SHORT);
-//                            toast.show();
-//                        }
+                        else {
+                            notFound = true;
+                        }
                     }
                 }else if (command.equals("выключи")){
                     for (DefaultMainWidget defaultMainWidget : widgetsArray) {
                         name = defaultMainWidget.getName();
                         if (inputName.equals(name)){
                             defaultMainWidget.off();
+                        }else {
+                            notFound = true;
                         }
-//                        else {
-//                            Toast toast = Toast.makeText(getContext(), "Device not found", Toast.LENGTH_SHORT);
-//                            toast.show();
-//                        }
                     }
                 }else {
                     Toast toast = Toast.makeText(getContext(), "Command not found", Toast.LENGTH_SHORT);
                     toast.show();
                 }
+
+                if (notFound){
+                    Toast toast = Toast.makeText(getContext(), "Device not found", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+
+
 
 
 
