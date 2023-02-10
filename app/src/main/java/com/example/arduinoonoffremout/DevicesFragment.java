@@ -58,6 +58,8 @@ public class DevicesFragment extends Fragment {
     private final String FILE_NAME ="localData.txt";// getString(R.string.save_file_name);;
     private TextView listIsEmptyTextView;
     private DevicesDefaultLogic devicesDefaultLogic;
+    private TextView voiceControlButton;
+    private TextView designTextView;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -72,6 +74,8 @@ public class DevicesFragment extends Fragment {
         imageView = view.findViewById(R.id.no_devices_imageView_fragment_devices);
         listIsEmptyTextView = view.findViewById(R.id.listIs_empty_text_view);
         devicesDefaultLogic = new DevicesDefaultLogic();
+        voiceControlButton = view.findViewById(R.id.voice_control_button_devices_fragment);
+        designTextView = view.findViewById(R.id.design_text_view_devices_fragment);
         drawDevicesFromFile(FILE_NAME);
         drawImage();
 
@@ -119,15 +123,13 @@ public class DevicesFragment extends Fragment {
             }
         });
 
-
-        clearListButton.setOnLongClickListener(new View.OnLongClickListener() {
+        voiceControlButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onLongClick(View view) {
+            public void onClick(View view) {
                 Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
                 intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
                 intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
                 voiceControlActivityResultLauncher.launch(intent);
-                return false;
             }
         });
 
@@ -136,6 +138,8 @@ public class DevicesFragment extends Fragment {
         return view;
 
     }
+
+
 
     ActivityResultLauncher<Intent> voiceControlActivityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
@@ -162,20 +166,22 @@ public class DevicesFragment extends Fragment {
                         if (inputName.equals(name)){
                             System.out.println("Here");
                             defaultMainWidget.on();
-                        }else {
-                            Toast toast = Toast.makeText(getContext(), "Device not found", Toast.LENGTH_SHORT);
-                            toast.show();
                         }
+//                        else {
+//                            Toast toast = Toast.makeText(getContext(), "Device not found", Toast.LENGTH_SHORT);
+//                            toast.show();
+//                        }
                     }
                 }else if (command.equals("выключи")){
                     for (DefaultMainWidget defaultMainWidget : widgetsArray) {
                         name = defaultMainWidget.getName();
                         if (inputName.equals(name)){
                             defaultMainWidget.off();
-                        }else {
-                            Toast toast = Toast.makeText(getContext(), "Device not found", Toast.LENGTH_SHORT);
-                            toast.show();
                         }
+//                        else {
+//                            Toast toast = Toast.makeText(getContext(), "Device not found", Toast.LENGTH_SHORT);
+//                            toast.show();
+//                        }
                     }
                 }else {
                     Toast toast = Toast.makeText(getContext(), "Command not found", Toast.LENGTH_SHORT);
@@ -335,10 +341,14 @@ public class DevicesFragment extends Fragment {
         try {
             if(widgetsArray.isEmpty()){
                 clearListButton.setVisibility(View.INVISIBLE);
+                voiceControlButton.setVisibility(View.INVISIBLE);
+                designTextView.setVisibility(View.INVISIBLE);
                 imageView.setVisibility(View.VISIBLE);
                 listIsEmptyTextView.setVisibility(View.VISIBLE);
             }else {
                 clearListButton.setVisibility(View.VISIBLE);
+                voiceControlButton.setVisibility(View.VISIBLE);
+                designTextView.setVisibility(View.VISIBLE);
                 imageView.setVisibility(View.GONE);
                 //((ViewGroup) imageView.getParent()).removeView(imageView);
                 listIsEmptyTextView.setVisibility(View.GONE);
