@@ -89,6 +89,7 @@ public class DevicesFragment extends Fragment {
         });
 
 
+
         clearListButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
