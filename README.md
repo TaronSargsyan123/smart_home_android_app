@@ -7,7 +7,7 @@ ___
 You can control the following devices
 * WiFi Relay
 * WiFi Dimmer
-* RGB Backlit
+* RGB Light
 * Smart Curtains
 
 **Why is this application better than its counterparts?**
