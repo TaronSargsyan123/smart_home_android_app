@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parent_fragment_devices"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
 
@@ -30,49 +32,69 @@
         android:background="@drawable/shape_clear_list_button"
         android:elevation="2dp"
         android:gravity="center_vertical"
-        android:paddingStart="16dp"
         android:minHeight="44dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
         android:padding="10dp"
-        android:text="@string/devices_list"
+        android:layout_margin="16dp"
+        android:text="@string/menu"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="@+id/clear_all_devices_fragment"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/clear_all_devices_fragment" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/up_bar_back_arrow_devices_fragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="2dp"
+        android:gravity="center"
+        android:minHeight="32dp"
+        android:padding="10dp"
+        app:drawableEndCompat="@drawable/ic_baseline_arrow_back"
+        app:layout_constraintBottom_toBottomOf="@+id/design_text_view_devices_fragment"
+        app:layout_constraintEnd_toEndOf="@+id/design_text_view_devices_fragment"
+
+        app:layout_constraintTop_toTopOf="@+id/design_text_view_devices_fragment" />
 
     <TextView
         android:id="@+id/voice_control_button_devices_fragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minHeight="32dp"
         android:elevation="2dp"
-        android:padding="10dp"
         android:gravity="center"
-        app:layout_constraintBottom_toBottomOf="@+id/clear_all_devices_fragment"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/clear_all_devices_fragment"
-        android:layout_marginEnd="16dp"
-        app:drawableEndCompat="@drawable/ic_baseline_keyboard_voice_24" />
+        android:minHeight="32dp"
+        android:padding="10dp"
+        app:drawableEndCompat="@drawable/ic_baseline_keyboard_voice_24"
+        app:layout_constraintBottom_toBottomOf="@+id/design_text_view_devices_fragment"
+        app:layout_constraintEnd_toStartOf="@+id/up_bar_back_arrow_devices_fragment"
+        app:layout_constraintTop_toTopOf="@+id/design_text_view_devices_fragment" />
 
     <TextView
         android:id="@+id/clear_all_devices_fragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="2dp"
         android:elevation="2dp"
         android:gravity="center"
         android:minHeight="32dp"
         android:padding="10dp"
-        android:textColor="#757575"
         app:drawableEndCompat="@drawable/ic_baseline_delete_24"
+
+        app:layout_constraintBottom_toBottomOf="@+id/design_text_view_devices_fragment"
+
         app:layout_constraintEnd_toStartOf="@+id/voice_control_button_devices_fragment"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/design_text_view_devices_fragment" />
 
-
-
-
+    <TextView
+        android:id="@+id/open_menu_devices_fragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="2dp"
+        android:gravity="center"
+        android:minHeight="32dp"
+        android:padding="10dp"
+        app:drawableEndCompat="@drawable/ic_baseline_more_vert_24"
+        app:layout_constraintBottom_toBottomOf="@+id/design_text_view_devices_fragment"
+        app:layout_constraintStart_toStartOf="@+id/design_text_view_devices_fragment"
+        app:layout_constraintTop_toTopOf="@+id/design_text_view_devices_fragment" />
 
 
     <ImageView

@@ -1,5 +1,6 @@
 package com.example.arduinoonoffremout;
 
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -14,19 +15,20 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.RequiresApi;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.speech.RecognizerIntent;
 import android.text.Html;
+import android.transition.Transition;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -38,8 +40,6 @@ import com.example.arduinoonoffremout.components.DOne.DOneMainWidget;
 import com.example.arduinoonoffremout.components.ROneVOne.ROneVOneMainWidget;
 import com.example.arduinoonoffremout.firebase.DevicesDefaultLogic;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -60,12 +60,19 @@ public class DevicesFragment extends Fragment {
     private DevicesDefaultLogic devicesDefaultLogic;
     private TextView voiceControlButton;
     private TextView designTextView;
+    private TextView backUpBarMenu;
+    private TextView openUpBarMenu;
+
+    private int designTextViewWidth;
+    private int openUpBarMenuWidth;
+    private ConstraintLayout constraintLayout;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_devices, container, false);
+        constraintLayout = view.findViewById(R.id.parent_fragment_devices);
         addDevice = requireActivity().findViewById(R.id.add_device_main);
         layout  = view.findViewById(R.id.devices_fragment_layout);
         clearListButton = view.findViewById(R.id.clear_all_devices_fragment);
@@ -76,8 +83,15 @@ public class DevicesFragment extends Fragment {
         devicesDefaultLogic = new DevicesDefaultLogic();
         voiceControlButton = view.findViewById(R.id.voice_control_button_devices_fragment);
         designTextView = view.findViewById(R.id.design_text_view_devices_fragment);
+        backUpBarMenu = view.findViewById(R.id.up_bar_back_arrow_devices_fragment);
+        openUpBarMenu = view.findViewById(R.id.open_menu_devices_fragment);
+
+        designTextViewWidth = designTextView.getWidth();
+        openUpBarMenuWidth = openUpBarMenu.getWidth();
+
         drawDevicesFromFile(FILE_NAME);
         drawImage();
+        closeMenu();
 
         addDevice.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,6 +99,20 @@ public class DevicesFragment extends Fragment {
                 Intent switchActivityIntent = new Intent(getContext(), CreateDeviceActivity.class);
                 mStartForResult.launch(switchActivityIntent);
 
+            }
+        });
+
+        backUpBarMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                closeMenu();
+            }
+        });
+
+        openUpBarMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openMenu();
             }
         });
 
@@ -214,19 +242,20 @@ public class DevicesFragment extends Fragment {
                     if(result.getResultCode() == Activity.RESULT_OK){
                         Intent intent = result.getData();
                         try {
+                            View view = null;
                             String accessMessage = intent.getStringExtra(ACCESS_MESSAGE);
                             String[] arrOfStr = accessMessage.split("/%");
                             if (Objects.equals(arrOfStr[0], "ROneVOne")){
-                                addROneVOne(arrOfStr[2], arrOfStr[1], "ROneVOne", String.valueOf(deviceID));
+                                view = addROneVOne(arrOfStr[2], arrOfStr[1], "ROneVOne", String.valueOf(deviceID));
 
                             }else if (Objects.equals(arrOfStr[0], "CROne")){
-                                addCROne(arrOfStr[2], arrOfStr[1], "CROne", String.valueOf(deviceID));
+                                view = addCROne(arrOfStr[2], arrOfStr[1], "CROne", String.valueOf(deviceID));
 
                             }else if(Objects.equals(arrOfStr[0], "CurVOne")){
-                                addCurVOne(arrOfStr[2], arrOfStr[1], "CurVOne", String.valueOf(deviceID));
+                                view = addCurVOne(arrOfStr[2], arrOfStr[1], "CurVOne", String.valueOf(deviceID));
 
                             }else if(Objects.equals(arrOfStr[0], "DOne")){
-                                addDOne(arrOfStr[2], arrOfStr[1], "DOne", String.valueOf(deviceID));
+                                view = addDOne(arrOfStr[2], arrOfStr[1], "DOne", String.valueOf(deviceID));
 
                             }
                         }catch (Exception e){
@@ -243,7 +272,7 @@ public class DevicesFragment extends Fragment {
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public void addROneVOne(String name, String host, String type, String id){
+    public ROneVOneMainWidget addROneVOne(String name, String host, String type, String id){
         ROneVOneMainWidget onOffButton = new ROneVOneMainWidget(this.getContext());
         onOffButton.configNameAndHost(name, host);
         onOffButton.setType(type);
@@ -253,10 +282,11 @@ public class DevicesFragment extends Fragment {
         layout.addView(onOffButton);
         mainWidgetsSerializer.saveWidgets(widgetsArray, FILE_NAME, this.requireContext());
 
+        return onOffButton;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public void addCROne(String name, String host, String type, String id){
+    public CROneMainWidget addCROne(String name, String host, String type, String id){
         CROneMainWidget crOneMainWidget = new CROneMainWidget(this.getContext());
         crOneMainWidget.configNameAndHost(name, host);
         crOneMainWidget.setType(type);
@@ -265,11 +295,11 @@ public class DevicesFragment extends Fragment {
         widgetsArray.add(crOneMainWidget);
         layout.addView(crOneMainWidget);
         mainWidgetsSerializer.saveWidgets(widgetsArray, FILE_NAME, this.requireContext());
-
+        return crOneMainWidget;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public void addCurVOne(String name, String host, String type, String id){
+    public CurVOneMainWidget addCurVOne(String name, String host, String type, String id){
         CurVOneMainWidget curVOneMainWidget = new CurVOneMainWidget(this.getContext());
         curVOneMainWidget.configNameAndHost(name, host);
         curVOneMainWidget.setType(type);
@@ -278,19 +308,20 @@ public class DevicesFragment extends Fragment {
         widgetsArray.add(curVOneMainWidget);
         layout.addView(curVOneMainWidget);
         mainWidgetsSerializer.saveWidgets(widgetsArray, FILE_NAME, this.requireContext());
-
+        return curVOneMainWidget;
     }
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public void addDOne(String name, String host, String type, String id){
-        DOneMainWidget thVOneMainWidget = new DOneMainWidget(this.getContext());
-        thVOneMainWidget.configNameAndHost(name, host);
-        thVOneMainWidget.setType(type);
-        thVOneMainWidget.setIDString(String.valueOf(id));
-        widgetsArray.add(thVOneMainWidget);
-        layout.addView(thVOneMainWidget);
+    public DOneMainWidget addDOne(String name, String host, String type, String id){
+        DOneMainWidget dOneMainWidget = new DOneMainWidget(this.getContext());
+        dOneMainWidget.configNameAndHost(name, host);
+        dOneMainWidget.setType(type);
+        dOneMainWidget.setIDString(String.valueOf(id));
+        widgetsArray.add(dOneMainWidget);
+        layout.addView(dOneMainWidget);
         mainWidgetsSerializer.saveWidgets(widgetsArray, FILE_NAME, this.requireContext());
+        return dOneMainWidget;
     }
 
 
@@ -369,6 +400,63 @@ public class DevicesFragment extends Fragment {
         Log.i("EMAIL", email);
         devicesDefaultLogic.clearData(email);
     }
+
+    private void openMenu(){
+        int maxWidth = designTextViewWidth;
+        int minWidth = openUpBarMenuWidth;
+
+        openUpBarMenu.setVisibility(View.INVISIBLE);
+        designTextView.setText(getResources().getString(R.string.menu));
+        backUpBarMenu.setVisibility(View.VISIBLE);
+        voiceControlButton.setVisibility(View.VISIBLE);
+        clearListButton.setVisibility(View.VISIBLE);
+        ConstraintSet constraintSet = new ConstraintSet();
+        constraintSet.clone(constraintLayout);
+        constraintSet.connect(R.id.design_text_view_devices_fragment,ConstraintSet.END,R.id.parent_fragment_devices,ConstraintSet.END,16);
+        constraintSet.applyTo(constraintLayout);
+
+        animate(designTextView, 1, maxWidth, 0);
+
+    }
+
+    private void closeMenu(){
+        openUpBarMenu.setVisibility(View.VISIBLE);
+        designTextView.setText("");
+        backUpBarMenu.setVisibility(View.INVISIBLE);
+        voiceControlButton.setVisibility(View.INVISIBLE);
+        clearListButton.setVisibility(View.INVISIBLE);
+
+        ConstraintSet constraintSet = new ConstraintSet();
+        constraintSet.clone(constraintLayout);
+        constraintSet.clear(R.id.design_text_view_devices_fragment,ConstraintSet.END);
+        constraintSet.applyTo(constraintLayout);
+
+        animate(designTextView, 1, 110, 500);
+
+
+    }
+
+    private void animate(View view, int type, int size, int duration){
+        ValueAnimator anim = ValueAnimator.ofInt(view.getMeasuredWidth(), size);
+        anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                int val = (Integer) valueAnimator.getAnimatedValue();
+                ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
+                if (type==1){
+                    layoutParams.width = val;
+                }else if (type==2){
+                    layoutParams.height = val;
+                }
+
+                view.setLayoutParams(layoutParams);
+            }
+        });
+        anim.setDuration(duration);
+        anim.start();
+
+    }
+
 
 
 }

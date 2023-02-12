@@ -48,6 +48,7 @@
     <string name="don_t_have_an_account">Don\'t have an account?    </string>
     <string name="voice_control">Voice Control</string>
     <string name="devices_list">Devices List</string>
+    <string name="menu">Menu</string>
 
     <string-array name="devices">
         <item>ROneVOne</item>
