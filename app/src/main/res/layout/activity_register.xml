@@ -12,7 +12,6 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="20dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="40dp"
         app:layout_constraintBottom_toTopOf="@+id/register_email_editText"
@@ -21,15 +20,30 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/shape_login_illustration_back" />
 
+
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="wrap_content"
-        android:layout_height="400dp"
+        android:layout_height="350dp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="@+id/imageView"
         app:layout_constraintStart_toStartOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView"
         app:srcCompat="@drawable/greenhouse_illustration" />
+
+    <TextView
+        android:id="@+id/textViewSignUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/register_now"
+        android:layout_marginTop="10dp"
+        android:textSize="25sp"
+        android:textStyle="bold"
+
+        app:layout_constraintBottom_toTopOf="@+id/register_email_editText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
 
     <com.google.android.material.textfield.TextInputLayout
@@ -56,12 +70,16 @@
         app:hintTextColor="?attr/colorOnTertiary"
         app:layout_constraintBottom_toTopOf="@+id/register_password_editText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        android:singleLine="true"
+        >
 
         <com.google.android.material.textfield.TextInputEditText
 
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -90,12 +108,16 @@
         app:hintTextColor="?attr/colorOnTertiary"
         app:layout_constraintBottom_toTopOf="@+id/register_confirm_password_editText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        android:singleLine="true"
+        >
 
         <com.google.android.material.textfield.TextInputEditText
 
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -123,12 +145,16 @@
         app:hintTextColor="?attr/colorOnTertiary"
         app:layout_constraintBottom_toTopOf="@+id/register_register_button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        android:singleLine="true"
+        >
 
         <com.google.android.material.textfield.TextInputEditText
 
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            />
 
     </com.google.android.material.textfield.TextInputLayout>
 

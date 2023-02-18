@@ -119,6 +119,9 @@ public class CreateDeviceActivity extends AppCompatActivity  {
                 }else if (device == null && bluetoothSupport){
                     Toast toast = Toast.makeText(getApplicationContext(), "Please select device", Toast.LENGTH_SHORT);
                     toast.show();
+
+                    String message = dropdown.getSelectedItem().toString() + "/%" + "0.0.0.0" + "/%" + nameEditText.getText().toString();
+                    sendMessage(message);
                 } else if (!bluetoothSupport){
                     String message = dropdown.getSelectedItem().toString() + "/%" + "0.0.0.0" + "/%" + nameEditText.getText().toString();
                     sendMessage(message);

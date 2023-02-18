@@ -96,6 +96,14 @@
         app:layout_constraintStart_toStartOf="@+id/design_text_view_devices_fragment"
         app:layout_constraintTop_toTopOf="@+id/design_text_view_devices_fragment" />
 
+<!--    <SearchView-->
+<!--        android:id="@+id/simpleSearchView"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/design_text_view_devices_fragment" />-->
+
 
     <ImageView
         android:id="@+id/no_devices_imageView_fragment_devices"
@@ -116,7 +124,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Devices list is empty \n Try to create new device"
+        android:text="@string/devices_list_is_empty_n_try_to_create_new_device"
         android:textSize="20sp"
 
         android:textStyle="bold"

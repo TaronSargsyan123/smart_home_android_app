@@ -9,28 +9,20 @@
 
     <ScrollView
         android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:background="?attr/colorOnPrimary"
         app:layout_constraintBottom_toTopOf="@+id/coordinatorLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="SpeakableTextPresentCheck"
-        android:layout_height="0dp">
+        tools:ignore="SpeakableTextPresentCheck">
 
-        <!-- <LinearLayout
-            android:id="@+id/mainActivityLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/background"
-            android:orientation="vertical"
-            tools:context=".MainActivity" /> -->
+
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/mainActivityFragmentContainer"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            />
+            android:layout_height="wrap_content" />
     </ScrollView>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

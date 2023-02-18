@@ -56,6 +56,7 @@
             android:id="@+id/wifi_ssid_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:singleLine="true"
             android:textColorHint="?attr/colorPrimary" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -87,6 +88,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
+            android:singleLine="true"
             android:textColorHint="?attr/colorPrimary" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -115,7 +117,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/name_edit_text"
-
+            android:singleLine="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 

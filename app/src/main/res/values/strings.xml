@@ -49,6 +49,11 @@
     <string name="voice_control">Voice Control</string>
     <string name="devices_list">Devices List</string>
     <string name="menu">Menu</string>
+    <string name="sign_up_now">Sign up now</string>
+    <string name="devices_list_is_empty_n_try_to_create_new_device">Devices list is empty \n Try to create new device</string>
+    <string name="try_again">Try Again</string>
+    <string name="there_appears_to_be_trouble_with_your_network_connection">There appears to be trouble with your network connection</string>
+    <string name="whoops">Whoops!</string>
 
     <string-array name="devices">
         <item>ROneVOne</item>

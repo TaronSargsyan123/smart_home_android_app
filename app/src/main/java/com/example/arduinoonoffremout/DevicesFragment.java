@@ -29,6 +29,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -62,10 +64,10 @@ public class DevicesFragment extends Fragment {
     private TextView designTextView;
     private TextView backUpBarMenu;
     private TextView openUpBarMenu;
-
     private int designTextViewWidth;
     private int openUpBarMenuWidth;
     private ConstraintLayout constraintLayout;
+    private Animation fade;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -88,6 +90,7 @@ public class DevicesFragment extends Fragment {
 
         designTextViewWidth = designTextView.getWidth();
         openUpBarMenuWidth = openUpBarMenu.getWidth();
+        fade = AnimationUtils.loadAnimation(getContext(), R.anim.fade_up);
 
         drawDevicesFromFile(FILE_NAME);
         drawImage();
@@ -258,6 +261,13 @@ public class DevicesFragment extends Fragment {
                                 view = addDOne(arrOfStr[2], arrOfStr[1], "DOne", String.valueOf(deviceID));
 
                             }
+
+                            try {
+                                view.startAnimation(fade);
+                                view.setAlpha(1);
+                            }catch (Exception ignored){}
+
+
                         }catch (Exception e){
                             toastPrint("Fail");
                         }
