@@ -41,6 +41,7 @@ import com.example.arduinoonoffremout.components.CurVOne.CurVOneMainWidget;
 import com.example.arduinoonoffremout.components.DOne.DOneMainWidget;
 import com.example.arduinoonoffremout.components.ROneVOne.ROneVOneMainWidget;
 import com.example.arduinoonoffremout.firebase.DevicesDefaultLogic;
+import com.example.arduinoonoffremout.speech_recognizer.SpeechRecognizerDefaultLogic;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -68,6 +69,7 @@ public class DevicesFragment extends Fragment {
     private int openUpBarMenuWidth;
     private ConstraintLayout constraintLayout;
     private Animation fade;
+    private SpeechRecognizerDefaultLogic speechRecognizerDefaultLogic;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -87,11 +89,10 @@ public class DevicesFragment extends Fragment {
         designTextView = view.findViewById(R.id.design_text_view_devices_fragment);
         backUpBarMenu = view.findViewById(R.id.up_bar_back_arrow_devices_fragment);
         openUpBarMenu = view.findViewById(R.id.open_menu_devices_fragment);
-
         designTextViewWidth = designTextView.getWidth();
         openUpBarMenuWidth = openUpBarMenu.getWidth();
         fade = AnimationUtils.loadAnimation(getContext(), R.anim.fade_up);
-
+        speechRecognizerDefaultLogic = new SpeechRecognizerDefaultLogic();
         drawDevicesFromFile(FILE_NAME);
         drawImage();
         closeMenu();
@@ -179,53 +180,16 @@ public class DevicesFragment extends Fragment {
         @Override
         public void onActivityResult(ActivityResult result) {
             if (result.getResultCode() == Activity.RESULT_OK) {
-                String name;
+                Boolean notFound;
                 Intent data = result.getData();
                 ArrayList<String> text = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
 
-                String[] separated = text.get(0).split(" ");
-
-                String command = separated[0];
-                String inputName = text.get(0).replace(command, "");
-                inputName = inputName.trim();
-                command = command.toLowerCase(Locale.ROOT);
-                Boolean notFound = false;
-                if (command.equals("включи")) {
-                    for (DefaultMainWidget defaultMainWidget : widgetsArray) {
-                        name = defaultMainWidget.getName();
-                        System.out.println(name);
-                        System.out.println(inputName);
-                        if (inputName.equals(name)){
-                            System.out.println("Here");
-                            defaultMainWidget.on();
-                        }
-                        else {
-                            notFound = true;
-                        }
-                    }
-                }else if (command.equals("выключи")){
-                    for (DefaultMainWidget defaultMainWidget : widgetsArray) {
-                        name = defaultMainWidget.getName();
-                        if (inputName.equals(name)){
-                            defaultMainWidget.off();
-                        }else {
-                            notFound = true;
-                        }
-                    }
-                }else {
-                    Toast toast = Toast.makeText(getContext(), "Command not found", Toast.LENGTH_SHORT);
-                    toast.show();
-                }
+                notFound = speechRecognizerDefaultLogic.voiceProcessing(text, widgetsArray);
 
                 if (notFound){
                     Toast toast = Toast.makeText(getContext(), "Device not found", Toast.LENGTH_SHORT);
                     toast.show();
                 }
-
-
-
-
-
 
             }
         }
