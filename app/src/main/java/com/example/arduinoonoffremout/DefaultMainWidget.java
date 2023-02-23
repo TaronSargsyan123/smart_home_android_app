@@ -70,6 +70,8 @@ public class DefaultMainWidget extends LinearLayout {
 
     public void off(){}
 
+    public void addValue(String value){}
+
 
 
 

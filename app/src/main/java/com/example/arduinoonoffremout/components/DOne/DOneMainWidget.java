@@ -105,9 +105,18 @@ public class DOneMainWidget   extends DefaultMainWidget implements Serializable 
                 defaultLogic.insertDataDOne(1, email, getName(), getType(), getBright());
             }
         });
-
-
     }
+
+
+    public void addValue(String value){
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("Authorisation", MODE_PRIVATE);
+        String email = sharedPreferences.getString("email", "");
+        slider.setValue(Float.parseFloat(value));
+        defaultLogic.insertDataDOne(1, email, getName(), getType(), Integer.parseInt(value));
+    }
+
+
+
     private void openActivity(){
         Intent switchActivityIntent = new Intent(getContext(), DOneActivity.class);
         switchActivityIntent.putExtra("NAME", name);
