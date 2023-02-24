@@ -43,6 +43,12 @@ public class SpeechRecognizerDefaultLogic {
             commandChangeDimmerValue(widgetsArray, separated[0], separated[2]);
         }else if (Objects.equals(separated[0], "яркость")){
             commandChangeDimmerValue(widgetsArray, separated[1], separated[2]);
+        }else if (Objects.equals(separated[0], "open") || Objects.equals(separated[0], "открой")){
+            commandOpen(widgetsArray, separated[1]);
+        }else if (Objects.equals(separated[0], "close") || Objects.equals(separated[0], "закрой")){
+            commandClose(widgetsArray, separated[1]);
+        }else if (Objects.equals(separated[1], "color")){
+            commandSetColor(widgetsArray, separated[0], separated[3]);
         }
 
         return notFound;
@@ -87,21 +93,39 @@ public class SpeechRecognizerDefaultLogic {
         }
     }
 
-    private void commandSetColor(DefaultMainWidget defaultMainWidget){
-        if (Objects.equals(defaultMainWidget.getType(), "CROne")){
-
+    private void commandSetColor(ArrayList<DefaultMainWidget> widgetsArray, String inputName, String value){
+        String name;
+        for (DefaultMainWidget defaultMainWidget : widgetsArray) {
+            name = defaultMainWidget.getName();
+            if (inputName.equals(name) && Objects.equals(defaultMainWidget.getType(), "CROne")){
+                defaultMainWidget.addValue(value);
+            }else {
+                notFound = true;
+            }
         }
     }
 
-    private void commandOpen(DefaultMainWidget defaultMainWidget){
-        if (Objects.equals(defaultMainWidget.getType(), "CurVOne")){
-
+    private void commandOpen(ArrayList<DefaultMainWidget> widgetsArray, String inputName){
+        String name;
+        for (DefaultMainWidget defaultMainWidget : widgetsArray) {
+            name = defaultMainWidget.getName();
+            if (inputName.equals(name) && Objects.equals(defaultMainWidget.getType(), "CurVOne")){
+                defaultMainWidget.on();
+            }else {
+                notFound = true;
+            }
         }
     }
 
-    private void commandClose(DefaultMainWidget defaultMainWidget){
-        if (Objects.equals(defaultMainWidget.getType(), "CurVOne")){
-
+    private void commandClose(ArrayList<DefaultMainWidget> widgetsArray, String inputName){
+        String name;
+        for (DefaultMainWidget defaultMainWidget : widgetsArray) {
+            name = defaultMainWidget.getName();
+            if (inputName.equals(name) && Objects.equals(defaultMainWidget.getType(), "CurVOne")){
+                defaultMainWidget.off();
+            }else {
+                notFound = true;
+            }
         }
     }
 

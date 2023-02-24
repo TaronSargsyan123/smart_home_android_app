@@ -179,7 +179,6 @@ public class CurVOneMainWidget  extends DefaultMainWidget implements Serializabl
 
     @Override
     public void on() {
-        Log.i("TEST", "on");
         textView.setText(getResources().getString(R.string.open));
         sendFromMain(buttonStage);
         buttonStage = false;
@@ -187,7 +186,6 @@ public class CurVOneMainWidget  extends DefaultMainWidget implements Serializabl
 
     @Override
     public void off() {
-        Log.i("TEST", "off");
         textView.setText(getResources().getString(R.string.close));
         sendFromMain(buttonStage);
         buttonStage = true;

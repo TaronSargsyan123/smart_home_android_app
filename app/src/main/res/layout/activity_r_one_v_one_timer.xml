@@ -33,6 +33,21 @@
         android:text="00:01"
         android:textColor="?attr/colorOnTertiary"
         android:textSize="40sp"
+        app:layout_constraintBottom_toTopOf="@+id/time_text_two_r_one_v_one"
+        app:layout_constraintEnd_toEndOf="@+id/progress_bar_timer_r_one_v_one"
+        app:layout_constraintStart_toStartOf="@+id/progress_bar_timer_r_one_v_one"
+        app:layout_constraintTop_toTopOf="@+id/progress_bar_timer_r_one_v_one" />
+
+    <EditText
+        android:id="@+id/time_text_two_r_one_v_one"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="97dp"
+        android:inputType="phone"
+        android:text="00:01"
+        android:textColor="?attr/colorOnTertiary"
+        android:textSize="40sp"
         app:layout_constraintBottom_toBottomOf="@+id/progress_bar_timer_r_one_v_one"
         app:layout_constraintEnd_toEndOf="@+id/progress_bar_timer_r_one_v_one"
         app:layout_constraintStart_toStartOf="@+id/progress_bar_timer_r_one_v_one"

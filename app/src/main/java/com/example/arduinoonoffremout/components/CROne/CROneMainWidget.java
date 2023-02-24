@@ -5,14 +5,15 @@ import static android.content.Context.MODE_PRIVATE;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -20,7 +21,6 @@ import androidx.annotation.RequiresApi;
 import com.example.arduinoonoffremout.DefaultMainWidget;
 import com.example.arduinoonoffremout.Network;
 import com.example.arduinoonoffremout.R;
-import com.example.arduinoonoffremout.components.ROneVOne.ROneVOneActivity;
 import com.example.arduinoonoffremout.firebase.DevicesDefaultLogic;
 
 import java.io.Serializable;
@@ -129,11 +129,12 @@ public class CROneMainWidget extends DefaultMainWidget implements Serializable {
                     String email = sharedPreferences.getString("email", "");
 
                     if (flag) {
-
                         defaultLogic.insertDataCROne(1, email, getName(), getType(), "color");
+                        stage = "1";
                     }
                     else {
                         defaultLogic.insertDataCROne(0, email, getName(), getType(), "color");
+                        stage = "0";
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -193,6 +194,20 @@ public class CROneMainWidget extends DefaultMainWidget implements Serializable {
         textView.setText(getResources().getString(R.string.off));
         sendFromMain(buttonStage);
         buttonStage = true;
+    }
+
+    @Override
+    public void addValue(String value) {
+        super.addValue(value);
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("Authorisation", MODE_PRIVATE);
+        String email = sharedPreferences.getString("email", "");
+        Toast.makeText(getContext(), value, Toast.LENGTH_SHORT).show();
+        try {
+            int color = Color.parseColor(value);
+            defaultLogic.insertDataCROne(0, email, getName(), getType(), String.valueOf(color));
+        }catch (Exception ignored){
+            Toast.makeText(getContext(), "Color not detected", Toast.LENGTH_SHORT).show();
+        }
     }
 
 

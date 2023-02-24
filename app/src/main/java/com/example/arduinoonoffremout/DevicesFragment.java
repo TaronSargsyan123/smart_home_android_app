@@ -40,6 +40,7 @@ import com.example.arduinoonoffremout.components.CROne.CROneMainWidget;
 import com.example.arduinoonoffremout.components.CurVOne.CurVOneMainWidget;
 import com.example.arduinoonoffremout.components.DOne.DOneMainWidget;
 import com.example.arduinoonoffremout.components.ROneVOne.ROneVOneMainWidget;
+import com.example.arduinoonoffremout.firebase.AnalyticsDefaultLogic;
 import com.example.arduinoonoffremout.firebase.DevicesDefaultLogic;
 import com.example.arduinoonoffremout.speech_recognizer.SpeechRecognizerDefaultLogic;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -386,7 +387,7 @@ public class DevicesFragment extends Fragment {
         clearListButton.setVisibility(View.VISIBLE);
         ConstraintSet constraintSet = new ConstraintSet();
         constraintSet.clone(constraintLayout);
-        constraintSet.connect(R.id.design_text_view_devices_fragment,ConstraintSet.END,R.id.parent_fragment_devices,ConstraintSet.END,16);
+        constraintSet.connect(R.id.design_text_view_devices_fragment,ConstraintSet.END,R.id.parent_fragment_devices,ConstraintSet.END,32);
         constraintSet.applyTo(constraintLayout);
 
         animate(designTextView, 1, maxWidth, 0);
