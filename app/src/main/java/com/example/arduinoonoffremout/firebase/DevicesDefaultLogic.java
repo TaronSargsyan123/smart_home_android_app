@@ -1,21 +1,30 @@
 package com.example.arduinoonoffremout.firebase;
 
 import android.util.Log;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.UiThread;
 
+import com.example.arduinoonoffremout.DefaultMainWidget;
+import com.example.arduinoonoffremout.components.ROneVOne.ROneVOneAnalyticsActivity;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 
 public class DevicesDefaultLogic {
     final FirebaseDatabase database = FirebaseDatabase.getInstance("https://revive-smart-home-692c2-default-rtdb.europe-west1.firebasedatabase.app");
     DatabaseReference usersRef = database.getReference("users");
+    DatabaseReference analyticsRef = database.getReference("analytics");
 
     public void insertDataROneVOne(int stage, String email, String deviceName, String deviceType) {
 
@@ -101,6 +110,73 @@ public class DevicesDefaultLogic {
         }
 
     }
+
+    private void insertAnalyticsData(String email, String deviceName, ArrayList<String> data){
+        if (!Objects.equals(email, "")) {
+            String[] arrOfStr = email.split("@");
+            String userName = arrOfStr[0];
+            analyticsRef.child(userName).child(deviceName).setValue(data);
+        }
+    }
+
+    public void updateAnalyticsData(String email, String deviceName, String newData){
+        if (!Objects.equals(email, "")) {
+
+            String[] arrOfStr = email.split("@");
+            String userName = arrOfStr[0];
+
+            analyticsRef.child(userName).child(deviceName).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DataSnapshot> task) {
+                    ArrayList<String> temp;
+                    if (!task.isSuccessful()) {
+                        Log.e("ARR", "Error getting data", task.getException());
+                    }
+                    else {
+                        try {
+                            temp = (ArrayList<String>) task.getResult().getValue();
+                            temp.add(newData);
+                            insertAnalyticsData(email, deviceName, temp);
+                        }catch (Exception ignored){
+                            ArrayList<String> tempArrayList = new ArrayList<>();
+                            tempArrayList.add(newData);
+                            insertAnalyticsData(email, deviceName, tempArrayList);
+                        }
+
+                    }
+                }
+            });
+        }
+    }
+
+    public void drawAnalytics(String email, String deviceName, TextView textView){
+        if (!Objects.equals(email, "")) {
+
+            String[] arrOfStr = email.split("@");
+            String userName = arrOfStr[0];
+
+            analyticsRef.child(userName).child(deviceName).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DataSnapshot> task) {
+                    ArrayList<String> temp;
+                    if (!task.isSuccessful()) {
+                        Log.e("ARR", "Error getting data", task.getException());
+                    }
+                    else {
+                        temp = (ArrayList<String>) task.getResult().getValue();
+                        String finalString = "";
+                        for (String s: temp) {
+                            finalString = finalString + "\n" + s;
+                        }
+                        textView.setText(finalString);
+
+                    }
+                }
+            });
+        }
+    }
+
+
 
     public void deleteDevice(String userName, String deviceName){
         usersRef.child(userName).child(deviceName).removeValue();

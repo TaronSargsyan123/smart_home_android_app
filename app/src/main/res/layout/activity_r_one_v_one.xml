@@ -143,6 +143,7 @@
                 </TextView>
 
                 <TextView
+                    android:id="@+id/analytics_r_one_v_one"
                     style="?android:attr/borderlessButtonStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -150,9 +151,9 @@
                     android:background="?android:attr/selectableItemBackground"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:text="@string/defaultStr"
+                    android:text="@string/analytics"
                     android:textColor="?attr/colorOnTertiary"
-                    app:drawableTopCompat="@drawable/ic_baseline_loop_24">
+                    app:drawableTopCompat="@drawable/ic_baseline_analytics_24">
 
                 </TextView>
 

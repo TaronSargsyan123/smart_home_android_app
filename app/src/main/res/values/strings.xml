@@ -54,6 +54,7 @@
     <string name="try_again">Try Again</string>
     <string name="there_appears_to_be_trouble_with_your_network_connection">There appears to be trouble with your network connection</string>
     <string name="whoops">Whoops!</string>
+    <string name="analytics">analytics</string>
 
     <string-array name="devices">
         <item>ROneVOne</item>

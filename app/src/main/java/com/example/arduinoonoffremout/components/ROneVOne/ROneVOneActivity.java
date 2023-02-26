@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.example.arduinoonoffremout.Network;
@@ -18,6 +19,10 @@ import com.example.arduinoonoffremout.components.CROne.CROneActivity;
 import com.example.arduinoonoffremout.firebase.DevicesDefaultLogic;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+
 public class ROneVOneActivity extends AppCompatActivity {
     private String name;
     private String host;
@@ -25,11 +30,11 @@ public class ROneVOneActivity extends AppCompatActivity {
     private Boolean stage;
     private Button button;
     private TextView back;
+    private TextView analytics;
     private FloatingActionButton settings;
     private TextView timer;
     private TextView loopTimer;
     private String info;
-    private Network network;
     private DevicesDefaultLogic defaultLogic;
 
     @Override
@@ -42,6 +47,7 @@ public class ROneVOneActivity extends AppCompatActivity {
         nameTextView = (TextView) findViewById(R.id.r_one_v_one_name_text_view_activity);
         timer = findViewById(R.id.timer_r_one_v_one);
         loopTimer = findViewById(R.id.loop_timer_r_one_v_one);
+        analytics = findViewById(R.id.analytics_r_one_v_one);
         defaultLogic = new DevicesDefaultLogic();
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
@@ -61,14 +67,7 @@ public class ROneVOneActivity extends AppCompatActivity {
         }
 
         info = name + "#$%" + host;
-
-
-
-
-
         init();
-
-
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -91,6 +90,12 @@ public class ROneVOneActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 loopTimer();
+            }
+        });
+        analytics.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                analytics();
             }
         });
 
@@ -146,7 +151,14 @@ public class ROneVOneActivity extends AppCompatActivity {
     }
 
     private void loopTimer(){
-        Intent intent = new Intent(getApplicationContext(), CROneActivity.class);
+    }
+
+    private void analytics(){
+        SharedPreferences sharedPreferences = getSharedPreferences("Authorisation", MODE_PRIVATE);
+        String email = sharedPreferences.getString("email", "");
+        Intent intent = new Intent(getApplicationContext(), ROneVOneAnalyticsActivity.class);
+        intent.putExtra("DEVICE", name);
+        intent.putExtra("EMAIL", email);
         startActivity(intent);
     }
 
@@ -157,17 +169,17 @@ public class ROneVOneActivity extends AppCompatActivity {
 
             @Override
             public void run() {
-                network = new Network(host, 5045);
-
-
                 try  {
                     SharedPreferences sharedPreferences = getSharedPreferences("Authorisation", MODE_PRIVATE);
                     String email = sharedPreferences.getString("email", "");
+                    String currentTime = Calendar.getInstance().getTime().toString();
                     if (flag) {
                         defaultLogic.insertDataROneVOne(0, email, name, "ROneVOne");
+                        defaultLogic.updateAnalyticsData(email, name, currentTime + "_" + "on");
                     }
                     else {
                         defaultLogic.insertDataROneVOne(1, email, name, "ROneVOne");
+                        defaultLogic.updateAnalyticsData(email, name, currentTime + "_" + "off");
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
