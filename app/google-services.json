@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:1060982971480:android:025e703239b18ed0db7e2d",
         "android_client_info": {
-          "package_name": "com.example.arduinoonoffremout"
+          "package_name": "com.revive.smarthome"
         }
       },
       "oauth_client": [
