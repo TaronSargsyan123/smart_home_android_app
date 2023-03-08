@@ -19,6 +19,7 @@
     <color name="background_second_color_dark">#444a5e</color>
     <color name="background_second_color_light">#f8f9fb</color>
     <color name="primary_color_dark">#f39c63</color>
+    <color name="orange_light">#FFAD00</color>
     <color name="primary_color_light">#ffffff</color>
     <color name="relay_color_dark">#f39c63</color>
     <color name="relay_color_light">#ffb5a8</color>

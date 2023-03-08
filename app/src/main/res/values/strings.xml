@@ -55,6 +55,9 @@
     <string name="there_appears_to_be_trouble_with_your_network_connection">There appears to be trouble with your network connection</string>
     <string name="whoops">Whoops!</string>
     <string name="analytics">analytics</string>
+    <string name="please_verify_your_mail">Please verify your mail</string>
+    <string name="go_to_login">Go to login</string>
+    <string name="blank">blank</string>
 
     <string-array name="devices">
         <item>ROneVOne</item>

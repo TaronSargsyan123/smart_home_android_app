@@ -1,24 +1,22 @@
 package com.example.arduinoonoffremout.firebase;
 
 import android.util.Log;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.UiThread;
 
-import com.example.arduinoonoffremout.DefaultMainWidget;
-import com.example.arduinoonoffremout.components.ROneVOne.ROneVOneAnalyticsActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Objects;
 
 public class DevicesDefaultLogic {
@@ -147,6 +145,22 @@ public class DevicesDefaultLogic {
                 }
             });
         }
+    }
+
+    public String getDate(){
+        Calendar calendar = Calendar.getInstance();
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        int minute = calendar.get(Calendar.MINUTE);
+        int second = calendar.get(Calendar.SECOND);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        int month = calendar.get(Calendar.MONTH) + 1;
+        int year = calendar.get(Calendar.YEAR);
+        String separator = "/";
+        return year + separator + month + separator + day + separator + hour + separator + minute + separator + second + separator;
+    }
+
+    public void drawDevicesFromServer(LinearLayout layout){
+
     }
 
     public void drawAnalytics(String email, String deviceName, TextView textView){

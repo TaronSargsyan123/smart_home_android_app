@@ -129,9 +129,10 @@
                 android:background="?android:attr/selectableItemBackground"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:text="@string/defaultStr"
+                android:text="@string/analytics"
+                app:drawableTopCompat="@drawable/ic_baseline_analytics_24"
                 android:textColor="?attr/colorOnTertiary"
-                app:drawableTopCompat="@drawable/ic_baseline_loop_24">
+                >
 
             </TextView>
 

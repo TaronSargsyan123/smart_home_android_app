@@ -172,14 +172,14 @@ public class ROneVOneActivity extends AppCompatActivity {
                 try  {
                     SharedPreferences sharedPreferences = getSharedPreferences("Authorisation", MODE_PRIVATE);
                     String email = sharedPreferences.getString("email", "");
-                    String currentTime = Calendar.getInstance().getTime().toString();
+                    String currentTime = defaultLogic.getDate();
                     if (flag) {
                         defaultLogic.insertDataROneVOne(0, email, name, "ROneVOne");
-                        defaultLogic.updateAnalyticsData(email, name, currentTime + "_" + "on");
+                        defaultLogic.updateAnalyticsData(email, name, currentTime  + "on");
                     }
                     else {
                         defaultLogic.insertDataROneVOne(1, email, name, "ROneVOne");
-                        defaultLogic.updateAnalyticsData(email, name, currentTime + "_" + "off");
+                        defaultLogic.updateAnalyticsData(email, name, currentTime  + "off");
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

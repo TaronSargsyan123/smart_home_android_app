@@ -15,6 +15,7 @@ import android.util.LruCache;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +37,7 @@ public class LoginActivity extends AppCompatActivity {
     private TextView loginButton;
     private String email;
     private String password;
+    private ProgressBar progressBar;
     private FirebaseAuth mAuth;
     private LinearLayout register;
 
@@ -48,8 +50,11 @@ public class LoginActivity extends AppCompatActivity {
         passwordEditText = findViewById(R.id.login_password_editText);
         createAccountTextView = findViewById(R.id.login_create_account_textView);
         loginButton = findViewById(R.id.login_login_button);
+        progressBar = findViewById(R.id.login_progress_bar);
         mAuth = FirebaseAuth.getInstance();
         register = findViewById(R.id.login_liner_layout);
+
+        progressBar.setVisibility(View.INVISIBLE);
 
 
 
@@ -90,6 +95,11 @@ public class LoginActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("Authorisation",MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
+        loginButton.setEnabled(false);
+        progressBar.setEnabled(false);
+        loginButton.setText("");
+        progressBar.setVisibility(View.VISIBLE);
+
         email = Objects.requireNonNull(emailEditText.getEditText()).getText().toString();
         password = Objects.requireNonNull(passwordEditText.getEditText()).getText().toString();
         if (email.isEmpty() || password.isEmpty()){
@@ -103,15 +113,19 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()){
-                        loginButton.setEnabled(false);
-                        editor.putString("email", email);
-                        editor.putString("password", password);
-                        editor.commit();
+                        if (mAuth.getCurrentUser().isEmailVerified()){
+                            editor.putString("email", email);
+                            editor.putString("password", password);
+                            editor.commit();
 
-                        Intent intent = new Intent(LoginActivity.this, StartActivity.class);
-                        startActivity(intent);
+                            Intent intent = new Intent(LoginActivity.this, StartActivity.class);
+                            startActivity(intent);
 
-                        Log.i("LOGIN", "Success");
+                            Log.i("LOGIN", "Success");
+
+                        }else {
+                            Toast.makeText(LoginActivity.this, "Please verify your mail", Toast.LENGTH_SHORT).show();
+                        }
 
                     }else {
                         //TODO complete Listener

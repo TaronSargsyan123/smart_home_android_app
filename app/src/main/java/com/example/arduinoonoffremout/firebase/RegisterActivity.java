@@ -3,15 +3,22 @@ package com.example.arduinoonoffremout.firebase;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.arduinoonoffremout.EmailVerification;
+import com.example.arduinoonoffremout.InternetConnectionErrorActivity;
 import com.example.arduinoonoffremout.R;
 import com.example.arduinoonoffremout.StartActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -33,7 +40,7 @@ public class RegisterActivity extends AppCompatActivity {
     private String email;
     private String password;
     private String confirmPassword;
-
+    private ProgressBar progressBar;
     private FirebaseAuth mAuth;
 
     @Override
@@ -46,7 +53,17 @@ public class RegisterActivity extends AppCompatActivity {
         confirmPasswordEditText = findViewById(R.id.register_confirm_password_editText);
         registerButton = findViewById(R.id.register_register_button);
         back = findViewById(R.id.register_back);
+        progressBar = findViewById(R.id.register_progress_bar);
         mAuth = FirebaseAuth.getInstance();
+
+        progressBar.setVisibility(View.INVISIBLE);
+
+        progressBar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                register();
+            }
+        });
 
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,12 +81,14 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void register(){
-        SharedPreferences sharedPreferences = getSharedPreferences("Authorisation",MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
         email = String.valueOf(Objects.requireNonNull(emailEditText.getEditText()).getText());
         password = String.valueOf(Objects.requireNonNull(passwordEditText.getEditText()).getText());
         confirmPassword = String.valueOf(Objects.requireNonNull(confirmPasswordEditText.getEditText()).getText());
 
+        registerButton.setEnabled(false);
+        progressBar.setEnabled(false);
+        registerButton.setText("");
+        progressBar.setVisibility(View.VISIBLE);
 
         if (password.equals(confirmPassword)) {
 
@@ -78,14 +97,27 @@ public class RegisterActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                editor.putString("email", email);
-                                editor.putString("password", password);
-                                editor.commit();
-                                Log.d("REGISTER", "createUserWithEmail:success");
                                 FirebaseUser user = mAuth.getCurrentUser();
-                                Intent intent = new Intent(getApplicationContext(), StartActivity.class);
-                                startActivity(intent);
-                            } else {
+
+                                user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+
+                                        if (task.isSuccessful()) {
+                                            Intent intent = new Intent(getApplicationContext(), EmailVerification.class);
+                                            intent.putExtra("CONFIRM", email);
+                                            startActivity(intent);
+                                        } else {
+                                            Log.e("REGISTER", "sendEmailVerification", task.getException());
+                                            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                                            startActivity(intent);
+                                        }
+                                    }
+                                });
+                            }else if (!checkWifiConnection()){
+                                startInternetConnectionErrorActivity();
+                            }else {
+
                                 Log.w("REGISTER", "createUserWithEmail:failure", task.getException());
                             }
                         }
@@ -94,12 +126,18 @@ public class RegisterActivity extends AppCompatActivity {
 
         }
 
-
-
-
-
-
-
     }
 
+    private void startInternetConnectionErrorActivity(){
+        Intent intent = new Intent(getApplicationContext(), InternetConnectionErrorActivity.class);
+        startActivity(intent);
+    }
+
+
+    private Boolean checkWifiConnection(){
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager != null ? connectivityManager.getActiveNetworkInfo() : null;
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
 }

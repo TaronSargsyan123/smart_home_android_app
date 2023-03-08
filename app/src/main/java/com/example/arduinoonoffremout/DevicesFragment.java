@@ -252,7 +252,6 @@ public class DevicesFragment extends Fragment {
         onOffButton.configNameAndHost(name, host);
         onOffButton.setType(type);
         onOffButton.setIDString(String.valueOf(id));
-        Log.i("ID from add widget", id);
         widgetsArray.add(onOffButton);
         layout.addView(onOffButton);
         mainWidgetsSerializer.saveWidgets(widgetsArray, FILE_NAME, this.requireContext());
@@ -266,7 +265,6 @@ public class DevicesFragment extends Fragment {
         crOneMainWidget.configNameAndHost(name, host);
         crOneMainWidget.setType(type);
         crOneMainWidget.setIDString(String.valueOf(id));
-        Log.i("ID from add widget", id);
         widgetsArray.add(crOneMainWidget);
         layout.addView(crOneMainWidget);
         mainWidgetsSerializer.saveWidgets(widgetsArray, FILE_NAME, this.requireContext());
@@ -279,7 +277,6 @@ public class DevicesFragment extends Fragment {
         curVOneMainWidget.configNameAndHost(name, host);
         curVOneMainWidget.setType(type);
         curVOneMainWidget.setIDString(String.valueOf(id));
-        Log.i("ID from add widget", id);
         widgetsArray.add(curVOneMainWidget);
         layout.addView(curVOneMainWidget);
         mainWidgetsSerializer.saveWidgets(widgetsArray, FILE_NAME, this.requireContext());
@@ -348,6 +345,7 @@ public class DevicesFragment extends Fragment {
         mainWidgetsSerializer.clearWidgetsArray(widgetsArray, FILE_NAME, this.requireContext());
     }
 
+    //draw folder start image
     private void drawImage(){
         try {
             if(widgetsArray.isEmpty()){
