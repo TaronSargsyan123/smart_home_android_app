@@ -1,9 +1,5 @@
 package com.revive.smarthome;
 
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-
 import android.Manifest;
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
@@ -15,17 +11,21 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.AdapterView;
 import android.widget.Toast;
 
-import com.revive.smarthome.bluetooth.BluetoothDefaultLogic;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+
 import com.google.android.material.color.MaterialColors;
+import com.revive.smarthome.bluetooth.BluetoothDefaultLogic;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -42,12 +42,17 @@ public class CreateDeviceActivity extends AppCompatActivity  {
     private int green;
     private int backgroundColor;
     private Boolean bluetoothSupport;
+    String[] permissions = {"android.permission.BLUETOOTH_ADVERTISE", "android.permission.BLUETOOTH_SCAN", "android.permission.BLUETOOTH_CONNECT"};
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_device);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requestPermissions(permissions, 80);
+        }
 
         backgroundColor = MaterialColors.getColor(getApplicationContext(), R.attr.colorOnPrimary, Color.WHITE);
         green = Color.parseColor("green");
@@ -138,16 +143,14 @@ public class CreateDeviceActivity extends AppCompatActivity  {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
-                    device = bluetoothDevices.get(i);
-                    if (lastTouchedView  != null) {
-                        lastTouchedView.setBackgroundColor(backgroundColor);
-                    }
-                    view.setBackground(getApplicationContext().getDrawable(R.drawable.shape_green_button));
-                    Log.i("DEVICE", device.getAddress());
-                    lastTouchedView = view;
-
+                if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {}
+                device = bluetoothDevices.get(i);
+                if (lastTouchedView  != null) {
+                    lastTouchedView.setBackgroundColor(backgroundColor);
                 }
+                view.setBackground(getApplicationContext().getDrawable(R.drawable.shape_green_button));
+                Log.i("DEVICE", device.getAddress());
+                lastTouchedView = view;
 
             }
         });
@@ -165,16 +168,17 @@ public class CreateDeviceActivity extends AppCompatActivity  {
 
 
     private void drawList() {
-        bluetoothDevices = bluetoothDefaultLogic.getBluetoothDevicesArray();
-        bluetoothDefaultLogic.refresh();
+        bluetoothDevices = bluetoothDefaultLogic.refresh();
+        Log.i("BLUE", bluetoothDevices.toString() +" ");
         ArrayList<String> temp = new ArrayList<>();
         for (BluetoothDevice device : bluetoothDevices) {
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
-                if (Objects.equals(device.getName().toString().replace("\\s+",""), "") || device.getName() == null) {
-                    temp.add(device.getAddress());
-                } else {
-                    temp.add(device.getName());
-                }
+
+            }
+            if (Objects.equals(device.getName().toString().replace("\\s+",""), "") || device.getName() == null) {
+                temp.add(device.getAddress());
+            } else {
+                temp.add(device.getName());
             }
 
         }
@@ -184,7 +188,6 @@ public class CreateDeviceActivity extends AppCompatActivity  {
 
         listView.setAdapter(adapter);
     }
-
 
 
 }

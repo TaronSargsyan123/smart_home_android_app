@@ -25,7 +25,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Set;
 
 public class BluetoothDefaultLogic {
 
@@ -62,31 +62,29 @@ public class BluetoothDefaultLogic {
     }
 
 
-    public void send(BluetoothDevice tempDevice, String s){
-        Log.i("SEND", "Send starting");
-        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
-            ParcelUuid[] uuids = tempDevice.getUuids();
-            Log.i("SEND", "In the if");
+    public void send(BluetoothDevice tempDevice, String s) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if (ActivityCompat.checkSelfPermission(context, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {}
+                ParcelUuid[] uuids = tempDevice.getUuids();
+                try (BluetoothSocket socket = tempDevice.createRfcommSocketToServiceRecord(uuids[0].getUuid())) {
+                    socket.connect();
+                    outputStream = socket.getOutputStream();
+                    inStream = socket.getInputStream();
 
-            try (BluetoothSocket socket = tempDevice.createRfcommSocketToServiceRecord(uuids[0].getUuid())) {
-                socket.connect();
-                outputStream = socket.getOutputStream();
-                inStream = socket.getInputStream();
-
-                outputStream.write(s.getBytes());
-                Log.i("SEND", "Successfully data send");
-                Toast.makeText(context, tempDevice.getName(), LENGTH_LONG).show();
-            } catch (IOException e) {
-                e.printStackTrace();
+                    outputStream.write(s.getBytes());
+                    Log.i("SEND", "Successfully data send");
+                    Toast.makeText(context, tempDevice.getName(), LENGTH_LONG).show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
-
-
-        }
-
+        }).start();
 
     }
 
-    public void setActivityParent(AppCompatActivity activity){
+    public void setActivityParent(AppCompatActivity activity) {
         activityParent = activity;
 
         activityResultLauncher = activityParent.registerForActivityResult(
@@ -96,8 +94,7 @@ public class BluetoothDefaultLogic {
                     public void onActivityResult(ActivityResult result) {
                         if (result.getResultCode() == Activity.RESULT_OK && btAdapter.isEnabled()) {
 
-                        }
-                        else {
+                        } else {
                             enableBluetooth();
                         }
                     }
@@ -105,21 +102,20 @@ public class BluetoothDefaultLogic {
     }
 
 
-
     public ArrayList<BluetoothDevice> refresh() {
-        bluetoothDevices.clear();
-        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
-            for (BluetoothDevice device : btAdapter.getBondedDevices()) {
-                if (device.getType() != BluetoothDevice.DEVICE_TYPE_LE) {
-                    bluetoothDevices.add(device);
-                }
-            }
+        btAdapter = BluetoothAdapter.getDefaultAdapter();
+        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {}
+        Set<BluetoothDevice> pairedDevices = btAdapter.getBondedDevices();
+        for (BluetoothDevice device : pairedDevices) {
+            Log.i("BLUE", "here1");
+            bluetoothDevices.add(device);
         }
-        Log.i("SET", Arrays.toString(btAdapter.getBondedDevices().toArray()));
-
-
         return bluetoothDevices;
     }
+
+
+
+
 
 
     public ArrayList<BluetoothDevice> getBluetoothDevicesArray(){
