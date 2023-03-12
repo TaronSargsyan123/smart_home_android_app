@@ -123,13 +123,15 @@ public class CurVOneMainWidget  extends DefaultMainWidget implements Serializabl
                 try  {
                     SharedPreferences sharedPreferences = getContext().getSharedPreferences("Authorisation", MODE_PRIVATE);
                     String email = sharedPreferences.getString("email", "");
-
+                    String currentTime = defaultLogic.getDate();
                     if (flag) {
                         Log.i("TEST", "here");
                         defaultLogic.insertDataCurVOne("open", email, getName(), getType());
+                        defaultLogic.updateAnalyticsData(email, name, currentTime  + "/open");
                     }
                     else {
                         defaultLogic.insertDataCurVOne("close", email, getName(), getType());
+                        defaultLogic.updateAnalyticsData(email, name, currentTime  + "/close");
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

@@ -109,6 +109,8 @@ public class DOneMainWidget   extends DefaultMainWidget implements Serializable 
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("Authorisation", MODE_PRIVATE);
         String email = sharedPreferences.getString("email", "");
         slider.setValue(Float.parseFloat(value));
+        String currentTime = defaultLogic.getDate();
+        defaultLogic.updateAnalyticsData(email, name, currentTime  + "/" + value);
         defaultLogic.insertDataDOne(1, email, getName(), getType(), Integer.parseInt(value));
     }
 
@@ -148,13 +150,14 @@ public class DOneMainWidget   extends DefaultMainWidget implements Serializable 
                 try  {
                     SharedPreferences sharedPreferences = getContext().getSharedPreferences("Authorisation", MODE_PRIVATE);
                     String email = sharedPreferences.getString("email", "");
-
+                    String currentTime = defaultLogic.getDate();
                     if (flag) {
-
                         defaultLogic.insertDataDOne(1, email, getName(), getType(), getBright());
+                        defaultLogic.updateAnalyticsData(email, name, currentTime  + "/on");
                     }
                     else {
                         defaultLogic.insertDataDOne(0, email, getName(), getType(), getBright());
+                        defaultLogic.updateAnalyticsData(email, name, currentTime  + "/off");
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

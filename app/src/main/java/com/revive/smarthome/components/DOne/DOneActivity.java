@@ -1,16 +1,16 @@
 package com.revive.smarthome.components.DOne;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.slider.Slider;
 import com.revive.smarthome.R;
 import com.revive.smarthome.firebase.DevicesDefaultLogic;
-import com.google.android.material.slider.Slider;
 
 public class DOneActivity extends AppCompatActivity {
     private String name;
@@ -54,11 +54,15 @@ public class DOneActivity extends AppCompatActivity {
 
             @Override
             public void onStartTrackingTouch(@NonNull Slider slider) {
+                String currentTime = defaultLogic.getDate();
+                defaultLogic.updateAnalyticsData(email, name, currentTime  + "/"+String.valueOf(getBright()));
                 defaultLogic.insertDataDOne(1, email, name, "DOne", getBright());
             }
 
             @Override
             public void onStopTrackingTouch(@NonNull Slider slider) {
+                String currentTime = defaultLogic.getDate();
+                defaultLogic.updateAnalyticsData(email, name, currentTime  + "/"+String.valueOf(getBright()));
                 defaultLogic.insertDataDOne(1, email, name, "DOne", getBright());
             }
         });
@@ -93,12 +97,14 @@ public class DOneActivity extends AppCompatActivity {
                 try  {
                     SharedPreferences sharedPreferences = getSharedPreferences("Authorisation", MODE_PRIVATE);
                     String email = sharedPreferences.getString("email", "");
-
+                    String currentTime = defaultLogic.getDate();
                     if (flag) {
 
+                        defaultLogic.updateAnalyticsData(email, name, currentTime  + "/on");
                         defaultLogic.insertDataDOne(1, email, name, "DOne", getBright());
                     }
                     else {
+                        defaultLogic.updateAnalyticsData(email, name, currentTime  + "/off");
                         defaultLogic.insertDataDOne(0, email, name, "DOne", getBright());
                     }
                 } catch (Exception e) {

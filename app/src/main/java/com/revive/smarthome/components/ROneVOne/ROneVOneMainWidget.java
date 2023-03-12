@@ -145,14 +145,14 @@ public class ROneVOneMainWidget extends DefaultMainWidget implements  Serializab
             @Override
             public void run() {
                 try  {
-
-
+                    String currentTime = defaultLogic.getDate();
                     if (flag) {
-
                         defaultLogic.insertDataROneVOne(1, email, getName(), getType());
+                        defaultLogic.updateAnalyticsData(email, name, currentTime  + "/on");
                     }
                     else {
                         defaultLogic.insertDataROneVOne(0, email, getName(), getType());
+                        defaultLogic.updateAnalyticsData(email, name, currentTime  + "/off");
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

@@ -127,14 +127,16 @@ public class CROneMainWidget extends DefaultMainWidget implements Serializable {
                 try  {
                     SharedPreferences sharedPreferences = getContext().getSharedPreferences("Authorisation", MODE_PRIVATE);
                     String email = sharedPreferences.getString("email", "");
-
+                    String currentTime = defaultLogic.getDate();
                     if (flag) {
                         defaultLogic.insertDataCROne(1, email, getName(), getType(), "color");
                         stage = "1";
+                        defaultLogic.updateAnalyticsData(email, name, currentTime  + "/on");
                     }
                     else {
                         defaultLogic.insertDataCROne(0, email, getName(), getType(), "color");
                         stage = "0";
+                        defaultLogic.updateAnalyticsData(email, name, currentTime  + "/off");
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

@@ -12,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.larswerkman.holocolorpicker.ColorPicker;
 import com.revive.smarthome.Network;
 import com.revive.smarthome.R;
-import com.revive.smarthome.components.ROneVOne.ROneVOneTimer;
 import com.revive.smarthome.firebase.DevicesDefaultLogic;
 
 public class CROneActivity extends AppCompatActivity {
@@ -153,12 +152,15 @@ public class CROneActivity extends AppCompatActivity {
                 try  {
                     SharedPreferences sharedPreferences = getSharedPreferences("Authorisation", MODE_PRIVATE);
                     String email = sharedPreferences.getString("email", "");
+                    String currentTime = defaultLogic.getDate();
                     if (flag) {
                         defaultLogic.insertDataCROne(0, email, name, "CROne", getColor());
+                        defaultLogic.updateAnalyticsData(email, name, currentTime  + "/off");
                         stageForSendColor = 0;
                     }
                     else {
                         defaultLogic.insertDataCROne(1, email, name, "CROne", getColor());
+                        defaultLogic.updateAnalyticsData(email, name, currentTime  + "/on");
                         stageForSendColor = 1;
                     }
                 } catch (Exception e) {
@@ -187,7 +189,8 @@ public class CROneActivity extends AppCompatActivity {
                     SharedPreferences sharedPreferences = getSharedPreferences("Authorisation", MODE_PRIVATE);
                     String email = sharedPreferences.getString("email", "");
                     setColor(String.valueOf(color));
-
+                    String currentTime = defaultLogic.getDate();
+                    defaultLogic.updateAnalyticsData(email, name, currentTime  + "/"+ String.valueOf(color));
                     defaultLogic.insertDataCROne(stageForSendColor, email, name, "CROne", String.valueOf(color));
 
                 } catch (Exception e) {

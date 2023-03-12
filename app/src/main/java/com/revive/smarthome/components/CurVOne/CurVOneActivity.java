@@ -98,6 +98,8 @@ public class CurVOneActivity extends AppCompatActivity {
                 try  {
                     SharedPreferences sharedPreferences = getSharedPreferences("Authorisation", MODE_PRIVATE);
                     String email = sharedPreferences.getString("email", "");
+                    String currentTime = defaultLogic.getDate();
+                    defaultLogic.updateAnalyticsData(email, name, currentTime  + "/" + temp);
                     defaultLogic.insertDataCurVOne(temp, email, name, "CurVOne");
                 } catch (Exception e) {
                     e.printStackTrace();
