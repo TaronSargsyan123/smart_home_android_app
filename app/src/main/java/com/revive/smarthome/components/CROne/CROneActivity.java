@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.larswerkman.holocolorpicker.ColorPicker;
 import com.revive.smarthome.Network;
 import com.revive.smarthome.R;
@@ -22,9 +21,7 @@ public class CROneActivity extends AppCompatActivity {
     private Boolean stage;
     private TextView button;
     private TextView back;
-    private FloatingActionButton settings;
     private TextView timer;
-    private TextView loopTimer;
     private String info;
     private Network network;
     private DevicesDefaultLogic defaultLogic;
@@ -37,9 +34,7 @@ public class CROneActivity extends AppCompatActivity {
         setContentView(R.layout.activity_crone);
         button = (TextView) findViewById(R.id.c_r_one_main_button);
         back = findViewById(R.id.back_to_main_activity_c_r_one);
-        settings = findViewById(R.id.settings_c_r_one);
         timer = findViewById(R.id.timer_c_r_one);
-        loopTimer = findViewById(R.id.loop_timer_c_r_one);
         button = (TextView) findViewById(R.id.c_r_one_main_button);
         defaultLogic = new DevicesDefaultLogic();
         if (savedInstanceState == null) {
@@ -99,25 +94,17 @@ public class CROneActivity extends AppCompatActivity {
                 timer();
             }
         });
-        loopTimer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                loopTimer();
-            }
-        });
 
-
-        settings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(CROneActivity.this, CROneActivity.class);
-                i.putExtra("INFO", info);
-
-                startActivity(i);
-
-            }
-        });
     }
+
+    private void timer(){
+        SharedPreferences sharedPreferences = getSharedPreferences("Authorisation", MODE_PRIVATE);
+        String email = sharedPreferences.getString("email", "");
+        Intent intent = new Intent(getApplicationContext(), CROneTimer.class);
+        intent.putExtra("ARGS", email.split("@")[0] + "/"+name);
+        startActivity(intent);
+    }
+
 
     private void init(){
         if (stage.equals(true)){
@@ -149,11 +136,6 @@ public class CROneActivity extends AppCompatActivity {
 
     private void back(){
         finish();
-    }
-
-    private void timer(){
-        Intent intent = new Intent(getApplicationContext(), ROneVOneTimer.class);
-        startActivity(intent);
     }
 
     private void loopTimer(){

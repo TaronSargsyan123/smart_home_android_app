@@ -5,10 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/colorOnPrimary"
-    tools:context=".components.CurVOne.CurVOneTimer">
+    tools:context=".components.CROne.CROneTimer">
 
     <Spinner
-        android:id="@+id/spinner_timer_cur_v_one"
+        android:id="@+id/spinner_timer_c_r_one"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="32dp"
@@ -16,22 +16,22 @@
         android:backgroundTint="?attr/colorPrimary"
         android:elevation="2dp"
         android:spinnerMode="dropdown"
-        app:layout_constraintTop_toBottomOf="@+id/select_time_cur_v_one"
+        app:layout_constraintTop_toBottomOf="@+id/select_time_c_r_one"
         tools:layout_editor_absoluteX="32dp" />
 
 
     <CheckBox
-        android:id="@+id/check_box_frequency_cur_v_one"
+        android:id="@+id/check_box_frequency_c_r_one"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="32dp"
         android:text="@string/loop"
         android:theme="@style/CustomTimePicker"
         app:buttonTint="@color/gray_400"
-        app:layout_constraintTop_toBottomOf="@+id/spinner_timer_cur_v_one" />
+        app:layout_constraintTop_toBottomOf="@+id/spinner_timer_c_r_one" />
 
     <Button
-        android:id="@+id/select_time_cur_v_one"
+        android:id="@+id/select_time_c_r_one"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="32dp"
@@ -43,7 +43,7 @@
     <com.google.android.material.textfield.TextInputLayout
 
 
-        android:id="@+id/enter_timer_frequency_cur_v_one"
+        android:id="@+id/enter_timer_frequency_c_r_one"
 
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
@@ -59,10 +59,10 @@
         app:boxCornerRadiusTopStart="10dp"
         app:boxStrokeColor="?attr/colorPrimary"
         app:hintTextColor="?attr/colorOnTertiary"
-        app:layout_constraintTop_toBottomOf="@+id/check_box_frequency_cur_v_one">
+        app:layout_constraintTop_toBottomOf="@+id/check_box_frequency_c_r_one">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edit_text_timer_frequency_cur_v_one"
+            android:id="@+id/edit_text_timer_frequency_c_r_one"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:singleLine="true"
@@ -72,18 +72,18 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
-        android:id="@+id/create_time_cur_v_one"
+        android:id="@+id/create_time_c_r_one"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="32dp"
-        android:backgroundTint="?attr/colorOnError"
+        android:backgroundTint="?attr/colorTertiaryContainer"
         android:background="@drawable/shape_login_button"
         android:gravity="center"
         android:minHeight="40dp"
         android:text="@string/create"
         android:textColor="@color/white"
         android:textSize="20sp"
-        app:layout_constraintTop_toBottomOf="@+id/enter_timer_frequency_cur_v_one"
+        app:layout_constraintTop_toBottomOf="@+id/enter_timer_frequency_c_r_one"
         tools:layout_editor_absoluteX="32dp" />
 
 
@@ -111,7 +111,7 @@
 
 
                 <TextView
-                    android:id="@+id/back_timer_cur_v_one"
+                    android:id="@+id/back_timer_c_r_one"
                     style="?android:attr/borderlessButtonStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -125,7 +125,7 @@
                     app:drawableTopCompat="@drawable/ic_baseline_arrow_back_ios_new_24"/>
 
                 <TextView
-                    android:id="@+id/device_list_timer_cur_v_one"
+                    android:id="@+id/device_list_timer_c_r_one"
                     style="?android:attr/borderlessButtonStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"

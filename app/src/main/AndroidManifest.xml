@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.revive.smarthome" >
+    package="com.revive.smarthome">
 
     <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -25,24 +25,31 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_logo_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.ArduinoOnOffRemout" >
+        android:theme="@style/Theme.ArduinoOnOffRemout">
+        <activity
+            android:name=".components.CROne.CROneTimer"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".components.CurVOne.CurVOneTimer"
-            android:exported="false" >
+            android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name="com.revive.smarthome.EmailVerification"
-            android:exported="false" >
+            android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name="com.revive.smarthome.components.ROneVOne.ROneVOneAnalyticsActivity"
-            android:exported="false" >
+            android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -50,7 +57,7 @@
         <activity
             android:name="com.revive.smarthome.InternetConnectionErrorActivity"
             android:exported="false"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -58,7 +65,7 @@
         <activity
             android:name="com.revive.smarthome.components.DOne.DOneActivity"
             android:exported="false"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -66,7 +73,7 @@
         <activity
             android:name=".components.CurVOne.CurVOneActivity"
             android:exported="false"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -74,7 +81,7 @@
         <activity
             android:name="com.revive.smarthome.firebase.RegisterActivity"
             android:exported="false"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -82,7 +89,7 @@
         <activity
             android:name="com.revive.smarthome.firebase.LoginActivity"
             android:exported="true"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -92,15 +99,15 @@
         <activity
             android:name="com.revive.smarthome.StartActivity"
             android:exported="false"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name="com.revive.smarthome.components.CROne.CROneActivity"
+            android:name=".components.CROne.CROneActivity"
             android:exported="false"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -108,7 +115,7 @@
         <activity
             android:name="com.revive.smarthome.components.ROneVOne.ROneVOneTimer"
             android:exported="false"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -130,8 +137,7 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <receiver android:name=".firebase.AlarmTimerDefaultLogic" >
-        </receiver>
+        <receiver android:name=".firebase.AlarmTimerDefaultLogic"></receiver>
     </application>
 
 </manifest>
