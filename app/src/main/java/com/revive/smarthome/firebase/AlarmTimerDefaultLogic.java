@@ -17,17 +17,63 @@ public class AlarmTimerDefaultLogic  extends BroadcastReceiver {
         // email/deviceName/stage/type
         String inputData = intent.getStringExtra("message");
         String[] splitData = inputData.split("/");
-        stage = Integer.parseInt(splitData[0]);
+
+
+
         email = splitData[1];
         deviceName = splitData[2];
         type = splitData[3];
+
         if (Objects.equals(type, "ROneVOne")){
+            stage = Integer.parseInt(splitData[0]);
             setROneVOne(deviceName, email, type, stage);
+
+        }else if (Objects.equals(type, "DOne")){
+            try {
+                stage = Integer.parseInt(splitData[0]);
+                int dimming = Integer.parseInt(splitData[4]);
+                setDOne(deviceName, email, type, stage, dimming);
+            }catch (Exception ignored){}
+
+        }else if (Objects.equals(type, "CROne")){
+            try {
+                stage = Integer.parseInt(splitData[0]);
+                String color = splitData[4];
+                setCROne(deviceName, email, type, stage, color);
+            }catch (Exception ignored){}
+
+        }else if (Objects.equals(type, "CurVOne")){
+            stage = Integer.parseInt(splitData[0]);
+            setCurVOne(deviceName, email, type, stage);
         }
+
     }
+
+
 
     private void setROneVOne(String deviceName, String email, String type, int stage){
         DevicesDefaultLogic devicesDefaultLogic = new DevicesDefaultLogic();
         devicesDefaultLogic.insertDataROneVOne(stage, email, deviceName, type);
     }
+
+    private void setCurVOne(String deviceName, String email, String type, int stage){
+        DevicesDefaultLogic devicesDefaultLogic = new DevicesDefaultLogic();
+        if (stage == 1){
+            devicesDefaultLogic.insertDataCurVOne("open", email, deviceName, type);
+        }else {
+            devicesDefaultLogic.insertDataCurVOne("close", email, deviceName, type);
+        }
+    }
+
+    private void setDOne(String deviceName, String email, String type, int stage, int dimming){
+        DevicesDefaultLogic devicesDefaultLogic = new DevicesDefaultLogic();
+        devicesDefaultLogic.insertDataDOne(stage, email, deviceName, type , dimming);
+
+    }
+
+    private void setCROne(String deviceName, String email, String type, int stage, String color){
+        DevicesDefaultLogic devicesDefaultLogic = new DevicesDefaultLogic();
+        devicesDefaultLogic.insertDataCROne(stage, email, deviceName, type, color);
+    }
+
 }

@@ -67,18 +67,7 @@
         android:layout_gravity="bottom"
         app:layout_constraintBottom_toBottomOf="parent">
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/settings_cur_v_one"
 
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:focusable="true"
-            android:src="@drawable/ic_baseline_settings_24"
-            app:layout_anchor="@id/bar"
-            tools:ignore="SpeakableTextPresentCheck"
-            android:backgroundTint="?attr/colorPrimary"
-            />
 
         <com.google.android.material.bottomappbar.BottomAppBar
             android:id="@+id/bar"
@@ -122,34 +111,7 @@
 
                 </TextView>
 
-                <TextView
-                    style="?android:attr/borderlessButtonStyle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="?android:attr/selectableItemBackground"
 
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:textColor="?attr/colorOnTertiary"
-                    android:visibility="invisible">
-
-                </TextView>
-
-                <TextView
-                    android:id="@+id/loop_timer_cur_v_one"
-                    style="?android:attr/borderlessButtonStyle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:text="@string/loop"
-                    android:textColor="?attr/colorOnTertiary"
-                    app:drawableTopCompat="@drawable/ic_baseline_loop_24">
-
-                </TextView>
 
                 <TextView
                     style="?android:attr/borderlessButtonStyle"

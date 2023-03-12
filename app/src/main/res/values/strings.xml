@@ -77,5 +77,10 @@
         <item>Off</item>
     </string-array>
 
+    <string-array name="cur_v_one_commands">
+        <item>Open</item>
+        <item>Close</item>
+    </string-array>
+
 
 </resources>
