@@ -27,6 +27,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ArduinoOnOffRemout">
         <activity
+            android:name=".components.DOne.DOneAnalyticsActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".components.CROne.CROneTimer"
             android:exported="false">
             <meta-data
@@ -63,7 +70,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name="com.revive.smarthome.components.DOne.DOneActivity"
+            android:name=".components.DOne.DOneActivity"
             android:exported="false"
             android:screenOrientation="portrait">
             <meta-data
@@ -137,7 +144,7 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <receiver android:name=".firebase.AlarmTimerDefaultLogic"></receiver>
+        <receiver android:name=".firebase.AlarmTimerDefaultLogic" />
     </application>
 
 </manifest>

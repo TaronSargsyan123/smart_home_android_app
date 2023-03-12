@@ -94,12 +94,15 @@ public class DOneMainWidget   extends DefaultMainWidget implements Serializable 
         slider.addOnSliderTouchListener(new Slider.OnSliderTouchListener() {
             @Override
             public void onStartTrackingTouch(@NonNull Slider slider) {
+
                 defaultLogic.insertDataDOne(1, email, getName(), getType(), getBright());
             }
 
             @Override
             public void onStopTrackingTouch(@NonNull Slider slider) {
+                String currentTime = defaultLogic.getDate();
                 defaultLogic.insertDataDOne(1, email, getName(), getType(), getBright());
+                defaultLogic.updateAnalyticsData(email, name, currentTime  + "/"+String.valueOf(getBright()));
             }
         });
     }

@@ -156,7 +156,7 @@ public class ROneVOneTimer extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), AlarmTimerDefaultLogic.class);
         String massage = command + "/" + inputData + "/ROneVOne";
         intent.putExtra("message", massage);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 1234567891, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 1234567891, intent, PendingIntent.FLAG_MUTABLE);
         alarmManager.set(AlarmManager.RTC_WAKEUP, millis, pendingIntent);
     }
 

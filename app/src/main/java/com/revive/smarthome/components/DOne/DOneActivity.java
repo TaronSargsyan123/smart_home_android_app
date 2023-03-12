@@ -1,5 +1,6 @@
 package com.revive.smarthome.components.DOne;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -17,6 +18,9 @@ public class DOneActivity extends AppCompatActivity {
     private Boolean stage;
     private Slider slider;
     private TextView button;
+    private TextView backButton;
+    private TextView analyticsButton;
+    private TextView timerButton;
     private DevicesDefaultLogic defaultLogic;
 
     @Override
@@ -25,6 +29,9 @@ public class DOneActivity extends AppCompatActivity {
         setContentView(R.layout.activity_done);
         slider = findViewById(R.id.d_one_slider_activity);
         button = findViewById(R.id.d_one_button_activity);
+        backButton = findViewById(R.id.back_d_one);
+        timerButton = findViewById(R.id.timer_d_one);
+        analyticsButton = findViewById(R.id.analytics_d_one);
         defaultLogic = new DevicesDefaultLogic();
 
         if (savedInstanceState == null) {
@@ -56,7 +63,6 @@ public class DOneActivity extends AppCompatActivity {
             public void onStartTrackingTouch(@NonNull Slider slider) {
                 String currentTime = defaultLogic.getDate();
                 defaultLogic.updateAnalyticsData(email, name, currentTime  + "/"+String.valueOf(getBright()));
-                defaultLogic.insertDataDOne(1, email, name, "DOne", getBright());
             }
 
             @Override
@@ -67,7 +73,24 @@ public class DOneActivity extends AppCompatActivity {
             }
         });
 
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
+        analyticsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences sharedPreferences = getSharedPreferences("Authorisation", MODE_PRIVATE);
+                String email = sharedPreferences.getString("email", "");
+                Intent intent = new Intent(getApplicationContext(), DOneAnalyticsActivity.class);
+                intent.putExtra("DEVICE", name);
+                intent.putExtra("EMAIL", email);
+                startActivity(intent);
+            }
+        });
 
     }
 

@@ -1,5 +1,6 @@
 package com.revive.smarthome.firebase;
 
+import android.graphics.Color;
 import android.util.Log;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -9,15 +10,19 @@ import androidx.annotation.NonNull;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Objects;
+
+import lecho.lib.hellocharts.model.Axis;
+import lecho.lib.hellocharts.model.Line;
+import lecho.lib.hellocharts.model.LineChartData;
+import lecho.lib.hellocharts.model.PointValue;
+import lecho.lib.hellocharts.view.LineChartView;
 
 public class DevicesDefaultLogic {
     final FirebaseDatabase database = FirebaseDatabase.getInstance("https://revive-smart-home-692c2-default-rtdb.europe-west1.firebasedatabase.app");
@@ -76,38 +81,6 @@ public class DevicesDefaultLogic {
         }
     }
 
-    public String readDataThVOne(String email, String deviceName){
-        if (!Objects.equals(email, "")) {
-            final String[] temp = new String[1];
-            final String[] hum = new String[1];
-            final String[][] arrOfStr = {email.split("@")};
-            String userName = arrOfStr[0][0];
-
-            usersRef.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if (snapshot.exists()){
-                        String temperature = snapshot.child(userName).child(deviceName).child("temperature").getValue().toString();
-                        String humidity = snapshot.child(userName).child(deviceName).child("humidity").getValue().toString();
-                        temp[0] = temperature;
-                        hum[0] = humidity;
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                    temp[0] = null;
-                    hum[0] = null;
-                }
-            });
-
-            return Arrays.toString(temp) + "_" + Arrays.toString(hum);
-
-        }else {
-            return "null_null";
-        }
-
-    }
 
     private void insertAnalyticsData(String email, String deviceName, ArrayList<String> data){
         if (!Objects.equals(email, "")) {
@@ -146,6 +119,8 @@ public class DevicesDefaultLogic {
             });
         }
     }
+
+
 
     public String getDate(){
         Calendar calendar = Calendar.getInstance();
@@ -193,6 +168,69 @@ public class DevicesDefaultLogic {
                 }
             });
         }
+    }
+
+    public void drawAnalyticsDOne(String email, String deviceName, LineChartView chart){
+        if (!Objects.equals(email, "")) {
+
+            String[] arrOfStr = email.split("@");
+            String userName = arrOfStr[0];
+
+            analyticsRef.child(userName).child(deviceName).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DataSnapshot> task) {
+                    ArrayList<String> temp;
+                    if (!task.isSuccessful()) {
+                        Log.e("ARR", "Error getting data", task.getException());
+                    }
+                    else {
+                        temp = (ArrayList<String>) task.getResult().getValue();
+                        String finalString = "";
+                        try {
+                            ArrayList<Integer> valuesArray = new ArrayList<>();
+                            for (String s: temp) {
+                                int tempInt = Integer.parseInt(s.split("/")[7]);
+                                valuesArray.add(tempInt);
+                            }
+                            LineChartData data = new LineChartData();
+
+                            Line line1 = new Line(generateDataForLine(valuesArray)).setColor(Color.BLUE).setCubic(false);
+
+                            List<Line> lines = new ArrayList<>();
+                            lines.add(line1);
+                            data.setLines(lines);
+
+                            Axis axisY = new Axis().setHasLines(true);
+                            axisY.setName("Values");
+                            data.setAxisYLeft(axisY);
+
+                            chart.setLineChartData(data);
+
+
+
+                        }catch (Exception ignored){
+                            finalString = "History is empty";
+                        }
+
+                    }
+                }
+            });
+        }
+
+
+    }
+
+
+    private List<PointValue> generateDataForLine(ArrayList<Integer> valuesInput) {
+        List<PointValue> values = new ArrayList<>();
+        Log.i("TAGAN", "here");
+        int count = 0;
+        for (Integer i: valuesInput) {
+            values.add(new PointValue(count, i));
+            Log.i("TAGAN", String.valueOf(i));
+            count++;
+        }
+        return values;
     }
 
 
