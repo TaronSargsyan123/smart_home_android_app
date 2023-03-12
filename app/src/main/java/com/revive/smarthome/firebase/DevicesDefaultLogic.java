@@ -179,9 +179,14 @@ public class DevicesDefaultLogic {
                     else {
                         temp = (ArrayList<String>) task.getResult().getValue();
                         String finalString = "";
-                        for (String s: temp) {
-                            finalString = finalString + "\n" + s;
+                        try {
+                            for (String s: temp) {
+                                finalString = finalString + "\n" + s;
+                            }
+                        }catch (Exception ignored){
+                            finalString = "History is empty";
                         }
+
                         textView.setText(finalString);
 
                     }

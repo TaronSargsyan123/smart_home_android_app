@@ -1,30 +1,25 @@
 package com.revive.smarthome.components.ROneVOne;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.revive.smarthome.R;
 import com.revive.smarthome.firebase.DevicesDefaultLogic;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class ROneVOneActivity extends AppCompatActivity {
     private String name;
     private String host;
     private TextView nameTextView;
     private Boolean stage;
-    private Button button;
+    private TextView button;
     private TextView back;
     private TextView analytics;
-    private FloatingActionButton settings;
     private TextView timer;
     private TextView loopTimer;
     private String info;
@@ -34,9 +29,8 @@ public class ROneVOneActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_r_one_v_one);
-        button = (Button) findViewById(R.id.r_one_v_one_main_button);
+        button = findViewById(R.id.r_one_v_one_main_button);
         back = findViewById(R.id.back_to_main_activity_r_one_v_one);
-        settings = findViewById(R.id.settings_r_one_v_one);
         nameTextView = (TextView) findViewById(R.id.r_one_v_one_name_text_view_activity);
         timer = findViewById(R.id.timer_r_one_v_one);
         loopTimer = findViewById(R.id.loop_timer_r_one_v_one);
@@ -93,17 +87,9 @@ public class ROneVOneActivity extends AppCompatActivity {
         });
 
 
-        settings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(ROneVOneActivity.this, ROneVOneSettings.class);
-                i.putExtra("INFO", info);
 
-                startActivity(i);
-
-            }
-        });
     }
+
 
     private void init(){
         nameTextView.setText(name);
@@ -139,7 +125,10 @@ public class ROneVOneActivity extends AppCompatActivity {
     }
 
     private void timer(){
+        SharedPreferences sharedPreferences = getSharedPreferences("Authorisation", MODE_PRIVATE);
+        String email = sharedPreferences.getString("email", "");
         Intent intent = new Intent(getApplicationContext(), ROneVOneTimer.class);
+        intent.putExtra("ARGS", email.split("@")[0] + "/"+name);
         startActivity(intent);
     }
 

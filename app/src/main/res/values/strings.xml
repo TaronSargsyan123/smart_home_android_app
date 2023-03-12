@@ -58,12 +58,20 @@
     <string name="please_verify_your_mail">Please verify your mail</string>
     <string name="go_to_login">Go to login</string>
     <string name="blank">blank</string>
+    <string name="history">history</string>
+
+    <string name="ROneVOne">ROneVOne</string>
 
     <string-array name="devices">
         <item>ROneVOne</item>
         <item>CROne</item>
         <item>CurVOne</item>
         <item>DOne</item>
+    </string-array>
+
+    <string-array name="r_one_v_one_commands">
+        <item>On</item>
+        <item>Off</item>
     </string-array>
 
 
