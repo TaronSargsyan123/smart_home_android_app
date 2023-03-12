@@ -16,20 +16,76 @@
         android:backgroundTint="?attr/colorPrimary"
         android:elevation="2dp"
         android:spinnerMode="dropdown"
+        app:layout_constraintTop_toBottomOf="@+id/select_time_r_one_v_one"
+        tools:layout_editor_absoluteX="32dp" />
+
+
+    <CheckBox
+        android:id="@+id/check_box_frequency_r_one_v_one"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="32dp"
+        android:text="@string/loop"
+        android:theme="@style/CustomTimePicker"
+        app:buttonTint="@color/gray_400"
+        app:layout_constraintTop_toBottomOf="@+id/spinner_timer_r_one_v_one" />
+
+    <Button
+        android:id="@+id/select_time_r_one_v_one"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="32dp"
+        android:textColor="@color/text_color_light"
+        android:text="@string/select_time"
+        android:drawableEnd="@drawable/shape_login_button"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <com.google.android.material.textfield.TextInputLayout
+
+
+        android:id="@+id/enter_timer_frequency_r_one_v_one"
+
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="32dp"
+        android:elevation="2dp"
+        android:hint="@string/enter_frequency_in_hours"
+        android:textColorHint="?attr/colorOnTertiary"
+        app:boxBackgroundColor="?attr/colorPrimary"
+        app:boxCornerRadiusBottomEnd="10dp"
+        app:boxCornerRadiusBottomStart="10dp"
+        app:boxCornerRadiusTopEnd="10dp"
+        app:boxCornerRadiusTopStart="10dp"
+        app:boxStrokeColor="?attr/colorPrimary"
+        app:hintTextColor="?attr/colorOnTertiary"
+        app:layout_constraintTop_toBottomOf="@+id/check_box_frequency_r_one_v_one">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_text_timer_frequency_r_one_v_one"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:inputType="number"
+            android:textColorHint="?attr/colorPrimary" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
-        android:id="@+id/play_button_timer_r_one_v_one"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:background="@drawable/shape_relay_round"
-        android:padding="5dp"
-        android:layout_marginBottom="100dp"
-        app:drawableEndCompat="@drawable/ic_baseline_play_arrow_24"
-        app:layout_constraintBottom_toTopOf="@+id/coordinatorLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:id="@+id/create_timer_one_v_one"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="32dp"
+        android:background="@drawable/shape_login_button"
+        android:gravity="center"
+        android:minHeight="40dp"
+        android:text="@string/create"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@+id/enter_timer_frequency_r_one_v_one"
+        tools:layout_editor_absoluteX="32dp" />
+
+
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/coordinatorLayout"
@@ -91,6 +147,8 @@
         </com.google.android.material.bottomappbar.BottomAppBar>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

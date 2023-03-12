@@ -21,7 +21,6 @@ public class ROneVOneActivity extends AppCompatActivity {
     private TextView back;
     private TextView analytics;
     private TextView timer;
-    private TextView loopTimer;
     private String info;
     private DevicesDefaultLogic defaultLogic;
 
@@ -33,7 +32,6 @@ public class ROneVOneActivity extends AppCompatActivity {
         back = findViewById(R.id.back_to_main_activity_r_one_v_one);
         nameTextView = (TextView) findViewById(R.id.r_one_v_one_name_text_view_activity);
         timer = findViewById(R.id.timer_r_one_v_one);
-        loopTimer = findViewById(R.id.loop_timer_r_one_v_one);
         analytics = findViewById(R.id.analytics_r_one_v_one);
         defaultLogic = new DevicesDefaultLogic();
         if (savedInstanceState == null) {
@@ -71,12 +69,6 @@ public class ROneVOneActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 timer();
-            }
-        });
-        loopTimer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                loopTimer();
             }
         });
         analytics.setOnClickListener(new View.OnClickListener() {

@@ -100,35 +100,6 @@
                 </TextView>
 
                 <TextView
-                    style="?android:attr/borderlessButtonStyle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="?android:attr/selectableItemBackground"
-
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:textColor="?attr/colorOnTertiary"
-                    android:visibility="invisible">
-
-                </TextView>
-
-                <TextView
-                    android:id="@+id/loop_timer_r_one_v_one"
-                    style="?android:attr/borderlessButtonStyle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:text="@string/loop"
-                    android:textColor="?attr/colorOnTertiary"
-                    app:drawableTopCompat="@drawable/ic_baseline_loop_24">
-
-                </TextView>
-
-                <TextView
                     android:id="@+id/analytics_r_one_v_one"
                     style="?android:attr/borderlessButtonStyle"
                     android:layout_width="0dp"

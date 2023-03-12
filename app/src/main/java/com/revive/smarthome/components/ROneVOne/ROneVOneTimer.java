@@ -6,11 +6,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
 import com.revive.smarthome.R;
@@ -20,39 +26,87 @@ import com.revive.smarthome.firebase.AlarmTimerDefaultLogic;
 import java.util.Calendar;
 
 public class ROneVOneTimer extends AppCompatActivity {
-    private TextView playButton;
+    private TextView createButton;
     private TextView backButton;
     private TextView deviceList;
+    private Button selectTime;
     private Spinner spinner;
+    private CheckBox checkBox;
+    private EditText frequency;
+    private TextInputLayout textInputLayout;
     private boolean flag;
+    private int hours;
+    private int minutes;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_r_one_v_one_timer);
 
-        playButton = findViewById(R.id.play_button_timer_r_one_v_one);
+        createButton = findViewById(R.id.create_timer_one_v_one);
+        selectTime = findViewById(R.id.select_time_r_one_v_one);
+        checkBox = findViewById(R.id.check_box_frequency_r_one_v_one);
+        frequency = findViewById(R.id.edit_text_timer_frequency_r_one_v_one);
         backButton = findViewById(R.id.back_timer_r_one_v_one);
         deviceList = findViewById(R.id.device_list_timer_r_one_v_one);
         spinner = findViewById(R.id.spinner_timer_r_one_v_one);
+        textInputLayout = findViewById(R.id.enter_timer_frequency_r_one_v_one);
         MaterialTimePicker timePicker = new MaterialTimePicker.Builder().setTimeFormat(TimeFormat.CLOCK_24H).setHour(12).setMinute(0).setTheme(R.style.CustomTimePicker).build();
         flag = true;
         ArrayAdapter<CharSequence> adapter=ArrayAdapter.createFromResource(this, R.array.r_one_v_one_commands, android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
+        frequency.setEnabled(false);
+        textInputLayout.setEnabled(false);
 
-
-        playButton.setOnClickListener(new View.OnClickListener() {
+        selectTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 timePicker.show(getSupportFragmentManager(), "tag");
                 timePicker.addOnPositiveButtonClickListener(dialog -> {
-                    Calendar calendar = Calendar.getInstance();
-                    calendar.set(Calendar.HOUR_OF_DAY, timePicker.getHour());
-                    calendar.set(Calendar.MINUTE, timePicker.getMinute());
-                    long timeInMillis = calendar.getTimeInMillis();
-                    startAlert(timeInMillis, getCommand());
+                    hours = timePicker.getHour();
+                    minutes = timePicker.getMinute();
+                    selectTime.setText(hours+":"+minutes);
                 });
+            }
+        });
+
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+                if (isChecked){
+                    frequency.setEnabled(true);
+                    textInputLayout.setEnabled(true);
+                } else {
+                    frequency.setEnabled(false);
+                    textInputLayout.setEnabled(false);
+                }
+            }
+        });
+
+        createButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(minutes != 0 && hours != 0){
+                    if (checkBox.isChecked()){
+                        int frequencyHours = Integer.parseInt(frequency.getText().toString());
+                        long millis = (long) frequencyHours * 3600 * 1000;
+                        for (int i = 0; i < 5; i++) {
+                            Calendar calendar = Calendar.getInstance();
+                            calendar.set(Calendar.HOUR_OF_DAY, hours);
+                            calendar.set(Calendar.MINUTE, minutes);
+                            long timeInMillis = calendar.getTimeInMillis() + i * millis;
+                            startAlert(timeInMillis, getCommand());
+                        }
+                    }else {
+                        setTime();
+                        finish();
+                    }
+                }else {
+                    Toast.makeText(ROneVOneTimer.this, "Please select time", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 
@@ -70,6 +124,14 @@ public class ROneVOneTimer extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void setTime(){
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, hours);
+        calendar.set(Calendar.MINUTE, minutes);
+        long timeInMillis = calendar.getTimeInMillis();
+        startAlert(timeInMillis, getCommand());
     }
 
     private String getCommand(){

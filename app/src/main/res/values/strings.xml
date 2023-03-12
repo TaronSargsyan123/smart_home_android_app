@@ -61,6 +61,9 @@
     <string name="history">history</string>
 
     <string name="ROneVOne">ROneVOne</string>
+    <string name="select_time">Select Time</string>
+    <string name="create">Create</string>
+    <string name="enter_frequency_in_hours">Enter frequency in hours</string>
 
     <string-array name="devices">
         <item>ROneVOne</item>
