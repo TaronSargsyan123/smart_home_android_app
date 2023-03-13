@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Objects;
 
 import lecho.lib.hellocharts.model.Axis;
+import lecho.lib.hellocharts.model.AxisValue;
 import lecho.lib.hellocharts.model.Column;
 import lecho.lib.hellocharts.model.ColumnChartData;
 import lecho.lib.hellocharts.model.Line;
@@ -232,19 +233,31 @@ public class DevicesDefaultLogic {
                             List<Column> columns = new ArrayList<>();
                             Column column = new Column();
 
+                            Axis axisX = new Axis();
+                            axisX.setName("Date");
+                            Axis axisY = new Axis();
+                            axisY.setName("Values");
+                            List<AxisValue> axisValuesX = new ArrayList<>();
+                            List<AxisValue> axisValuesY = new ArrayList<>();
 
                             column.setValues(new ArrayList<SubcolumnValue>() {{
+                                float i = (float) -0.15 * temp.size() / 2;
                                 for (String s: temp) {
                                     String date = s.split("/")[0] + "/" + s.split("/")[1];
                                     int count = Integer.parseInt(s.split("/")[2]);
                                     add(new SubcolumnValue((float) count, Color.parseColor("#f39c63")).setLabel(date).setValue(count));
+                                    axisValuesX.add(new AxisValue(i).setLabel(date));
+                                    axisValuesY.add(new AxisValue(count).setLabel(String.valueOf(count)));
+                                    i += 0.2;
+
                                 }
                             }});
-
-                            Axis axisX = new Axis();
-                            axisX.setName("Date");
+                            axisX.setValues(axisValuesX);
+                            axisY.setValues(axisValuesY);
                             columns.add(column);
                             data.setColumns(columns);
+                            data.setAxisXBottom(axisX);
+                            data.setAxisYLeft(axisY);
                             chart.setColumnChartData(data);
 
                         }catch (Exception ignored){

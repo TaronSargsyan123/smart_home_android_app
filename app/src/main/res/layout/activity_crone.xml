@@ -83,6 +83,7 @@
 
 
             <TextView
+                android:id="@+id/analytics_c_r_one"
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

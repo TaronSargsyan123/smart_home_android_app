@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.revive.smarthome.R;
+import com.revive.smarthome.components.DefaultDevice.DefaultAnalyticsActivity;
 import com.revive.smarthome.firebase.DevicesDefaultLogic;
 
 public class CurVOneActivity extends AppCompatActivity {
@@ -19,6 +20,7 @@ public class CurVOneActivity extends AppCompatActivity {
     private TextView buttonClose;
     private TextView back;
     private TextView timer;
+    private TextView analytics;
     private String info;
     private DevicesDefaultLogic defaultLogic;
 
@@ -31,6 +33,7 @@ public class CurVOneActivity extends AppCompatActivity {
         buttonClose = (TextView) findViewById(R.id.mai_bButton_close_cur_v_one);
         back = findViewById(R.id.back_to_main_activity_cur_v_one);
         timer = findViewById(R.id.timer_cur_v_one);
+        analytics = findViewById(R.id.analytics_cur_v_one);
         defaultLogic = new DevicesDefaultLogic();
 
 
@@ -69,13 +72,20 @@ public class CurVOneActivity extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                finish();
             }
         });
         timer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 timer();
+            }
+        });
+
+        analytics.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                analytics();
             }
         });
 
@@ -89,6 +99,15 @@ public class CurVOneActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    private void analytics(){
+        SharedPreferences sharedPreferences = getSharedPreferences("Authorisation", MODE_PRIVATE);
+        String email = sharedPreferences.getString("email", "");
+        Intent intent = new Intent(getApplicationContext(), DefaultAnalyticsActivity.class);
+        intent.putExtra("DEVICE", name);
+        intent.putExtra("EMAIL", email);
+        startActivity(intent);
+    }
+
 
     private void sendFromMain(String temp){
         Thread threadOn = new Thread(new Runnable() {
@@ -99,7 +118,7 @@ public class CurVOneActivity extends AppCompatActivity {
                     SharedPreferences sharedPreferences = getSharedPreferences("Authorisation", MODE_PRIVATE);
                     String email = sharedPreferences.getString("email", "");
                     String currentTime = defaultLogic.getDate();
-                    defaultLogic.updateAnalyticsData(email, name, currentTime  + "/" + temp);
+                    defaultLogic.updateAnalyticsDataROneVOne(email, name);
                     defaultLogic.insertDataCurVOne(temp, email, name, "CurVOne");
                 } catch (Exception e) {
                     e.printStackTrace();

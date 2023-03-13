@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.larswerkman.holocolorpicker.ColorPicker;
 import com.revive.smarthome.Network;
 import com.revive.smarthome.R;
+import com.revive.smarthome.components.DefaultDevice.DefaultAnalyticsActivity;
 import com.revive.smarthome.firebase.DevicesDefaultLogic;
 
 public class CROneActivity extends AppCompatActivity {
@@ -21,6 +22,7 @@ public class CROneActivity extends AppCompatActivity {
     private TextView button;
     private TextView back;
     private TextView timer;
+    private TextView analytics;
     private String info;
     private Network network;
     private DevicesDefaultLogic defaultLogic;
@@ -34,6 +36,7 @@ public class CROneActivity extends AppCompatActivity {
         button = (TextView) findViewById(R.id.c_r_one_main_button);
         back = findViewById(R.id.back_to_main_activity_c_r_one);
         timer = findViewById(R.id.timer_c_r_one);
+        analytics = findViewById(R.id.analytics_c_r_one);
         button = (TextView) findViewById(R.id.c_r_one_main_button);
         defaultLogic = new DevicesDefaultLogic();
         if (savedInstanceState == null) {
@@ -93,8 +96,23 @@ public class CROneActivity extends AppCompatActivity {
                 timer();
             }
         });
+        analytics.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                analytics();
+            }
+        });
 
     }
+    private void analytics(){
+        SharedPreferences sharedPreferences = getSharedPreferences("Authorisation", MODE_PRIVATE);
+        String email = sharedPreferences.getString("email", "");
+        Intent intent = new Intent(getApplicationContext(), DefaultAnalyticsActivity.class);
+        intent.putExtra("DEVICE", name);
+        intent.putExtra("EMAIL", email);
+        startActivity(intent);
+    }
+
 
     private void timer(){
         SharedPreferences sharedPreferences = getSharedPreferences("Authorisation", MODE_PRIVATE);
@@ -155,12 +173,12 @@ public class CROneActivity extends AppCompatActivity {
                     String currentTime = defaultLogic.getDate();
                     if (flag) {
                         defaultLogic.insertDataCROne(0, email, name, "CROne", getColor());
-                        defaultLogic.updateAnalyticsData(email, name, currentTime  + "/off");
+                        defaultLogic.updateAnalyticsDataROneVOne(email, name);
                         stageForSendColor = 0;
                     }
                     else {
                         defaultLogic.insertDataCROne(1, email, name, "CROne", getColor());
-                        defaultLogic.updateAnalyticsData(email, name, currentTime  + "/on");
+                        defaultLogic.updateAnalyticsDataROneVOne(email, name);
                         stageForSendColor = 1;
                     }
                 } catch (Exception e) {

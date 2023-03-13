@@ -4,27 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".components.DOne.DOneAnalyticsActivity">
+    tools:context=".components.DefaultDevice.DefaultAnalyticsActivity">
 
     <TextView
-        android:id="@+id/d_one_analytics_text_view"
+        android:id="@+id/default_analytics_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="20sp"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="1dp" />
 
-
-    <lecho.lib.hellocharts.view.LineChartView
-        android:id="@+id/chart_d_one"
+    <lecho.lib.hellocharts.view.ColumnChartView
+        android:id="@+id/column_chart_default"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="120dp"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-         />
-
+        android:layout_marginRight="10dp"/>
 
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -48,7 +45,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/back_d_one_analytics"
+                    android:id="@+id/back_default_analytics"
                     style="?android:attr/borderlessButtonStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -64,7 +61,7 @@
 
 
                 <TextView
-                    android:id="@+id/history_d_one_analytics"
+                    android:id="@+id/history_default_analytics"
                     style="?android:attr/borderlessButtonStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -83,8 +80,5 @@
         </com.google.android.material.bottomappbar.BottomAppBar>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
