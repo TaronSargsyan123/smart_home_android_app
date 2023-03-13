@@ -14,11 +14,14 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="1dp" />
 
-    <lecho.lib.hellocharts.view.LineChartView
-        android:id="@+id/chart"
+    <lecho.lib.hellocharts.view.ColumnChartView
+        android:id="@+id/column_chart_r_one_v_one"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="100dp"/>
+        android:layout_marginBottom="120dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"/>
 
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

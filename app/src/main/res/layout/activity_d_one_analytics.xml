@@ -10,11 +10,12 @@
     <lecho.lib.hellocharts.view.LineChartView
         android:id="@+id/chart_d_one"
         android:layout_width="match_parent"
-        android:layout_height="500dp"
-        android:layout_margin="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/coordinatorLayout2"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="50dp" />
+        android:layout_height="match_parent"
+        android:layout_marginBottom="120dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+         />
 
 
 
