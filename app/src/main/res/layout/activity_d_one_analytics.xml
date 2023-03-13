@@ -10,9 +10,10 @@
         android:id="@+id/d_one_analytics_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:textSize="20sp"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="1dp" />
+        app:layout_constraintBottom_toBottomOf="@+id/chart_d_one"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <lecho.lib.hellocharts.view.LineChartView

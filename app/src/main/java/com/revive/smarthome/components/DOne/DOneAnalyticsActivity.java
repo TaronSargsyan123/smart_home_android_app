@@ -21,12 +21,13 @@ public class DOneAnalyticsActivity extends AppCompatActivity {
     private Boolean stageGlobal = true;
     private String email;
     private String device;
+    private LineChartView chart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_d_one_analytics);
-        LineChartView chart = findViewById(R.id.chart_d_one);
+        chart = findViewById(R.id.chart_d_one);
         back = findViewById(R.id.back_d_one_analytics);
         history = findViewById(R.id.history_d_one_analytics);
         historyTextView = findViewById(R.id.d_one_analytics_text_view);
@@ -71,9 +72,11 @@ public class DOneAnalyticsActivity extends AppCompatActivity {
 
     private void drawHistory(Boolean stage){
         if(stage){
+            chart.setVisibility(View.INVISIBLE);
             historyTextView.setVisibility(View.VISIBLE);
             defaultLogic.drawAnalytics(email, device, historyTextView);
         }else {
+            chart.setVisibility(View.VISIBLE);
             historyTextView.setVisibility(View.INVISIBLE);
         }
     }

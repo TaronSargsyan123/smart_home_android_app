@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.revive.smarthome.R;
+import com.revive.smarthome.components.DefaultDevice.DefaultAnalyticsActivity;
 import com.revive.smarthome.firebase.DevicesDefaultLogic;
 
 public class ROneVOneActivity extends AppCompatActivity {
@@ -130,7 +131,7 @@ public class ROneVOneActivity extends AppCompatActivity {
     private void analytics(){
         SharedPreferences sharedPreferences = getSharedPreferences("Authorisation", MODE_PRIVATE);
         String email = sharedPreferences.getString("email", "");
-        Intent intent = new Intent(getApplicationContext(), ROneVOneAnalyticsActivity.class);
+        Intent intent = new Intent(getApplicationContext(), DefaultAnalyticsActivity.class);
         intent.putExtra("DEVICE", name);
         intent.putExtra("EMAIL", email);
         startActivity(intent);

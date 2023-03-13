@@ -20,6 +20,7 @@ public class DefaultAnalyticsActivity extends AppCompatActivity {
     private String device;
     private TextView historyTextView;
     private Boolean stageGlobal = true;
+    private ColumnChartView chart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +29,7 @@ public class DefaultAnalyticsActivity extends AppCompatActivity {
         back = findViewById(R.id.back_default_analytics);
         history = findViewById(R.id.history_default_analytics);
         historyTextView = findViewById(R.id.default_analytics_text_view);
-        ColumnChartView chart = findViewById(R.id.column_chart_default);
+        chart = findViewById(R.id.column_chart_default);
         defaultLogic = new DevicesDefaultLogic();
         Intent intent = getIntent();
         email = intent.getStringExtra("EMAIL");
@@ -64,9 +65,11 @@ public class DefaultAnalyticsActivity extends AppCompatActivity {
 
     private void drawHistory(Boolean stage){
         if(stage){
+            chart.setVisibility(View.INVISIBLE);
             historyTextView.setVisibility(View.VISIBLE);
             defaultLogic.drawAnalytics(email, device, historyTextView);
         }else {
+            chart.setVisibility(View.VISIBLE);
             historyTextView.setVisibility(View.INVISIBLE);
         }
     }
