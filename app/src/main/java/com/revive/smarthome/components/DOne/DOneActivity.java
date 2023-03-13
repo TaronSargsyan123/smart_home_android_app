@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.slider.Slider;
 import com.revive.smarthome.R;
+import com.revive.smarthome.components.ROneVOne.ROneVOneTimer;
 import com.revive.smarthome.firebase.DevicesDefaultLogic;
 
 public class DOneActivity extends AppCompatActivity {
@@ -91,7 +92,21 @@ public class DOneActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        timerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                timer();
+            }
+        });
 
+    }
+
+    private void timer(){
+        SharedPreferences sharedPreferences = getSharedPreferences("Authorisation", MODE_PRIVATE);
+        String email = sharedPreferences.getString("email", "");
+        Intent intent = new Intent(getApplicationContext(), DOneTimer.class);
+        intent.putExtra("ARGS", email.split("@")[0] + "/"+name);
+        startActivity(intent);
     }
 
     private void clickMainButton(){

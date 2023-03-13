@@ -3,6 +3,7 @@ package com.revive.smarthome.firebase;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 import java.util.Objects;
 
@@ -30,6 +31,7 @@ public class AlarmTimerDefaultLogic  extends BroadcastReceiver {
 
         }else if (Objects.equals(type, "DOne")){
             try {
+                Log.i("ARRBT", "here");
                 stage = Integer.parseInt(splitData[0]);
                 int dimming = Integer.parseInt(splitData[4]);
                 setDOne(deviceName, email, type, stage, dimming);
