@@ -14,8 +14,10 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import lecho.lib.hellocharts.model.Axis;
 import lecho.lib.hellocharts.model.AxisValue;
@@ -301,26 +303,43 @@ public class DevicesDefaultLogic {
                             try {
                                 temp = (ArrayList<String>) task.getResult().getValue();
                                 Log.e("ARR", temp.toString(), task.getException());
+                                ArrayList<String> daysMonthsList = new ArrayList<>();
                                 int index = -1;
                                 for (String input: temp) {
                                     index++;
-                                    if (Objects.equals(input.split("/")[0], day) && Objects.equals(input.split("/")[1], month)){
-                                        int count = Integer.parseInt(input.split("/")[2])+1;
-                                        input = day +  "/" + month + "/" + count;
+                                    daysMonthsList.add(input.split("/")[0] + "/" + input.split("/")[1]);
+                                    if (Objects.equals(input.split("/")[0], day) && Objects.equals(input.split("/")[1], month)) {
+                                        int count = Integer.parseInt(input.split("/")[2]) + 1;
+                                        input = day + "/" + month + "/" + count;
 
                                         temp.remove(index);
                                         temp.add(input);
 
                                     }
                                 }
+                                if (!daysMonthsList.contains(day + "/" + month)){
+                                    String input = day + "/" + month + "/1";
+                                    temp.add(input);
+                                }
+
+
                             }catch (Exception e){
-                                temp = new ArrayList<>();
-                                temp.add(day+"/"+month+"/1");
+                                temp = (ArrayList<String>) task.getResult().getValue();
+                                String input = day +  "/" + month + "/1";
+                                temp.add(input);
+                                Set<String> set = new HashSet<>(temp);
+                                temp.clear();
+                                temp.addAll(set);
                             }
                             insertAnalyticsData(email, deviceName, temp);
                         }catch (Exception ignored){
-                            ArrayList<String> tempArrayList = new ArrayList<>();
-                            insertAnalyticsData(email, deviceName, tempArrayList);
+//                            temp = (ArrayList<String>) task.getResult().getValue();
+//                            String input = day +  "/" + month + "/1";
+//                            temp.add(input);
+//                            Set<String> set = new HashSet<>(temp);
+//                            temp.clear();
+//                            temp.addAll(set);
+//                            insertAnalyticsData(email, deviceName, temp);
                         }
 
                     }
