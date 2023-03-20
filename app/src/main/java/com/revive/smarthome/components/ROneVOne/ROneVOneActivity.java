@@ -150,11 +150,11 @@ public class ROneVOneActivity extends AppCompatActivity {
                     String currentTime = defaultLogic.getDateROneVOne();
                     if (flag) {
                         defaultLogic.insertDataROneVOne(0, email, name, "ROneVOne");
-                        defaultLogic.updateAnalyticsDataROneVOne(email, name);
+                        defaultLogic.updateAnalyticsDataColumns(email, name);
                     }
                     else {
                         defaultLogic.insertDataROneVOne(1, email, name, "ROneVOne");
-                        defaultLogic.updateAnalyticsDataROneVOne(email, name);
+                        defaultLogic.updateAnalyticsDataColumns(email, name);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

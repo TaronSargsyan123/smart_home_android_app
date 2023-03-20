@@ -34,7 +34,7 @@ public class DefaultAnalyticsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         email = intent.getStringExtra("EMAIL");
         device = intent.getStringExtra("DEVICE");
-        defaultLogic.drawAnalyticsROneVOne(email, device, chart);
+        defaultLogic.drawAnalyticColumns(email, device, chart);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

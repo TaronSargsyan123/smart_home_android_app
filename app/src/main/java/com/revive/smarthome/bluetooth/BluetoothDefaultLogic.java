@@ -1,7 +1,5 @@
 package com.revive.smarthome.bluetooth;
 
-import static android.widget.Toast.LENGTH_LONG;
-
 import android.Manifest;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
@@ -12,7 +10,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.ParcelUuid;
 import android.util.Log;
-import android.widget.Toast;
+import android.widget.ProgressBar;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -37,6 +35,8 @@ public class BluetoothDefaultLogic {
     private ArrayList<BluetoothDevice> bluetoothDevices;
     private AppCompatActivity activityParent;
     private ActivityResultLauncher<Intent> activityResultLauncher;
+    private BluetoothSocket socket;
+    Boolean bool = false;
 
 
     public BluetoothDefaultLogic(Context context, AppCompatActivity activity) {
@@ -62,27 +62,47 @@ public class BluetoothDefaultLogic {
     }
 
 
-    public void send(BluetoothDevice tempDevice, String s) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                if (ActivityCompat.checkSelfPermission(context, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {}
-                ParcelUuid[] uuids = tempDevice.getUuids();
-                try (BluetoothSocket socket = tempDevice.createRfcommSocketToServiceRecord(uuids[0].getUuid())) {
-                    socket.connect();
-                    outputStream = socket.getOutputStream();
-                    inStream = socket.getInputStream();
+    public void send(BluetoothDevice tempDevice, String s, ProgressBar progressBar) {
 
-                    outputStream.write(s.getBytes());
-                    Log.i("SEND", "Successfully data send");
-                    Toast.makeText(context, tempDevice.getName(), LENGTH_LONG).show();
-                } catch (IOException e) {
-                    e.printStackTrace();
+
+        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {}
+
+        ParcelUuid[] uuids = tempDevice.getUuids();
+
+        for (ParcelUuid uuid : uuids) {
+            Log.d("BLUE", "UUID: " + uuid.getUuid().toString());
+        }
+        try {
+            Thread thread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    if (ActivityCompat.checkSelfPermission(context, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {}
+                    try {
+
+                        socket = tempDevice.createRfcommSocketToServiceRecord(uuids[0].getUuid());
+                        socket.connect();
+                        outputStream = socket.getOutputStream();
+                        inStream = socket.getInputStream();
+                        outputStream.write(s.getBytes());
+                        Log.i("SEND", "Successfully data send");
+                        bool = true;
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
-            }
-        }).start();
+
+
+            });
+            thread.start();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
 
     }
+
+
 
     public void setActivityParent(AppCompatActivity activity) {
         activityParent = activity;

@@ -186,9 +186,10 @@ public class DevicesDefaultLogic {
                                 int tempInt = Integer.parseInt(s.split("/")[7]);
                                 valuesArray.add(tempInt);
                             }
+                            Log.i("ARR", valuesArray.size()+"");
                             LineChartData data = new LineChartData();
 
-                            Line line1 = new Line(generateDataForLine(valuesArray)).setColor(Color.BLUE).setCubic(false);
+                            Line line1 = new Line(generateDataForLine(valuesArray)).setColor(Color.parseColor("#f39c63")).setCubic(false);
 
                             List<Line> lines = new ArrayList<>();
                             lines.add(line1);
@@ -215,7 +216,7 @@ public class DevicesDefaultLogic {
     }
 
 
-    public void drawAnalyticsROneVOne(String email, String deviceName, ColumnChartView chart){
+    public void drawAnalyticColumns(String email, String deviceName, ColumnChartView chart){
         if (!Objects.equals(email, "")) {
 
             String[] arrOfStr = email.split("@");
@@ -282,7 +283,7 @@ public class DevicesDefaultLogic {
     }
 
 
-    public void updateAnalyticsDataROneVOne(String email, String deviceName){
+    public void updateAnalyticsDataColumns(String email, String deviceName){
         if (!Objects.equals(email, "")) {
 
             String[] arrOfStr = email.split("@");

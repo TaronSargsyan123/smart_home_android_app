@@ -173,12 +173,12 @@ public class CROneActivity extends AppCompatActivity {
                     String currentTime = defaultLogic.getDate();
                     if (flag) {
                         defaultLogic.insertDataCROne(0, email, name, "CROne", getColor());
-                        defaultLogic.updateAnalyticsDataROneVOne(email, name);
+                        defaultLogic.updateAnalyticsDataColumns(email, name);
                         stageForSendColor = 0;
                     }
                     else {
                         defaultLogic.insertDataCROne(1, email, name, "CROne", getColor());
-                        defaultLogic.updateAnalyticsDataROneVOne(email, name);
+                        defaultLogic.updateAnalyticsDataColumns(email, name);
                         stageForSendColor = 1;
                     }
                 } catch (Exception e) {

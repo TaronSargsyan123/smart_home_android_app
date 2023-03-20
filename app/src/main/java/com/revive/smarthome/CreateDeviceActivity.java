@@ -9,13 +9,15 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.ParcelUuid;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,7 +32,7 @@ import com.revive.smarthome.bluetooth.BluetoothDefaultLogic;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class CreateDeviceActivity extends AppCompatActivity  {
+public class CreateDeviceActivity extends AppCompatActivity {
     private ListView listView;
     private EditText nameEditText;
     private EditText ssidEditText;
@@ -42,6 +44,8 @@ public class CreateDeviceActivity extends AppCompatActivity  {
     private int green;
     private int backgroundColor;
     private Boolean bluetoothSupport;
+    private ProgressBar progressBar;
+    private ParcelUuid uuid;
     String[] permissions = {"android.permission.BLUETOOTH_ADVERTISE", "android.permission.BLUETOOTH_SCAN", "android.permission.BLUETOOTH_CONNECT"};
 
 
@@ -56,14 +60,14 @@ public class CreateDeviceActivity extends AppCompatActivity  {
 
         backgroundColor = MaterialColors.getColor(getApplicationContext(), R.attr.colorOnPrimary, Color.WHITE);
         green = Color.parseColor("green");
-
-
+        progressBar = findViewById(R.id.add_device_progress_bar);
+        progressBar.setVisibility(View.INVISIBLE);
         Spinner dropdown = findViewById(R.id.spinner1);
 
 
         listView = (ListView) findViewById(R.id.bluetooth_items_list);
 
-        ArrayAdapter<CharSequence>adapter=ArrayAdapter.createFromResource(this, R.array.devices, android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.devices, android.R.layout.simple_spinner_dropdown_item);
         dropdown.setAdapter(adapter);
 
 
@@ -77,18 +81,17 @@ public class CreateDeviceActivity extends AppCompatActivity  {
             bluetoothDefaultLogic = new BluetoothDefaultLogic(this, this);
             bluetoothDefaultLogic.setActivityParent(this);
             bluetoothSupport = true;
-            if (bluetoothDefaultLogic.isBluetoothEnable()){
+            if (bluetoothDefaultLogic.isBluetoothEnable()) {
                 drawList();
                 listViewItemClick();
-            }else {
+            } else {
                 bluetoothDefaultLogic.enableBluetooth();
             }
-        }catch (Exception ignored){
+        } catch (Exception ignored) {
             Toast toast = Toast.makeText(getApplicationContext(), "Bluetooth not supported", Toast.LENGTH_SHORT);
             toast.show();
             bluetoothSupport = false;
         }
-
 
 
         back.setOnClickListener(new View.OnClickListener() {
@@ -97,7 +100,7 @@ public class CreateDeviceActivity extends AppCompatActivity  {
                 finish();
             }
         });
-        Button createButton = findViewById(R.id.addDeviceButton);
+        TextView createButton = findViewById(R.id.add_device_button);
         createButton.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
@@ -105,18 +108,24 @@ public class CreateDeviceActivity extends AppCompatActivity  {
                 if (device != null && bluetoothSupport) {
                     try {
                         String message = dropdown.getSelectedItem().toString() + "/%" + "0.0.0.0" + "/%" + nameEditText.getText().toString();
-                        sendMessage(message);
+
                         SharedPreferences sharedPreferences = getSharedPreferences("Authorisation", Context.MODE_PRIVATE);
                         String email = sharedPreferences.getString("email", null);
-                        String []temp = email.split("@");
+                        String[] temp = email.split("@");
                         String deviceName = nameEditText.getText().toString();
                         String userName = temp[0];
                         String ssid = ssidEditText.getText().toString();
-                        String password =  passwordEditText.getText().toString();
-                        String s = userName + "$" + deviceName + "$" + ssid + "$" + password;
+                        String password = passwordEditText.getText().toString();
+                        char separator = '/';
+                        String s = ssid + separator + password + separator + userName + separator + deviceName;
 
-                        bluetoothDefaultLogic.send(device, s);
-                        //disableBluetooth();
+                        bluetoothDefaultLogic.send(device, s, progressBar);
+
+
+                        sendMessage(message);
+
+
+
                     } catch (Exception e) {
                         sendMessage("Fail");
                     }
@@ -145,6 +154,7 @@ public class CreateDeviceActivity extends AppCompatActivity  {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {}
                 device = bluetoothDevices.get(i);
+                Log.i("BLUE", device.getAddress() + " " + device.getName());
                 if (lastTouchedView  != null) {
                     lastTouchedView.setBackgroundColor(backgroundColor);
                 }
@@ -162,7 +172,15 @@ public class CreateDeviceActivity extends AppCompatActivity  {
         Intent data = new Intent();
         data.putExtra(DevicesFragment.ACCESS_MESSAGE, message);
         setResult(RESULT_OK, data);
-        finish();
+        progressBar.setVisibility(View.GONE);
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                finish();
+            }
+        }, 1000);
+
 
     }
 

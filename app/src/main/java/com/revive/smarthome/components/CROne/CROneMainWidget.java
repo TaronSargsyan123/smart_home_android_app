@@ -131,12 +131,12 @@ public class CROneMainWidget extends DefaultMainWidget implements Serializable {
                     if (flag) {
                         defaultLogic.insertDataCROne(1, email, getName(), getType(), "color");
                         stage = "1";
-                        defaultLogic.updateAnalyticsDataROneVOne(email, name);
+                        defaultLogic.updateAnalyticsDataColumns(email, name);
                     }
                     else {
                         defaultLogic.insertDataCROne(0, email, getName(), getType(), "color");
                         stage = "0";
-                        defaultLogic.updateAnalyticsDataROneVOne(email, name);
+                        defaultLogic.updateAnalyticsDataColumns(email, name);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
