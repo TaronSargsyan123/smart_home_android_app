@@ -1,8 +1,5 @@
 package com.revive.smarthome.firebase;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -16,14 +13,17 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.revive.smarthome.InternetConnectionErrorActivity;
-import com.revive.smarthome.R;
-import com.revive.smarthome.StartActivity;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.revive.smarthome.InternetConnectionErrorActivity;
+import com.revive.smarthome.R;
+import com.revive.smarthome.StartActivity;
 
 import java.util.Objects;
 
@@ -66,27 +66,19 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //showAd();
                 login();
             }
         });
 
-        SharedPreferences sharedPreferences = getSharedPreferences("Authorisation",MODE_PRIVATE);
-        String emailLocal = sharedPreferences.getString("email", null);
-        String passwordLocal = sharedPreferences.getString("password", null);
 
-        if (emailLocal != null && passwordLocal != null){
-            Log.i("AAAAAA", emailLocal);
-            Log.i("AAAAAA", passwordLocal);
-            startStartActivity();
-        }
 
     }
 
-    private void startStartActivity(){
-        Intent intent = new Intent(getApplicationContext(), StartActivity.class);
-        startActivity(intent);
+    @Override
+    public void onBackPressed() {
+        this.finishAffinity();
     }
+
 
     private void login() {
         SharedPreferences sharedPreferences = getSharedPreferences("Authorisation",MODE_PRIVATE);

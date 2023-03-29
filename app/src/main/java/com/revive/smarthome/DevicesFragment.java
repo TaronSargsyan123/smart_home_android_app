@@ -9,16 +9,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
-
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.RequiresApi;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.constraintlayout.widget.ConstraintSet;
-import androidx.fragment.app.Fragment;
-
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.speech.RecognizerIntent;
@@ -34,13 +24,28 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
+import androidx.fragment.app.Fragment;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.revive.smarthome.components.CROne.CROneMainWidget;
 import com.revive.smarthome.components.CurVOne.CurVOneMainWidget;
 import com.revive.smarthome.components.DOne.DOneMainWidget;
 import com.revive.smarthome.components.ROneVOne.ROneVOneMainWidget;
 import com.revive.smarthome.firebase.DevicesDefaultLogic;
 import com.revive.smarthome.speech_recognizer.SpeechRecognizerDefaultLogic;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -68,11 +73,12 @@ public class DevicesFragment extends Fragment {
     private ConstraintLayout constraintLayout;
     private Animation fade;
     private SpeechRecognizerDefaultLogic speechRecognizerDefaultLogic;
+    private Boolean flag = false;
+
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_devices, container, false);
         constraintLayout = view.findViewById(R.id.parent_fragment_devices);
         addDevice = requireActivity().findViewById(R.id.add_device_main);
@@ -91,7 +97,8 @@ public class DevicesFragment extends Fragment {
         openUpBarMenuWidth = openUpBarMenu.getWidth();
         fade = AnimationUtils.loadAnimation(getContext(), R.anim.fade_up);
         speechRecognizerDefaultLogic = new SpeechRecognizerDefaultLogic();
-        drawDevicesFromFile(FILE_NAME);
+        drawDevicesFromFirebase();
+        //drawDevicesFromFile(FILE_NAME);
         drawImage();
         closeMenu();
 
@@ -136,7 +143,7 @@ public class DevicesFragment extends Fragment {
                             v.vibrate(500);
                         }
                         clearWidgetsList();
-                        drawDevicesFromFile(FILE_NAME);
+                        //drawDevicesFromFile(FILE_NAME);
                         clearFromFirebase();
                         drawImage();
                     }
@@ -234,7 +241,6 @@ public class DevicesFragment extends Fragment {
                             toastPrint("Fail");
                         }
                     }
-                    drawImage();
                 }
             });
 
@@ -251,7 +257,7 @@ public class DevicesFragment extends Fragment {
         onOffButton.setIDString(String.valueOf(id));
         widgetsArray.add(onOffButton);
         layout.addView(onOffButton);
-        mainWidgetsSerializer.saveWidgets(widgetsArray, FILE_NAME, this.requireContext());
+        //mainWidgetsSerializer.saveWidgets(widgetsArray, FILE_NAME, this.requireContext());
 
         return onOffButton;
     }
@@ -264,7 +270,7 @@ public class DevicesFragment extends Fragment {
         crOneMainWidget.setIDString(String.valueOf(id));
         widgetsArray.add(crOneMainWidget);
         layout.addView(crOneMainWidget);
-        mainWidgetsSerializer.saveWidgets(widgetsArray, FILE_NAME, this.requireContext());
+        //mainWidgetsSerializer.saveWidgets(widgetsArray, FILE_NAME, this.requireContext());
         return crOneMainWidget;
     }
 
@@ -276,7 +282,7 @@ public class DevicesFragment extends Fragment {
         curVOneMainWidget.setIDString(String.valueOf(id));
         widgetsArray.add(curVOneMainWidget);
         layout.addView(curVOneMainWidget);
-        mainWidgetsSerializer.saveWidgets(widgetsArray, FILE_NAME, this.requireContext());
+        //mainWidgetsSerializer.saveWidgets(widgetsArray, FILE_NAME, this.requireContext());
         return curVOneMainWidget;
     }
 
@@ -289,7 +295,7 @@ public class DevicesFragment extends Fragment {
         dOneMainWidget.setIDString(String.valueOf(id));
         widgetsArray.add(dOneMainWidget);
         layout.addView(dOneMainWidget);
-        mainWidgetsSerializer.saveWidgets(widgetsArray, FILE_NAME, this.requireContext());
+        //mainWidgetsSerializer.saveWidgets(widgetsArray, FILE_NAME, this.requireContext());
         return dOneMainWidget;
     }
 
@@ -303,40 +309,40 @@ public class DevicesFragment extends Fragment {
     }
 
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    private void drawDevicesFromFile(String fileName){
-        String widgetString = mainWidgetsSerializer.load(fileName, this.requireContext());
-        String[] lines = widgetString.split(System.lineSeparator());
-        try {
-            for (String line : lines) {
-                try {
-                    String[] separated = line.split("@");
-                    String type = separated[0];
-                    String id = separated[1];
-                    String name = separated[2];
-                    String host = separated[3];
-                    Log.i("DEVICE TYPE", type);
-                    if (Objects.equals(type, "ROneVOne")){
-                        addROneVOne(name, host, type, id);
-                    }else if (Objects.equals(type, "CROne")){
-                        addCROne(name, host, type, id);
-                    }else if (Objects.equals(type, "CurVOne")){
-                        Log.i("CurVOne", "Here");
-                        addCurVOne(name, host, type, id);
-                    }else if (Objects.equals(type, "DOne")){
-                        addDOne(name, host, type, id);
-                    }
-                    Log.i("WIDGETS", widgetString);
-                }catch (Exception ignored){
-
-                }
-
-            }
-
-        }catch (Exception e){
-            Log.i("Main widgets loading", "File is empty");
-        }
-    }
+//    @RequiresApi(api = Build.VERSION_CODES.M)
+//    private void drawDevicesFromFile(String fileName){
+//        String widgetString = mainWidgetsSerializer.load(fileName, this.requireContext());
+//        String[] lines = widgetString.split(System.lineSeparator());
+//        try {
+//            for (String line : lines) {
+//                try {
+//                    String[] separated = line.split("@");
+//                    String type = separated[0];
+//                    String id = separated[1];
+//                    String name = separated[2];
+//                    String host = separated[3];
+//                    Log.i("DEVICE TYPE", type);
+//                    if (Objects.equals(type, "ROneVOne")){
+//                        addROneVOne(name, host, type, id);
+//                    }else if (Objects.equals(type, "CROne")){
+//                        addCROne(name, host, type, id);
+//                    }else if (Objects.equals(type, "CurVOne")){
+//                        Log.i("CurVOne", "Here");
+//                        addCurVOne(name, host, type, id);
+//                    }else if (Objects.equals(type, "DOne")){
+//                        addDOne(name, host, type, id);
+//                    }
+//                    Log.i("WIDGETS", widgetString);
+//                }catch (Exception ignored){
+//
+//                }
+//
+//            }
+//
+//        }catch (Exception e){
+//            Log.i("Main widgets loading", "File is empty");
+//        }
+//    }
 
     private void clearWidgetsList(){
         mainWidgetsSerializer.clearWidgetsArray(widgetsArray, FILE_NAME, this.requireContext());
@@ -345,7 +351,7 @@ public class DevicesFragment extends Fragment {
     //draw folder start image
     private void drawImage(){
         try {
-            if(widgetsArray.isEmpty()){
+            if(layout.getChildCount()>0){
                 clearListButton.setVisibility(View.INVISIBLE);
                 voiceControlButton.setVisibility(View.INVISIBLE);
                 designTextView.setVisibility(View.INVISIBLE);
@@ -363,6 +369,7 @@ public class DevicesFragment extends Fragment {
         }
 
     }
+
 
     private void clearFromFirebase(){
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("Authorisation",getContext().MODE_PRIVATE);
@@ -426,6 +433,91 @@ public class DevicesFragment extends Fragment {
         anim.start();
 
     }
+
+    private void drawDevicesFromFirebase(){
+        layout.removeAllViews();
+
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("Authorisation",getContext().MODE_PRIVATE);
+        String email = sharedPreferences.getString("email", null);
+        final FirebaseDatabase database = FirebaseDatabase.getInstance("https://revive-smart-home-692c2-default-rtdb.europe-west1.firebasedatabase.app");
+        DatabaseReference usersRef = database.getReference("users");
+        String[] arrOfStr = email.split("@");
+        String userName = arrOfStr[0];
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                ValueEventListener valueEventListener = new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                            try {
+                                String key = ds.getKey();
+                                usersRef.child(userName).child(key).addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                                        ArrayList<String> arrayList = new ArrayList<>();
+                                        ArrayList<String> names = new ArrayList<>();
+                                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                            String value = String.valueOf(snapshot.getValue(Object.class));
+                                            arrayList.add(value);
+                                        }
+                                        for (DefaultMainWidget widget:widgetsArray) {
+                                            names.add(widget.getName());
+                                        }
+                                        try {
+                                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                                if (Objects.equals(arrayList.get(2), "CurVOne")) {
+                                                    if (!names.contains(arrayList.get(0))) {
+                                                        addCurVOne(arrayList.get(0), "", arrayList.get(2), "");
+                                                    }
+                                                } else if (Objects.equals(arrayList.get(2), "ROneVOne")) {
+                                                    if (!names.contains(arrayList.get(0))) {
+                                                        addROneVOne(arrayList.get(0), "", arrayList.get(2), "");
+                                                    }
+                                                } else if (Objects.equals(arrayList.get(3), "DOne")) {
+                                                    if (!names.contains(arrayList.get(1))) {
+                                                        addDOne(arrayList.get(1), "", arrayList.get(3), "");
+                                                    }
+                                                } else if (Objects.equals(arrayList.get(3), "CROne")) {
+                                                    if (!names.contains(arrayList.get(1))) {
+                                                        addCROne(arrayList.get(1), "", arrayList.get(3), "");
+                                                    }
+                                                }
+                                            }
+                                            Log.d("DEVICES", "ArrayList is: " + arrayList);
+                                        }catch (Exception ignored){}
+
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                                        Log.w("DEVICES", "Failed to read value.", databaseError.toException());
+                                    }
+                                });
+                            } catch (Exception e) {
+                                Log.w("DEVICES", "Failed to read value.", e);
+                            }
+
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        Log.d("DEVICES", databaseError.getMessage());
+                    }
+                };
+                usersRef.child(userName).addListenerForSingleValueEvent(valueEventListener);
+            }
+        });
+
+        thread.start();
+
+
+    }
+
 
 
 

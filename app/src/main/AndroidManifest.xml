@@ -33,6 +33,18 @@
         android:roundIcon="@mipmap/ic_logo_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ArduinoOnOffRemout">
+
+
+        <activity
+            android:name=".SplashScreen"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
         <activity
             android:name=".components.DOne.DOneTimer"
             android:exported="false"
@@ -74,7 +86,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name="com.revive.smarthome.EmailVerification"
+            android:name=".EmailVerification"
             android:exported="false"
             android:screenOrientation="portrait">
             <meta-data
@@ -82,7 +94,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name="com.revive.smarthome.InternetConnectionErrorActivity"
+            android:name=".InternetConnectionErrorActivity"
             android:exported="false"
             android:screenOrientation="portrait">
             <meta-data
@@ -106,7 +118,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name="com.revive.smarthome.firebase.RegisterActivity"
+            android:name=".firebase.RegisterActivity"
             android:exported="false"
             android:screenOrientation="portrait">
             <meta-data
@@ -114,7 +126,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name="com.revive.smarthome.firebase.LoginActivity"
+            android:name=".firebase.LoginActivity"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -124,7 +136,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.revive.smarthome.StartActivity"
+            android:name=".StartActivity"
             android:exported="false"
             android:screenOrientation="portrait">
             <meta-data
@@ -140,7 +152,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name="com.revive.smarthome.components.ROneVOne.ROneVOneTimer"
+            android:name=".components.ROneVOne.ROneVOneTimer"
             android:exported="false"
             android:screenOrientation="portrait">
             <meta-data
@@ -148,15 +160,15 @@
                 android:value="" />
         </activity>
         <activity
-            android:name="com.revive.smarthome.CreateDeviceActivity"
+            android:name=".CreateDeviceActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.revive.smarthome.components.ROneVOne.ROneVOneActivity"
+            android:name=".components.ROneVOne.ROneVOneActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.revive.smarthome.MainActivity"
+            android:name=".MainActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
 

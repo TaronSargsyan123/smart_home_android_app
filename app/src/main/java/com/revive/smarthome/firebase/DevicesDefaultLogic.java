@@ -373,6 +373,7 @@ public class DevicesDefaultLogic {
             String[] arrOfStr = email.split("@");
             String userName = arrOfStr[0];
             usersRef.child(userName).removeValue();
+            analyticsRef.child(userName).removeValue();
         }
     }
 
