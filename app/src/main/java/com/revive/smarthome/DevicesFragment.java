@@ -73,7 +73,6 @@ public class DevicesFragment extends Fragment {
     private ConstraintLayout constraintLayout;
     private Animation fade;
     private SpeechRecognizerDefaultLogic speechRecognizerDefaultLogic;
-    private Boolean flag = false;
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)
