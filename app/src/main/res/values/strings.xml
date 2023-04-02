@@ -64,6 +64,9 @@
     <string name="select_time">Select Time</string>
     <string name="create">Create</string>
     <string name="enter_frequency_in_hours">Enter frequency in hours</string>
+    <string name="privacy_policy">privacy policy</string>
+    <string name="about_us">About us</string>
+    <string name="contact_us">Contact us</string>
 
     <string-array name="devices">
         <item>ROneVOne</item>

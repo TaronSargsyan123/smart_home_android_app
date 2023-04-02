@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/colorOnPrimary"
+    android:layout_marginTop="32dp"
     tools:context=".ProfileFragment">
 
 
@@ -25,5 +26,62 @@
         app:boxCornerRadiusTopStart="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:layout_editor_absoluteX="32dp" />
+
+    <Button
+        android:id="@+id/privacy_policy_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
+        android:gravity="center"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:text="@string/privacy_policy"
+        android:backgroundTint="@color/orange"
+        app:layout_constraintBottom_toTopOf="@+id/logOutButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <Button
+        android:id="@+id/about_us_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:gravity="center"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:text="@string/about_us"
+        android:backgroundTint="@color/orange"
+        app:layout_constraintBottom_toTopOf="@+id/privacy_policy_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/contact_us_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:gravity="center"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:text="@string/contact_us"
+        android:backgroundTint="@color/orange"
+        app:layout_constraintBottom_toTopOf="@+id/about_us_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/email_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginBottom="50dp"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:text=""
+        app:layout_constraintBottom_toTopOf="@+id/contact_us_button"
+        tools:layout_editor_absoluteX="178dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
