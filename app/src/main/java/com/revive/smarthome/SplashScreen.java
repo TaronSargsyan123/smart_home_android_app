@@ -22,6 +22,7 @@ public class SplashScreen extends AppCompatActivity {
 
 
     private void checkUser() {
+        // check if user already have account go to start activity
         SharedPreferences sharedPreferences = getSharedPreferences("Authorisation",MODE_PRIVATE);
         String emailLocal = sharedPreferences.getString("email", null);
         String passwordLocal = sharedPreferences.getString("password", null);

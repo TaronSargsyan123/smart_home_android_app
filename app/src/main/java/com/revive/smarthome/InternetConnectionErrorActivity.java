@@ -1,7 +1,5 @@
 package com.revive.smarthome;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -11,8 +9,10 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.revive.smarthome.firebase.LoginActivity;
+import androidx.appcompat.app.AppCompatActivity;
 
+import com.revive.smarthome.firebase.LoginActivity;
+// class to check internet connection
 public class InternetConnectionErrorActivity extends AppCompatActivity {
     private TextView tryAgainButton;
     @Override
@@ -21,6 +21,7 @@ public class InternetConnectionErrorActivity extends AppCompatActivity {
         setContentView(R.layout.activity_internet_connection_error);
         tryAgainButton = findViewById(R.id.internet_connection_error_try_again_button);
 
+        // if not connected to the internet show toast "Connection Failed"
         tryAgainButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -36,6 +37,7 @@ public class InternetConnectionErrorActivity extends AppCompatActivity {
 
 
     }
+
 
     private Boolean checkWifiConnection(){
         ConnectivityManager connectivityManager

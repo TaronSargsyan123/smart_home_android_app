@@ -1,5 +1,5 @@
 package com.revive.smarthome.firebase;
-
+// CROne widget database instance
 public class CROneDatabaseInstance {
     String userName;
     String deviceName;

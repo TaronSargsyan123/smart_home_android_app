@@ -50,6 +50,7 @@ public class ProfileFragment extends Fragment {
         String email = sharedPreferences.getString("email", null);
         emailText.setText("Your Email: " + email);
 
+        //show alert dialog when user click to log out button
         logOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -94,6 +95,7 @@ public class ProfileFragment extends Fragment {
         return view;
     }
 
+    //log out and go to login activity
     public static void logOut(Context context){
         SharedPreferences sharedPreferences = context.getSharedPreferences("Authorisation", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -105,6 +107,8 @@ public class ProfileFragment extends Fragment {
         context.startActivity(intent);
 
     }
+
+    //buttons logic
 
     private void openPrivacyPolicy(){
         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://drive.google.com/file/d/1hyY9sVR-TtVyyz6crr1ZIngMsn_msgX4/view?usp=sharing"));

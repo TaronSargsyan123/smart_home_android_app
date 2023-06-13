@@ -51,6 +51,7 @@ public class CurVOneTimer extends AppCompatActivity {
         deviceList = findViewById(R.id.device_list_timer_cur_v_one);
         spinner = findViewById(R.id.spinner_timer_cur_v_one);
         textInputLayout = findViewById(R.id.enter_timer_frequency_cur_v_one);
+        // use material time picker
         MaterialTimePicker timePicker = new MaterialTimePicker.Builder().setTimeFormat(TimeFormat.CLOCK_24H).setHour(12).setMinute(0).setTheme(R.style.CustomTimePicker).build();
         flag = true;
         ArrayAdapter<CharSequence> adapter=ArrayAdapter.createFromResource(this, R.array.cur_v_one_commands, android.R.layout.simple_spinner_dropdown_item);
@@ -125,7 +126,7 @@ public class CurVOneTimer extends AppCompatActivity {
 
     }
 
-
+    // get time from calendar and start alert timer with calendar time
     private void setTime(){
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, hours);
@@ -149,6 +150,7 @@ public class CurVOneTimer extends AppCompatActivity {
         startActivity(intent);
     }
 
+    // create alert timer
     public void startAlert(long millis, int command){
         Intent inputIntent = getIntent();
         String inputData =  inputIntent.getStringExtra("ARGS");

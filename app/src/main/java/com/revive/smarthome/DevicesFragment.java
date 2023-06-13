@@ -177,7 +177,7 @@ public class DevicesFragment extends Fragment {
     }
 
 
-
+    //voice control
     ActivityResultLauncher<Intent> voiceControlActivityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 new ActivityResultCallback<ActivityResult>() {
@@ -201,7 +201,7 @@ public class DevicesFragment extends Fragment {
 
 
 
-
+    //get data from CreateDevicesActivity
     ActivityResultLauncher<Intent> mStartForResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
                 @RequiresApi(api = Build.VERSION_CODES.M)
@@ -247,7 +247,7 @@ public class DevicesFragment extends Fragment {
 
 
 
-
+    //add widgets to widgets array
     @RequiresApi(api = Build.VERSION_CODES.M)
     public ROneVOneMainWidget addROneVOne(String name, String host, String type, String id){
         ROneVOneMainWidget onOffButton = new ROneVOneMainWidget(this.getContext());
@@ -370,6 +370,7 @@ public class DevicesFragment extends Fragment {
     }
 
 
+    //clear firebase server data
     private void clearFromFirebase(){
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("Authorisation",getContext().MODE_PRIVATE);
         String email = sharedPreferences.getString("email", null);
@@ -377,6 +378,7 @@ public class DevicesFragment extends Fragment {
         devicesDefaultLogic.clearData(email);
     }
 
+    //open up bar menu
     private void openMenu(){
         int maxWidth = designTextViewWidth;
         int minWidth = openUpBarMenuWidth;
@@ -395,6 +397,7 @@ public class DevicesFragment extends Fragment {
 
     }
 
+    //close up bar menu
     private void closeMenu(){
         openUpBarMenu.setVisibility(View.VISIBLE);
         designTextView.setText("");
@@ -412,6 +415,7 @@ public class DevicesFragment extends Fragment {
 
     }
 
+    //animate up bar menu
     private void animate(View view, int type, int size, int duration){
         ValueAnimator anim = ValueAnimator.ofInt(view.getMeasuredWidth(), size);
         anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -433,6 +437,7 @@ public class DevicesFragment extends Fragment {
 
     }
 
+    // get devices from server and draw in main screen
     private void drawDevicesFromFirebase(){
         layout.removeAllViews();
 
@@ -467,6 +472,7 @@ public class DevicesFragment extends Fragment {
                                         }
                                         try {
                                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                                //check widget type
                                                 if (Objects.equals(arrayList.get(2), "CurVOne")) {
                                                     if (!names.contains(arrayList.get(0))) {
                                                         addCurVOne(arrayList.get(0), "", arrayList.get(2), "");

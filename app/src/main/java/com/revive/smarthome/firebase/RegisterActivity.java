@@ -1,8 +1,5 @@
 package com.revive.smarthome.firebase;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -13,15 +10,18 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.revive.smarthome.EmailVerification;
-import com.revive.smarthome.InternetConnectionErrorActivity;
-import com.revive.smarthome.R;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.revive.smarthome.EmailVerification;
+import com.revive.smarthome.InternetConnectionErrorActivity;
+import com.revive.smarthome.R;
 
 import java.util.Objects;
 
@@ -74,6 +74,7 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
+    // get mail, password and register new user in firebase after email verification
     private void register(){
         email = String.valueOf(Objects.requireNonNull(emailEditText.getEditText()).getText());
         password = String.valueOf(Objects.requireNonNull(passwordEditText.getEditText()).getText());
@@ -107,7 +108,7 @@ public class RegisterActivity extends AppCompatActivity {
                                             startActivity(intent);
                                         }
                                     }
-                                });
+                                });//if wifi not connected start InternetConnectionErrorActivity
                             }else if (!checkWifiConnection()){
                                 startInternetConnectionErrorActivity();
                             }else {
@@ -121,6 +122,7 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
     }
+
 
     private void startInternetConnectionErrorActivity(){
         Intent intent = new Intent(getApplicationContext(), InternetConnectionErrorActivity.class);

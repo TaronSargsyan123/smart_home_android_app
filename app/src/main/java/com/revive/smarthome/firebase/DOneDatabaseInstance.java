@@ -1,5 +1,6 @@
 package com.revive.smarthome.firebase;
 
+// done widget database instance
 public class DOneDatabaseInstance {
     String userName;
     String deviceName;

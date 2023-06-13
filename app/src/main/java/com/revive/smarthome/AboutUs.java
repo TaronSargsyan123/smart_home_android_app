@@ -6,6 +6,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+// about us activity logic
 public class AboutUs extends AppCompatActivity {
     private TextView text;
     private TextView back;

@@ -47,6 +47,7 @@ public class BluetoothDefaultLogic {
 
     }
 
+    // disable device bluetooth
     public void disableBluetooth() {
         if (btAdapter.isEnabled()) {
             if (ActivityCompat.checkSelfPermission(context, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
@@ -56,12 +57,14 @@ public class BluetoothDefaultLogic {
         }
     }
 
+    // enable device bluetooth
     public void enableBluetooth() {
         Intent intent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
         activityResultLauncher.launch(intent);
     }
 
 
+    //check if bluetooth disabled then enable bluetooth and send data to bluetooth device
     public void send(BluetoothDevice tempDevice, String s, ProgressBar progressBar) {
 
 
@@ -103,7 +106,6 @@ public class BluetoothDefaultLogic {
     }
 
 
-
     public void setActivityParent(AppCompatActivity activity) {
         activityParent = activity;
 
@@ -122,6 +124,7 @@ public class BluetoothDefaultLogic {
     }
 
 
+    //refresh devices list
     public ArrayList<BluetoothDevice> refresh() {
         btAdapter = BluetoothAdapter.getDefaultAdapter();
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {}
@@ -138,10 +141,12 @@ public class BluetoothDefaultLogic {
 
 
 
+    //return bluetooth devices list
     public ArrayList<BluetoothDevice> getBluetoothDevicesArray(){
         return bluetoothDevices;
     }
 
+    //check if bluetooth enabled return true else return false
     public boolean isBluetoothEnable(){
         if (btAdapter.isEnabled()){
             return true;

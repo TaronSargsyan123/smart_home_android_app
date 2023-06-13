@@ -77,6 +77,7 @@ public class CreateDeviceActivity extends AppCompatActivity {
         TextView back = findViewById(R.id.back_to_device_list);
         String type;
 
+        //try to connect bluetooth
         try {
             bluetoothDefaultLogic = new BluetoothDefaultLogic(this, this);
             bluetoothDefaultLogic.setActivityParent(this);
@@ -147,6 +148,7 @@ public class CreateDeviceActivity extends AppCompatActivity {
 
     }
 
+    //check bluetooth item click
     private void listViewItemClick(){
         bluetoothDevices = bluetoothDefaultLogic.getBluetoothDevicesArray();
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -167,6 +169,7 @@ public class CreateDeviceActivity extends AppCompatActivity {
 
     }
 
+    //send data to devices fragment
     private void sendMessage(String message){
 
         Intent data = new Intent();
@@ -185,6 +188,7 @@ public class CreateDeviceActivity extends AppCompatActivity {
     }
 
 
+    // draw bluetooth devices list
     private void drawList() {
         bluetoothDevices = bluetoothDefaultLogic.refresh();
         Log.i("BLUE", bluetoothDevices.toString() +" ");

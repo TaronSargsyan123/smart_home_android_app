@@ -63,6 +63,7 @@ public class DefaultAnalyticsActivity extends AppCompatActivity {
         finish();
     }
 
+    //draw histogram to show device use history
     private void drawHistory(Boolean stage){
         if(stage){
             chart.setVisibility(View.INVISIBLE);

@@ -1,5 +1,5 @@
 package com.revive.smarthome.firebase;
-
+// CurVOne widget database instance
 public class CurVOneDatabaseInstance {
     String userName;
     String deviceName;

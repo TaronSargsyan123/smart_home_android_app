@@ -81,6 +81,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
     private void login() {
+        //check if user already exists go to start activity
         SharedPreferences sharedPreferences = getSharedPreferences("Authorisation",MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 

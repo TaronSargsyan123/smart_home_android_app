@@ -16,11 +16,13 @@ import java.io.PrintWriter;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+// class for serializing main screen widgets
 public class MainWidgetsSerializer implements Serializable, SerializerInterface {
     FileOutputStream fos;
     ObjectOutputStream os;
     public transient Context myContext;
 
+    //save widget in file
     public void save(String object, String fileName, Context context) {
 
         FileOutputStream fos = null;
@@ -42,6 +44,7 @@ public class MainWidgetsSerializer implements Serializable, SerializerInterface 
         }
     }
 
+    //load widget from file
     public String load(String fileName, Context context){
         FileInputStream fis = null;
         StringBuilder sb = new StringBuilder("");
@@ -77,6 +80,8 @@ public class MainWidgetsSerializer implements Serializable, SerializerInterface 
 
 
     }
+
+    //clear widgets
     public void clear(String fileName){
         PrintWriter writer = null;
         try {

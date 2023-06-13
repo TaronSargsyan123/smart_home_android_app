@@ -7,6 +7,10 @@ import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+
+// _________________________________________________________________________________________________
+// ______________________________________CLASS DON'T USED___________________________________________
+// _________________________________________________________________________________________________
 public class Network extends Thread {
     private Socket s;
     public String message;

@@ -25,6 +25,9 @@ public class StartActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // change fragments logic
+
         setContentView(R.layout.activity_start);
 
         addDeviceMain = findViewById(R.id.add_device_main);
@@ -51,11 +54,13 @@ public class StartActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        // finish activity when back button pressed
         this.finishAffinity();
     }
 
 
     private void setFragmentDevices(){
+        //clear all fragments and set devices fragment
         clearFragmentContainer(HOME_TAG);
         clearFragmentContainer(DEVICES_TAG);
         addDeviceMain.setEnabled(true);
@@ -68,6 +73,7 @@ public class StartActivity extends AppCompatActivity {
 
 
     private void setFragmentProfile(){
+        //clear all fragments and set profile fragment
         clearFragmentContainer(DEVICES_TAG);
         clearFragmentContainer(HOME_TAG);
         addDeviceMain.setEnabled(false);
@@ -80,7 +86,8 @@ public class StartActivity extends AppCompatActivity {
 
     private void clearFragmentContainer(String tag){
         try {
-            Fragment fragment = getSupportFragmentManager().findFragmentByTag(tag);//"HOME_FRAGMENT");
+            //try to clear fragment from fragment container
+            Fragment fragment = getSupportFragmentManager().findFragmentByTag(tag);
             getSupportFragmentManager().beginTransaction().remove(fragment).commit() ;
         }catch (Exception e){
             Log.i("Fragment exception", e.toString());
